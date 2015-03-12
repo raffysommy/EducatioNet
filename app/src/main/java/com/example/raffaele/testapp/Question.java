@@ -39,29 +39,30 @@ public class Question extends ActionBarActivity {
         Query domand=new Query(request_data());
         TextView view = (TextView) findViewById(R.id.domanda);
         view.setText(domand.getDomanda());
+        domand.RandomQuery();
         RadioButton buttona = (RadioButton) findViewById(R.id.radioButton);
-        buttona.setText(domand.getRisposta());
+        buttona.setText(domand.getRisposteprob().get(0));
         RadioButton buttonb = (RadioButton) findViewById(R.id.radioButton2);
-        buttonb.setText(domand.getRispostafalsa1());
+        buttonb.setText(domand.getRisposteprob().get(1));
         RadioButton buttonc = (RadioButton) findViewById(R.id.radioButton3);
-        buttonc.setText(domand.getRispostafalsa2());
+        buttonc.setText(domand.getRisposteprob().get(2));
         RadioButton buttond = (RadioButton) findViewById(R.id.radioButton4);
-        buttond.setText(domand.getRispostafalsa3());
+        buttond.setText(domand.getRisposteprob().get(3));
         addListenerOnButton(domand.getRisposta());
 
   }
     private RadioGroup radiogroup;
     private RadioButton radioselected;
     private Button btnDisplay;
-    public Query request_data(){
-        Query Domand=new Query("aaaaaa","","","","");
+    public Query request_data() {
+        Query Domand=new Query();
         InputStream is = null;
         String result = "";
         String url = "http://mysql-raffysommy-1.c9.io/json.php";
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         ResponseHandler<String> handler = new BasicResponseHandler();
-        try{
+        try {
             StrictMode.ThreadPolicy policy = new
                     StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
@@ -70,17 +71,17 @@ public class Question extends ActionBarActivity {
             httpclient.getConnectionManager().shutdown();
             JSONArray ja = new JSONArray(result.toString());
             JSONObject jo = (JSONObject) ja.get(0);
-            Domand.setDomanda(jo.getString("Domanda"));
-            Domand.setRisposta(jo.getString("Risposta"));
-            Domand.setRispostafalsa1(jo.getString("Risposte_Falsa1"));
-            Domand.setRispostafalsa2(jo.getString("Risposte_Falsa2"));
-            Domand.setRispostafalsa3(jo.getString("Risposte_Falsa3"));
-
-        }catch(Exception e){
-            Domand.setDomanda(e.toString());
+            //Domand.setDomanda(jo.getString("Domanda"));
+            //Domand.setRisposta(jo.getString("Risposta"));
+            //Domand.setRispostarray(jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
+            //String[] rispostepro = {jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"), jo.getString("Risposta")};
+            //Domand.setRisposteprob(rispostepro);
+            Domand = new Query(jo.getString("Domanda"),jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
+        } catch (Exception e) {
+            //Domand.setDomanda(e.toString());
         }
         return Domand;
-}
+    }
 
 
     @Override
@@ -120,11 +121,11 @@ public class Question extends ActionBarActivity {
                 // find the radiobutton by returned id
                 radioselected = (RadioButton) findViewById(selectedId);
                 if (radioselected.getText().equals(risposta)){
-                    Toast.makeText(getApplicationContext(), "Risposta Esatta :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
                     startActivity(i);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Risposta Errata!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
                 }
 
 

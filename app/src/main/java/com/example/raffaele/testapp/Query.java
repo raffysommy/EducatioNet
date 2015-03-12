@@ -1,22 +1,31 @@
 package com.example.raffaele.testapp;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Raffaele on 11/03/2015.
  */
 public class Query {
-    public Query(String domanda,String risposta,String rispostafalsa1,String rispostafalsa2,String rispostafalsa3){
+    private String Domanda;
+    private String Risposta;
+    private ArrayList<String> Risposteprob;
+
+    public Query(String domanda,String risposta,String rispostaf1,String rispostaf2,String rispostaf3){
         setDomanda(domanda);
         setRisposta(risposta);
-        setRispostafalsa1(rispostafalsa1);
-        setRispostafalsa2(rispostafalsa2);
-        setRispostafalsa3(rispostafalsa3);
+        setRispostarray(rispostaf1, rispostaf2, rispostaf3, risposta);
+    }
+    public Query(){
+        setDomanda("");
+        setRisposta("");
+        setRispostarray("","","","");
     }
     public Query(Query q){
        setDomanda(q.getDomanda());
        setRisposta(q.getRisposta());
-       setRispostafalsa1(q.getRispostafalsa1());
-       setRispostafalsa2(q.getRispostafalsa2());
-       setRispostafalsa3(q.getRispostafalsa3());
+       setRisposteprob(q.getRisposteprob());
     }
 
     public String getDomanda() {
@@ -30,39 +39,28 @@ public class Query {
     public String getRisposta() {
         return Risposta;
     }
-
     public void setRisposta(String risposta) {
         Risposta = risposta;
     }
 
-    public String getRispostafalsa2() {
-        return Rispostafalsa2;
+
+    public ArrayList<String> getRisposteprob() {
+        return Risposteprob;
     }
 
-    public void setRispostafalsa2(String rispostafalsa2) {
-        Rispostafalsa2 = rispostafalsa2;
+    public void setRisposteprob(ArrayList<String> risposteprob) {
+        Risposteprob = (ArrayList<String>)risposteprob.clone();
     }
-
-    public String getRispostafalsa1() {
-        return Rispostafalsa1;
+    public void setRispostarray(String a,String b,String c,String d) {
+        ArrayList<String> rispostepro = new ArrayList<String>();
+        rispostepro.add(a);
+        rispostepro.add(b);
+        rispostepro.add(c);
+        rispostepro.add(d);
+        setRisposteprob(rispostepro);
     }
+    public void RandomQuery(){
 
-    public void setRispostafalsa1(String rispostafalsa1) {
-        Rispostafalsa1 = rispostafalsa1;
+        Collections.sort(this.Risposteprob);
     }
-
-    public String getRispostafalsa3() {
-        return Rispostafalsa3;
-    }
-
-    public void setRispostafalsa3(String rispostafalsa3) {
-        Rispostafalsa3 = rispostafalsa3;
-    }
-
-    private String Domanda;
-    private String Risposta;
-    private String Rispostafalsa1;
-    private String Rispostafalsa2;
-    private String Rispostafalsa3;
-
 }

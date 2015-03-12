@@ -36,34 +36,41 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:weightSum="1">
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New RadioButton"
-        android:id="@+id/radioButton"
-        android:layout_below="@+id/domanda"
-        android:layout_toRightOf="@+id/domanda"
-        android:layout_toEndOf="@+id/domanda" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New RadioButton"
-        android:id="@+id/radioButton2"
-        android:layout_alignBottom="@+id/radioButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New RadioButton"
+            android:id="@+id/radioButton"
+            android:layout_below="@+id/domanda"
+            android:layout_toRightOf="@+id/domanda"
+            android:layout_toEndOf="@+id/domanda"
+            android:layout_row="0"
+            android:layout_column="0" />
 
-    <RadioButton
+        <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New RadioButton"
         android:id="@+id/radioButton3"
         android:layout_alignTop="@+id/radioButton4"
         android:layout_alignLeft="@+id/radioButton"
-        android:layout_alignStart="@+id/radioButton" />
+        android:layout_alignStart="@+id/radioButton"
+            android:layout_row="0"
+            android:layout_column="1" />
 
-    <RadioButton
+        <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New RadioButton"
+        android:id="@+id/radioButton2"
+        android:layout_alignBottom="@+id/radioButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:text="New RadioButton"
@@ -72,6 +79,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="111dp"
-        android:layout_weight="0.19" />
-</RadioGroup>
+        android:layout_weight="0.19"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+    </RadioGroup>
 </RelativeLayout>
