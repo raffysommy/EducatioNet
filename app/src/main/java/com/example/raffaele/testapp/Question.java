@@ -58,7 +58,7 @@ public class Question extends ActionBarActivity {
         Query Domand=new Query();
         InputStream is = null;
         String result = "";
-        String url = "http://k12-api.mybluemix.net/";
+        String url = "http://k12-api.mybluemix.net/php/questions.php";
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         ResponseHandler<String> handler = new BasicResponseHandler();
@@ -110,8 +110,6 @@ public class Question extends ActionBarActivity {
         final Intent i=new Intent(this,Question.class);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnDisplay = (Button) findViewById(R.id.button2);
-        String s = "Scemo chi legge";
-        String s2 = "Scemo chi legge 2";
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
