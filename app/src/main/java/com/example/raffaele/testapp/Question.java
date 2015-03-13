@@ -110,7 +110,7 @@ public class Question extends ActionBarActivity {
         final Intent i=new Intent(this,Question.class);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnDisplay = (Button) findViewById(R.id.button2);
-
+        String s = "Scemo chi legge";
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
