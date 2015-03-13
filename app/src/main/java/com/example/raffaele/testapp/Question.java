@@ -111,6 +111,7 @@ public class Question extends ActionBarActivity {
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnDisplay = (Button) findViewById(R.id.button2);
         String s = "Scemo chi legge";
+        String s2 = "Scemo chi legge 2";
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
