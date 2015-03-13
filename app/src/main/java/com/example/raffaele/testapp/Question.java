@@ -58,7 +58,7 @@ public class Question extends ActionBarActivity {
         Query Domand=new Query();
         InputStream is = null;
         String result = "";
-        String url = "http://mysql-raffysommy-1.c9.io/json.php";
+        String url = "http://provaphp.mybluemix.net/";
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         ResponseHandler<String> handler = new BasicResponseHandler();
@@ -117,15 +117,20 @@ public class Question extends ActionBarActivity {
             public void onClick(View v) {
                 // get selected radio button from radioGroup
                 int selectedId = radiogroup.getCheckedRadioButtonId();
-
-                // find the radiobutton by returned id
-                radioselected = (RadioButton) findViewById(selectedId);
-                if (radioselected.getText().equals(risposta)){
-                    Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
-                    startActivity(i);
+                // check if an answer has given
+                if (selectedId != -1) {
+                    // find the radiobutton by returned id
+                    radioselected = (RadioButton) findViewById(selectedId);
+                    if (radioselected.getText().equals(risposta)) {
+                        Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please, choose an answer!", Toast.LENGTH_SHORT).show();
                 }
 
 
