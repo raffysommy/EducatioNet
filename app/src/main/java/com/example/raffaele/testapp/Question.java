@@ -58,7 +58,7 @@ public class Question extends ActionBarActivity {
         Query Domand=new Query();
         InputStream is = null;
         String result = "";
-        String url = "http://provaphp.mybluemix.net/";
+        String url = "http://k12-api.mybluemix.net/";
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         ResponseHandler<String> handler = new BasicResponseHandler();
