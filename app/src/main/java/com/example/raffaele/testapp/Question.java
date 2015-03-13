@@ -109,8 +109,7 @@ public class Question extends ActionBarActivity {
     public void addListenerOnButton(final String risposta) {
         final Intent i=new Intent(this,Question.class);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
-        btnDisplay = (Button) findViewById(R.id.button2);
-        String s = "Scemo chi legge";
+        btnDisplay = (Button) findViewById(R.id.button2);//commentopush
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
