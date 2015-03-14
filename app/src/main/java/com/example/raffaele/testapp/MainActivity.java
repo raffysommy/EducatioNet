@@ -23,6 +23,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -63,30 +64,33 @@ public class MainActivity extends ActionBarActivity {
     }
     public void onStartClick(View v){
         //TODO-completare richiesta POST al link presente per il login.
-        /*
+
         String user = ((EditText)findViewById(R.id.editText2)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editText)).getText().toString();
         //retrieve information about user login through POST request
-        InputStream is = null;
         String result = "";
-        String url = "http://k12-api.mybluemix.net/php/login.php?username=root&password=root";
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
-        ResponseHandler<String> handler = new BasicResponseHandler();
+        //permessi http per il thread
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        HTMLRequest dl = new HTMLRequest("http://k12-api.mybluemix.net/php/login.php", "username="+user+"&password="+pass);
+        result = dl.getHTML();
+        JSONArray ja = null;
+        JSONObject jo = null;
         try {
-            StrictMode.ThreadPolicy policy = new
-                    StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            result = httpclient.execute(request, handler);
-            httpclient.getConnectionManager().shutdown();
-            ((EditText)findViewById(R.id.editText2)).setText(result.toString());
-
-       } catch (Exception e) {
-            ((EditText)findViewById(R.id.editText2)).setText(e.toString());
+            ja = new JSONArray(result.toString());
+            jo = (JSONObject) ja.get(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        */
-        Intent i=new Intent(this,Question.class);
-        startActivity(i);
+        if (jo == null) {
+            ((EditText) findViewById(R.id.editText2)).setText("User inesistente");
+            ((EditText) findViewById(R.id.editText)).setText("");
+        }
+        else {
+            Intent i = new Intent(this, Question.class);
+            startActivity(i);
+        }
     }
 }
