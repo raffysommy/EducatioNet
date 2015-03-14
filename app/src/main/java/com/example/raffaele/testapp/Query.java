@@ -61,6 +61,6 @@ public class Query {
     }
     public void RandomQuery(){
 
-        Collections.sort(this.Risposteprob);
+        Collections.shuffle(this.Risposteprob);
     }
 }

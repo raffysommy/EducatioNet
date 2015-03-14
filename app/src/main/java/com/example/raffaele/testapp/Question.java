@@ -32,6 +32,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Question extends ActionBarActivity {
     @Override
@@ -42,6 +44,8 @@ public class Question extends ActionBarActivity {
         TextView view = (TextView) findViewById(R.id.domanda);
         view.setText(domand.getDomanda());
         domand.RandomQuery();
+        ArrayList<Integer> index = new ArrayList<>();
+        index.add(0);index.add(1);index.add(2);index.add(3);
         RadioButton buttona = (RadioButton) findViewById(R.id.radioButton);
         buttona.setText(domand.getRisposteprob().get(0));
         RadioButton buttonb = (RadioButton) findViewById(R.id.radioButton2);
@@ -70,7 +74,7 @@ public class Question extends ActionBarActivity {
         Query Domand=new Query();
         InputStream is = null;
         String result = "";
-        String url = "http://k12-api.mybluemix.net/php/questions.php";
+        String url = "http://mysql-raffysommy-1.c9.io/k12api/questions.php";
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         ResponseHandler<String> handler = new BasicResponseHandler();
@@ -83,11 +87,7 @@ public class Question extends ActionBarActivity {
             httpclient.getConnectionManager().shutdown();
             JSONArray ja = new JSONArray(result.toString());
             JSONObject jo = (JSONObject) ja.get(0);
-            //Domand.setDomanda(jo.getString("Domanda"));
-            //Domand.setRisposta(jo.getString("Risposta"));
-            //Domand.setRispostarray(jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
-            //String[] rispostepro = {jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"), jo.getString("Risposta")};
-            //Domand.setRisposteprob(rispostepro);
+
             Domand = new Query(jo.getString("Domanda"),jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
         } catch (Exception e) {
             //Domand.setDomanda(e.toString());

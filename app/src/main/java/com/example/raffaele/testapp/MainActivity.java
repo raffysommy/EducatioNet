@@ -63,7 +63,6 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     public void onStartClick(View v){
-        //TODO-completare richiesta POST al link presente per il login.
 
         String user = ((EditText)findViewById(R.id.editText2)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editText)).getText().toString();
@@ -74,21 +73,21 @@ public class MainActivity extends ActionBarActivity {
                 StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        HTMLRequest dl = new HTMLRequest("http://k12-api.mybluemix.net/php/login.php", "username="+user+"&password="+pass);
+        HTMLRequest dl = new HTMLRequest("http://mysql-raffysommy-1.c9.io/k12api/login.php", "username="+user+"&password="+pass);
         result = dl.getHTML();
         JSONArray ja = null;
         JSONObject jo = null;
         try {
             ja = new JSONArray(result.toString());
             jo = (JSONObject) ja.get(0);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if (jo == null) {
+        if (jo == null) {//user non presente
             ((EditText) findViewById(R.id.editText2)).setText("User inesistente");
             ((EditText) findViewById(R.id.editText)).setText("");
         }
-        else {
+        else {//login effettuato, schermata successiva
             Intent i = new Intent(this, Question.class);
             startActivity(i);
         }
