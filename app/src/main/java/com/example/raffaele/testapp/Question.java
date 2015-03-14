@@ -2,6 +2,7 @@ package com.example.raffaele.testapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 
 public class Question extends ActionBarActivity {
     @Override
@@ -49,6 +51,16 @@ public class Question extends ActionBarActivity {
         RadioButton buttond = (RadioButton) findViewById(R.id.radioButton4);
         buttond.setText(domand.getRisposteprob().get(3));
         addListenerOnButton(domand.getRisposta());
+        //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
+        findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
+                startActivity(browserIntent);
+
+            }
+        });
+
 
   }
     private RadioGroup radiogroup;
@@ -121,11 +133,15 @@ public class Question extends ActionBarActivity {
                 if (selectedId != -1) {
                     // find the radiobutton by returned id
                     radioselected = (RadioButton) findViewById(selectedId);
-                    if (radioselected.getText().equals(risposta)) {
+                    if (radioselected.getText().equals(risposta)) {//risposta esatta
                         Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
                         startActivity(i);
-                    } else {
+                        //non ha bisogno di suggerimenti
+                        findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+                    } else {//risposta sbagliata
                         Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+                        //ha bisogno di suggerimenti
+                        findViewById(R.id.textView3).setVisibility(View.VISIBLE);
                     }
                 }
                 else
