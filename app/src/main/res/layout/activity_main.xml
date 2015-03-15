@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="username"
-        android:id="@+id/textView2"
+        android:text="Username"
+        android:id="@+id/usernameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="60dp" />
@@ -29,22 +29,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="password"
-        android:id="@+id/textView"
+        android:text="Password"
+        android:id="@+id/passwordLabel"
         android:textSize="60dp"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toLeftOf="@+id/editText"
-        android:layout_toStartOf="@+id/editText" />
+        android:layout_alignBottom="@+id/username"
+        android:layout_toLeftOf="@+id/username"
+        android:layout_toStartOf="@+id/username" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:textSize="60dp"
-        android:layout_below="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_below="@+id/usernameLabel"
+        android:layout_toRightOf="@+id/usernameLabel"
         android:layout_marginLeft="73dp"
         android:layout_marginStart="73dp"
         android:text="root" />
@@ -52,13 +52,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/password"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_above="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username"
+        android:layout_above="@+id/username"
+        android:layout_alignRight="@+id/username"
+        android:layout_alignEnd="@+id/username"
         android:textSize="60dp"
         android:text="root" />
 </RelativeLayout>

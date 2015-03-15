@@ -1,6 +1,5 @@
 package com.example.raffaele.testapp;
 
-//filippo//michela
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -65,14 +65,13 @@ public class MainActivity extends ActionBarActivity {
     }
     public void onStartClick(View v){
 
-        String user = ((EditText)findViewById(R.id.editText2)).getText().toString();
-        String pass = ((EditText)findViewById(R.id.editText)).getText().toString();
+        String user = ((EditText)findViewById(R.id.username)).getText().toString();
+        String pass = ((EditText)findViewById(R.id.password)).getText().toString();
 
         user utente = new user(user, pass);
         boolean connected = utente.connetti();
         if (!connected) {//user non presente
-            ((EditText) findViewById(R.id.editText2)).setText("User inesistente");
-            ((EditText) findViewById(R.id.editText)).setText("");
+            Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
         }
         else {//login effettuato, schermata successiva
             Intent i = new Intent(this, Question.class);
