@@ -26,23 +26,21 @@ public class user {
         this.password = pass;
     }
     public boolean connetti() {
-        //policy per http al thread
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
+        //richiede json di risposta
         String result = dl.getHTML();
-        JSONArray ja = null;
-        JSONObject jo = null;
+        //estrapola dati
+        JSONArray resultArray = null;
+        JSONObject data = null;
         try {
-            ja = new JSONArray(result.toString());
-            jo = (JSONObject) ja.get(0);
-            this.permessi = jo.getString("permissions");
+            resultArray = new JSONArray(result.toString());
+            data = (JSONObject) resultArray.get(0);
+            this.permessi = data.getString("permissions");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (jo == null) //connessione fallita
+        if (data == null) //connessione fallita
             return false;
         else return true;//connessione riuscita
     }

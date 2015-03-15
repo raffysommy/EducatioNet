@@ -66,23 +66,7 @@ public class MainActivity extends ActionBarActivity {
 
         String user = ((EditText)findViewById(R.id.editText2)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editText)).getText().toString();
-        /*//retrieve information about user login through POST request
-        String result = "";
-        //permessi http per il thread
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        HTMLRequest dl = new HTMLRequest("http://mysql-raffysommy-1.c9.io/k12api/login.php", "username="+user+"&password="+pass);
-        result = dl.getHTML();
-        JSONArray ja = null;
-        JSONObject jo = null;
-        try {
-            ja = new JSONArray(result.toString());
-            jo = (JSONObject) ja.get(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
         user utente = new user(user, pass);
         boolean connected = utente.connetti();
         if (!connected) {//user non presente

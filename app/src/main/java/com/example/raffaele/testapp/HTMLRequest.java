@@ -8,6 +8,7 @@ package com.example.raffaele.testapp;
  */
 
 import android.annotation.SuppressLint;
+import android.os.StrictMode;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -37,6 +38,9 @@ public class HTMLRequest {
     //request html to url
     @SuppressLint("NewApi")
     String getHTML() {
+        //policy per http al thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         URL url;
         try {
             url = new URL(site);
