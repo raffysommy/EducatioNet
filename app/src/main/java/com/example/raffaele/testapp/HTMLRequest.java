@@ -8,6 +8,7 @@ package com.example.raffaele.testapp;
  */
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,11 +20,14 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.concurrent.ExecutionException;
 
-public class HTMLRequest {
+public class HTMLRequest extends AsyncTask<Void, Void, String> {//Estende la classe AsyncTask per gestire i Thread separati
     private String site = new String();
     private String cookie = new String();
     private String parameters = new String();
+
+
     public HTMLRequest(String u, String par) {
         site = u;
         parameters = par;
@@ -103,8 +107,24 @@ public class HTMLRequest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return htmlfile;
 
     }
+    String getHTMLTread(){//metodo che usa i thread
+        String rit=new String();
+        try {
+            rit= this.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return rit;
+    }
+    @Override
+    protected String doInBackground(Void... params) {//Il metodo doinbackground specifica le azioni da eseguire in un Thread separato
+        return getHTML();
+        //Todo Bisogna implementare il metodo onPostExecute per ora il thread principale aspetta il secondario.
+    }
+
 }

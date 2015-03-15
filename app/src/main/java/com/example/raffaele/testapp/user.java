@@ -5,6 +5,8 @@ import android.os.StrictMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * Created by paolo on 15/03/2015.
  * Classe per gestire l' utente. conterrà metodi e proprietà utili per velocizzare l'accesso e l'uso
@@ -32,7 +34,8 @@ public class user {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
-        String result = dl.getHTML();
+        String result = null;
+        result = dl.getHTMLTread();
         JSONArray ja = null;
         JSONObject jo = null;
         try {

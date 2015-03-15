@@ -40,21 +40,7 @@ public class Question extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        Query domand=new Query(request_data());
-        TextView view = (TextView) findViewById(R.id.domanda);
-        view.setText(domand.getDomanda());
-        domand.RandomQuery();
-        ArrayList<Integer> index = new ArrayList<>();
-        index.add(0);index.add(1);index.add(2);index.add(3);
-        RadioButton buttona = (RadioButton) findViewById(R.id.radioButton);
-        buttona.setText(domand.getRisposteprob().get(0));
-        RadioButton buttonb = (RadioButton) findViewById(R.id.radioButton2);
-        buttonb.setText(domand.getRisposteprob().get(1));
-        RadioButton buttonc = (RadioButton) findViewById(R.id.radioButton3);
-        buttonc.setText(domand.getRisposteprob().get(2));
-        RadioButton buttond = (RadioButton) findViewById(R.id.radioButton4);
-        buttond.setText(domand.getRisposteprob().get(3));
-        addListenerOnButton(domand.getRisposta());
+        cambiatestobottoni();
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,22 +56,17 @@ public class Question extends ActionBarActivity {
     private Button btnDisplay;
     public Query request_data() {
         Query Domand=new Query();
-        //InputStream is = null;
         String result = "";
         String url = "http://mysql-raffysommy-1.c9.io/k12api/questions.php";
         HTMLRequest htmlRequest=new HTMLRequest(url);
         try {
-            StrictMode.ThreadPolicy policy = new
-                    StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            result =htmlRequest.getHTML();
+            result =htmlRequest.getHTMLTread();
             JSONArray ja = new JSONArray(result.toString());
             JSONObject jo = (JSONObject) ja.get(0);
 
             Domand = new Query(jo.getString("Domanda"),jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
         } catch (Exception e) {
-            //Domand.setDomanda(e.toString());
+               e.printStackTrace();
         }
         return Domand;
     }
@@ -112,7 +93,23 @@ public class Question extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    public void cambiatestobottoni(){
+        Query domand=new Query(request_data());
+        TextView view = (TextView) findViewById(R.id.domanda);
+        view.setText(domand.getDomanda());
+        domand.RandomQuery();
+        ArrayList<Integer> index = new ArrayList<>();
+        index.add(0);index.add(1);index.add(2);index.add(3);
+        RadioButton buttona = (RadioButton) findViewById(R.id.radioButton);
+        buttona.setText(domand.getRisposteprob().get(0));
+        RadioButton buttonb = (RadioButton) findViewById(R.id.radioButton2);
+        buttonb.setText(domand.getRisposteprob().get(1));
+        RadioButton buttonc = (RadioButton) findViewById(R.id.radioButton3);
+        buttonc.setText(domand.getRisposteprob().get(2));
+        RadioButton buttond = (RadioButton) findViewById(R.id.radioButton4);
+        buttond.setText(domand.getRisposteprob().get(3));
+        addListenerOnButton(domand.getRisposta());
+    }
     public void addListenerOnButton(final String risposta) {
         final Intent i=new Intent(this,Question.class);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -130,7 +127,9 @@ public class Question extends ActionBarActivity {
                     radioselected = (RadioButton) findViewById(selectedId);
                     if (radioselected.getText().equals(risposta)) {//risposta esatta
                         Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
-                        startActivity(i);
+                        //startActivity(i);
+                        radioselected.setChecked(false);//reimposta il bottone premuto
+                        cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
                         //non ha bisogno di suggerimenti
                         findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
                     } else {//risposta sbagliata
