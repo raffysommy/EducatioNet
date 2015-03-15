@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
 
         String user = ((EditText)findViewById(R.id.editText2)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editText)).getText().toString();
-        //retrieve information about user login through POST request
+        /*//retrieve information about user login through POST request
         String result = "";
         //permessi http per il thread
         StrictMode.ThreadPolicy policy = new
@@ -83,8 +83,10 @@ public class MainActivity extends ActionBarActivity {
             jo = (JSONObject) ja.get(0);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        if (jo == null) {//user non presente
+        }*/
+        user utente = new user(user, pass);
+        boolean connected = utente.connetti();
+        if (!connected) {//user non presente
             ((EditText) findViewById(R.id.editText2)).setText("User inesistente");
             ((EditText) findViewById(R.id.editText)).setText("");
         }

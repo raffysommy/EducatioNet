@@ -64,8 +64,6 @@ public class Question extends ActionBarActivity {
 
             }
         });
-
-
   }
     private RadioGroup radiogroup;
     private RadioButton radioselected;
@@ -145,8 +143,6 @@ public class Question extends ActionBarActivity {
                 {
                     Toast.makeText(getApplicationContext(), "Please, choose an answer!", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
 
         });
