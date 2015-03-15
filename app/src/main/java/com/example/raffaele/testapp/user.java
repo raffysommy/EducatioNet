@@ -5,8 +5,6 @@ import android.os.StrictMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
-
 /**
  * Created by paolo on 15/03/2015.
  * Classe per gestire l' utente. conterrà metodi e proprietà utili per velocizzare l'accesso e l'uso
@@ -28,24 +26,21 @@ public class user {
         this.password = pass;
     }
     public boolean connetti() {
-        //policy per http al thread
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
-        String result = null;
-        result = dl.getHTMLTread();
-        JSONArray ja = null;
-        JSONObject jo = null;
+        //richiede json di risposta
+        String result = dl.getHTML();
+        //estrapola dati
+        JSONArray resultArray = null;
+        JSONObject data = null;
         try {
-            ja = new JSONArray(result.toString());
-            jo = (JSONObject) ja.get(0);
-            this.permessi = jo.getString("permissions");
+            resultArray = new JSONArray(result.toString());
+            data = (JSONObject) resultArray.get(0);
+            this.permessi = data.getString("permissions");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (jo == null) //connessione fallita
+        if (data == null) //connessione fallita
             return false;
         else return true;//connessione riuscita
     }

@@ -22,7 +22,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
-public class HTMLRequest extends AsyncTask<Void, Void, String> {//Estende la classe AsyncTask per gestire i Thread separati
+public class HTMLRequest {
     private String site = new String();
     private String cookie = new String();
     private String parameters = new String();
@@ -107,6 +107,7 @@ public class HTMLRequest extends AsyncTask<Void, Void, String> {//Estende la cla
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
         return htmlfile;
 
     }
