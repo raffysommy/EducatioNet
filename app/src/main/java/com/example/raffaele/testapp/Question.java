@@ -72,19 +72,16 @@ public class Question extends ActionBarActivity {
     private Button btnDisplay;
     public Query request_data() {
         Query Domand=new Query();
-        InputStream is = null;
+        //InputStream is = null;
         String result = "";
         String url = "http://mysql-raffysommy-1.c9.io/k12api/questions.php";
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
-        ResponseHandler<String> handler = new BasicResponseHandler();
+        HTMLRequest htmlRequest=new HTMLRequest(url);
         try {
             StrictMode.ThreadPolicy policy = new
                     StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            result = httpclient.execute(request, handler);
-            httpclient.getConnectionManager().shutdown();
+            result =htmlRequest.getHTML();
             JSONArray ja = new JSONArray(result.toString());
             JSONObject jo = (JSONObject) ja.get(0);
 
