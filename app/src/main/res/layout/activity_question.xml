@@ -15,7 +15,8 @@
         android:id="@+id/domanda"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="40dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="108dp" />
+        android:layout_marginBottom="108dp"
+        android:textSize="30dp" />
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -47,7 +49,8 @@
             android:layout_toEndOf="@+id/domanda"
             android:layout_row="0"
             android:layout_column="0"
-            android:textColor="#ff26ff00" />
+            android:textColor="#ff26ff00"
+            android:textSize="35dp" />
 
         <RadioButton
         android:layout_width="wrap_content"
@@ -59,7 +62,8 @@
         android:layout_alignStart="@+id/radioButton"
             android:layout_row="0"
             android:layout_column="1"
-            android:textColor="#ff0029ff" />
+            android:textColor="#ff0029ff"
+            android:textSize="35dp" />
 
         <RadioButton
         android:layout_width="wrap_content"
@@ -71,7 +75,8 @@
         android:layout_alignParentEnd="true"
             android:layout_row="1"
             android:layout_column="0"
-            android:textColor="#ffff001c" />
+            android:textColor="#ffff001c"
+            android:textSize="35dp" />
 
         <RadioButton
         android:layout_width="wrap_content"
@@ -85,7 +90,8 @@
         android:layout_weight="0.19"
             android:layout_row="1"
             android:layout_column="1"
-            android:textColor="#fff9ff00" />
+            android:textColor="#ffffcd00"
+            android:textSize="35dp" />
 
     </RadioGroup>
 
