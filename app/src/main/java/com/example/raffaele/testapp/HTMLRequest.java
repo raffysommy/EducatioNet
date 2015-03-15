@@ -24,10 +24,12 @@ public class HTMLRequest {
     private String site = new String();
     private String cookie = new String();
     private String parameters = new String();
-
     public HTMLRequest(String u, String par) {
         site = u;
         parameters = par;
+    }
+    public HTMLRequest(String u){//Costruttuore per il solo passaggio di Url
+        site=u;
     }
     void setCookie(String str) {
         cookie = str;
@@ -101,6 +103,7 @@ public class HTMLRequest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
         return htmlfile;
 
     }
