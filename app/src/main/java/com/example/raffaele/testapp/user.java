@@ -29,7 +29,7 @@ public class user {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
         //richiede json di risposta
-        String result = dl.getHTML();
+        String result = dl.getHTMLTread();
         //estrapola dati
         JSONArray resultArray = null;
         JSONObject data = null;

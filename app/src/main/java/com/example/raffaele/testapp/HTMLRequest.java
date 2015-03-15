@@ -22,7 +22,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
-public class HTMLRequest {
+public class HTMLRequest extends AsyncTask<Void,Void,String> {
     private String site = new String();
     private String cookie = new String();
     private String parameters = new String();
