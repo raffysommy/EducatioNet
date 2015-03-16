@@ -17,6 +17,7 @@ public class user {
     //membri privati
     private String nome = new String();
     private String cognome = new String();
+    private String scuola = new String();
     private String username = new String();
     private String password = new String();
     private String permessi = new String();
@@ -37,11 +38,41 @@ public class user {
             resultArray = new JSONArray(result.toString());
             data = (JSONObject) resultArray.get(0);
             this.permessi = data.getString("permissions");
+            //cognome e nome
+            setCognome(data.getString("cognome"));
+            setNome(data.getString("nome"));
+            setScuola(data.getString("scuola"));
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (data == null) //connessione fallita
             return false;
         else return true;//connessione riuscita
+    }
+    //setters
+    public void setNome(String n) {
+        this.nome = n;
+    }
+    public void setCognome(String c) {
+        this.cognome = c;
+    }
+    public void setScuola(String s) {
+        this.scuola = s;
+    }
+    //getters
+    public String getNome() {
+        return this.nome;
+    }
+    public String getCognome() {
+        return this.cognome;
+    }
+    public String getScuola() {
+        return this.scuola;
+    }
+    public String getUsername() {
+        return this.username;
+    }
+    public String getPassword() {
+        return this.password;
     }
 }

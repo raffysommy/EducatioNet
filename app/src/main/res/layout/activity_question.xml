@@ -104,7 +104,7 @@
         android:layout_below="@+id/radioGroup"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:visibility="invisible" />
 
 </RelativeLayout>

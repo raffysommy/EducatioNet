@@ -1,37 +1,13 @@
 package com.example.raffaele.testapp;
 
 import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -74,7 +50,11 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
         }
         else {//login effettuato, schermata successiva
-            Intent i = new Intent(this, Question.class);
+            Intent i = new Intent(this, welcome_student.class);
+            //passo parametri user alla prossima view
+            // TODO: dovremo passare l' oggetto utente e non i suoi parametri ?!?
+            i.putExtra("user", utente.getUsername());
+            i.putExtra("pass", utente.getPassword());
             startActivity(i);
         }
     }
