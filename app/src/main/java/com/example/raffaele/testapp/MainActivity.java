@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+    private static Button register_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Register();
     }
 
 
@@ -39,17 +42,17 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void onStartClick(View v){
 
-        String user = ((EditText)findViewById(R.id.username)).getText().toString();
-        String pass = ((EditText)findViewById(R.id.password)).getText().toString();
+    public void onStartClick(View v) {
+
+        String user = ((EditText) findViewById(R.id.username)).getText().toString();
+        String pass = ((EditText) findViewById(R.id.password)).getText().toString();
 
         user utente = new user(user, pass);
         boolean connected = utente.connetti();
         if (!connected) {//user non presente
             Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
-        }
-        else {//login effettuato, schermata successiva
+        } else {//login effettuato, schermata successiva
             Intent i = new Intent(this, welcome_student.class);
             //passo parametri user alla prossima view
             // TODO: dovremo passare l' oggetto utente e non i suoi parametri ?!?
@@ -57,5 +60,23 @@ public class MainActivity extends ActionBarActivity {
             i.putExtra("pass", utente.getPassword());
             startActivity(i);
         }
+
     }
+
+    public void Register() {
+        register_btn = (Button) findViewById(R.id.RegisterButton);
+        register_btn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent("com.example.raffaele.testapp.Register_form");
+                        startActivity(i);
+                    }
+                }
+
+        );
+
+    }
+
+    ;
 }
