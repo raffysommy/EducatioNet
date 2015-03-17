@@ -13,10 +13,12 @@ public class welcome_student extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_student);
-        //prendo i parametri passati alla view
+        //prendo l'oggetto passato alla view
         Intent i = getIntent();
-        user utente = new user(i.getStringExtra("user"), i.getStringExtra("pass"));
-        utente.connetti();
+        //user utente = new user(i.getStringExtra("user"), i.getStringExtra("pass"));
+        //utente.connetti();
+        Bundle extras=i.getExtras();
+        user utente = (user) extras.getParcelable("utentec");
         //imposto valori di nome,cognome e scuola in view
         ((TextView)findViewById(R.id.first_name)).setText(utente.getNome());
         ((TextView)findViewById(R.id.last_name)).setText(utente.getCognome());

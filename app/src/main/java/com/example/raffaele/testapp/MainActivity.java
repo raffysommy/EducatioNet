@@ -54,10 +54,11 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
         } else {//login effettuato, schermata successiva
             Intent i = new Intent(this, welcome_student.class);
-            //passo parametri user alla prossima view
-            // TODO: dovremo passare l' oggetto utente e non i suoi parametri ?!?
-            i.putExtra("user", utente.getUsername());
-            i.putExtra("pass", utente.getPassword());
+            Bundle extras=new Bundle();
+            //passo l'oggetto user alla prossima view
+            // TODO: Oggetto passato.Bisogna testare se la soluzione adottata è ok
+            extras.putParcelable("utentec",utente);
+            i.putExtras(extras);
             startActivity(i);
         }
 

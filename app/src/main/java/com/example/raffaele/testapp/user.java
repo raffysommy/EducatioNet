@@ -1,5 +1,7 @@
 package com.example.raffaele.testapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.os.StrictMode;
 
 import org.json.JSONArray;
@@ -11,7 +13,7 @@ import org.json.JSONObject;
  * delle funzionalità online. comunica spesso con il backend su bluemix dell' applicazione k12.
  * INPUT: username, password
  */
-public class user {
+public class user implements Parcelable {
     //costanti della classe
     private final String url_login = "http://mysql-raffysommy-1.c9.io/k12api/login.php";
     //membri privati
@@ -22,10 +24,27 @@ public class user {
     private String password = new String();
     private String permessi = new String();
     private String token = new String();
+    public static final Creator<user> CREATOR= new Creator<user>(){
+        @Override
+        public user createFromParcel(Parcel in){
+            return new user(in);
+        }
+
+        @Override
+        public user[] newArray(int size) {
+            return new user[size];
+        }
+    };
+
+
     public user(String user, String pass) {
         this.username = user;
         this.password = pass;
     }
+    private user(Parcel in){
+        readFromParcel(in);
+    }
+
     public boolean connetti() {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
@@ -74,5 +93,26 @@ public class user {
     }
     public String getPassword() {
         return this.password;
+    }
+    public void readFromParcel(Parcel in) {
+        nome = in.readString();
+        cognome = in.readString();
+        scuola= in.readString();
+        username= in.readString();
+        token=in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeString(cognome);
+        dest.writeString(scuola);
+        dest.writeString(username);
+        dest.writeString(token);
     }
 }
