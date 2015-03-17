@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class welcome_student extends ActionBarActivity {
+public class Welcome_student extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class welcome_student extends ActionBarActivity {
         //user utente = new user(i.getStringExtra("user"), i.getStringExtra("pass"));
         //utente.connetti();
         Bundle extras=i.getExtras();
-        user utente = (user) extras.getParcelable("utentec");
+        User utente = extras.getParcelable("utentec");
         //imposto valori di nome,cognome e scuola in view
         ((TextView)findViewById(R.id.first_name)).setText(utente.getNome());
         ((TextView)findViewById(R.id.last_name)).setText(utente.getCognome());

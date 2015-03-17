@@ -2,7 +2,6 @@ package com.example.raffaele.testapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.StrictMode;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,7 +12,7 @@ import org.json.JSONObject;
  * delle funzionalità online. comunica spesso con il backend su bluemix dell' applicazione k12.
  * INPUT: username, password
  */
-public class user implements Parcelable {
+public class User implements Parcelable {
     //costanti della classe
     private final String url_login = "http://mysql-raffysommy-1.c9.io/k12api/login.php";
     //membri privati
@@ -24,24 +23,24 @@ public class user implements Parcelable {
     private String password = new String();
     private String permessi = new String();
     private String token = new String();
-    public static final Creator<user> CREATOR= new Creator<user>(){
+    public static final Creator<User> CREATOR= new Creator<User>(){
         @Override
-        public user createFromParcel(Parcel in){
-            return new user(in);
+        public User createFromParcel(Parcel in){
+            return new User(in);
         }
 
         @Override
-        public user[] newArray(int size) {
-            return new user[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 
 
-    public user(String user, String pass) {
+    public User(String user, String pass) {
         this.username = user;
         this.password = pass;
     }
-    private user(Parcel in){
+    private User(Parcel in){
         readFromParcel(in);
     }
 

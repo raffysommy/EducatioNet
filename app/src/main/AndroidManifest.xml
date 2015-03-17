@@ -24,7 +24,7 @@
             android:label="@string/title_activity_question" >
         </activity>
         <activity
-            android:name=".welcome_student"
+            android:name=".Welcome_student"
             android:label="@string/title_activity_welcome_student" >
         </activity>
         <activity

@@ -48,12 +48,12 @@ public class MainActivity extends ActionBarActivity {
         String user = ((EditText) findViewById(R.id.username)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
 
-        user utente = new user(user, pass);
+        User utente = new User(user, pass);
         boolean connected = utente.connetti();
         if (!connected) {//user non presente
             Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
         } else {//login effettuato, schermata successiva
-            Intent i = new Intent(this, welcome_student.class);
+            Intent i = new Intent(this, Welcome_student.class);
             Bundle extras=new Bundle();
             //passo l'oggetto user alla prossima view
             // TODO: Oggetto passato.Bisogna testare se la soluzione adottata è ok
@@ -79,5 +79,4 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    ;
 }
