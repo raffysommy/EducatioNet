@@ -2,6 +2,7 @@ package com.example.raffaele.testapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -72,10 +73,8 @@ public class User implements Parcelable {
     public void setCognome(String c) {
         this.cognome = c;
     }
-    public void setScuola(String s) {
-        this.scuola = s;
-    }
-    //getters
+    public void setScuola(String s) { this.scuola = s;  }
+        //getters
     public String getNome() {
         return this.nome;
     }

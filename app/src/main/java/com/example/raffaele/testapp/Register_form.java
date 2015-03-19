@@ -4,16 +4,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.EditText;
 
 public class Register_form extends ActionBarActivity {
+    EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_form);
-    }
-
+        nomeTxt =(EditText) findViewById(R.id.Reg_name);
+        cognomeTxt =(EditText) findViewById(R.id.Reg_surname);
+        emailTxt=(EditText) findViewById(R.id.Reg_email);
+        indirizzoTxt=(EditText) findViewById(R.id.Reg_address);
+        userTxt=(EditText) findViewById(R.id.Reg_username);
+        passTxt=(EditText) findViewById(R.id.Reg_pass);
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
