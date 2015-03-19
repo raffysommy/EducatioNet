@@ -78,9 +78,11 @@
         android:nestedScrollingEnabled="false"
         android:layout_below="@+id/Reg_pass"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:layout_marginRight="200dp"
-        android:layout_marginLeft="200dp" />
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
 
     <EditText
         android:layout_width="fill_parent"
