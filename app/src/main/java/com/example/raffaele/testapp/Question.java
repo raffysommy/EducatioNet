@@ -57,7 +57,7 @@ public class Question extends ActionBarActivity {
     public Query request_data() {
         Query Domand=new Query();
         String result = "";
-        String url = "http://mysql-raffysommy-1.c9.io/k12api/questions.php";
+        String url = "http://mysql-raffysommy-1.c9.io/K12/question/random";
         HTMLRequest htmlRequest=new HTMLRequest(url);
         try {
             result =htmlRequest.getHTMLTread();
