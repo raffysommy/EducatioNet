@@ -60,7 +60,7 @@ public class User implements Parcelable {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
         //richiede json di risposta
-        String result = dl.getHTMLTread();
+        String result = dl.getHTMLThread();
         //estrapola dati
         JSONObject data = null;
         try {

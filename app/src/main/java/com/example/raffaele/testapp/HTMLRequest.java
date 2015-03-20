@@ -111,7 +111,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         return htmlfile;
 
     }
-    String getHTMLTread(){//metodo che usa i thread
+    String getHTMLThread(){//metodo che usa i thread
         String rit=new String();
         try {
             rit= this.execute().get();
