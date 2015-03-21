@@ -22,6 +22,8 @@ public class User implements Parcelable {
     private String scuola = new String();
     private String username = new String();
     private String password = new String();
+    private String email= new String();
+    private String address=new String();
     private String permessi = new String();
     private String token = new String();
     public static final Creator<User> CREATOR= new Creator<User>(){
@@ -41,6 +43,15 @@ public class User implements Parcelable {
         this.username = user;
         this.password = pass;
     }
+    public User (String user, String pass, String n, String c, String s, String e, String a){
+        this.username= user;
+        this.password= pass;
+        this.nome= n;
+        this.cognome= c;
+        this.scuola=s;
+        this.email= e;
+        this.address=a;
+    }
     private User(Parcel in){
         readFromParcel(in);
     }
@@ -49,7 +60,7 @@ public class User implements Parcelable {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, "username="+this.username+"&password="+this.password);
         //richiede json di risposta
-        String result = dl.getHTMLTread();
+        String result = dl.getHTMLThread();
         //estrapola dati
         JSONObject data = null;
         try {

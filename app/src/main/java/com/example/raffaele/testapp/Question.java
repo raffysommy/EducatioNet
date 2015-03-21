@@ -1,8 +1,14 @@
 package com.example.raffaele.testapp;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -50,23 +56,27 @@ public class Question extends ActionBarActivity {
 
             }
         });
-  }
-    private RadioGroup radiogroup;
-    private RadioButton radioselected;
-    private Button btnDisplay;
+    }
+
+    private Button buttona;
+    private Button buttonb;
+    private Button buttonc;
+    private Button buttond;
+    private Query Domanda;
+
     public Query request_data() {
-        Query Domand=new Query();
+        Query Domand = new Query();
         String result = "";
         String url = "http://mysql-raffysommy-1.c9.io/K12/question/random";
-        HTMLRequest htmlRequest=new HTMLRequest(url);
+        HTMLRequest htmlRequest = new HTMLRequest(url);
         try {
-            result =htmlRequest.getHTMLTread();
+            result = htmlRequest.getHTMLThread();
             JSONArray ja = new JSONArray(result.toString());
             JSONObject jo = (JSONObject) ja.get(0);
 
-            Domand = new Query(jo.getString("Domanda"),jo.getString("Risposta"),jo.getString("Risposte_Falsa1"),jo.getString("Risposte_Falsa2"),jo.getString("Risposte_Falsa3"));
+            Domand = new Query(jo.getString("Domanda"), jo.getString("Risposta"), jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"));
         } catch (Exception e) {
-               e.printStackTrace();
+            e.printStackTrace();
         }
         return Domand;
     }
@@ -93,23 +103,69 @@ public class Question extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void cambiatestobottoni(){
-        Query domand=new Query(request_data());
+
+    public void cambiatestobottoni() {
+        this.Domanda = new Query(request_data());
         TextView view = (TextView) findViewById(R.id.domanda);
-        view.setText(domand.getDomanda());
-        domand.RandomQuery();
+        view.setText(this.Domanda.getDomanda());
+        this.Domanda.RandomQuery();
         ArrayList<Integer> index = new ArrayList<>();
-        index.add(0);index.add(1);index.add(2);index.add(3);
-        RadioButton buttona = (RadioButton) findViewById(R.id.radioButton);
-        buttona.setText(domand.getRisposteprob().get(0));
-        RadioButton buttonb = (RadioButton) findViewById(R.id.radioButton2);
-        buttonb.setText(domand.getRisposteprob().get(1));
-        RadioButton buttonc = (RadioButton) findViewById(R.id.radioButton3);
-        buttonc.setText(domand.getRisposteprob().get(2));
-        RadioButton buttond = (RadioButton) findViewById(R.id.radioButton4);
-        buttond.setText(domand.getRisposteprob().get(3));
-        addListenerOnButton(domand.getRisposta());
+        index.add(0);
+        index.add(1);
+        index.add(2);
+        index.add(3);
+        CambiaBottone(R.id.Risposta1,Domanda.getRisposteprob().get(0));
+        CambiaBottone(R.id.Risposta2,Domanda.getRisposteprob().get(1));
+        CambiaBottone(R.id.Risposta3,Domanda.getRisposteprob().get(2));
+        CambiaBottone(R.id.Risposta4,Domanda.getRisposteprob().get(3));
     }
+    public void CambiaBottone(int buttonid,String risp){
+        Button button = (Button) findViewById(buttonid);
+        String regtex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+        RegEx regex=new RegEx(regtex);
+        if(regex.Match(risp)){
+            HTMLDrawable htmlimg = new HTMLDrawable(risp);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                button.setBackground(htmlimg.getimg());
+            } else {
+                button.setBackgroundDrawable(htmlimg.getimg());
+            }
+            button.setText(" ");
+            button.setHint(risp);
+        }
+        else{
+            button.setBackgroundResource(R.drawable.abc_btn_check_to_on_mtrl_000);
+            button.setText(risp);
+        }
+    }
+
+    public boolean checkrisposta(int buttonid) {
+        Button buttonpressed= (Button) findViewById(buttonid);
+        if(buttonpressed.getText().equals(this.Domanda.getRisposta())){
+            return true;
+        }
+        else {
+            if (!(buttonpressed.getHint() == null)) {
+            return buttonpressed.getHint().equals(this.Domanda.getRisposta());
+            }
+        }
+        return false;
+        }
+
+    public void onClick1(View v) {
+        if (checkrisposta(v.getId())) {
+            Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
+            cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
+            findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+        }
+        else {//risposta sbagliata
+            Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+            //ha bisogno di suggerimenti
+            findViewById(R.id.textView3).setVisibility(View.VISIBLE);
+        }
+    }
+}
+    /*
     public void addListenerOnButton(final String risposta) {
         final Intent i=new Intent(this,Question.class);
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -147,5 +203,4 @@ public class Question extends ActionBarActivity {
         });
 
     }
-
-}
+*/
