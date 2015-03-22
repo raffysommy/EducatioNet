@@ -15,7 +15,7 @@ import org.json.JSONObject;
  */
 public class User implements Parcelable {
     //costanti della classe
-    private final String url_login = "https://mysql-raffysommy-1.c9.io/K12/auth/login";
+    private final String url_login = "http://mysql-raffysommy-1.c9.io/oldapi/login.php";
     //membri privati
     private String nome = new String();
     private String cognome = new String();
@@ -64,7 +64,8 @@ public class User implements Parcelable {
         //estrapola dati
         JSONObject data = null;
         try {
-            data = new JSONObject(result.toString());
+            JSONArray ja = new JSONArray(result.toString());//Todo: Remove this on new api
+            data = (JSONObject) ja.get(0);
             this.permessi = data.getString("permissions");
             //cognome e nome
             setCognome(data.getString("cognome"));
