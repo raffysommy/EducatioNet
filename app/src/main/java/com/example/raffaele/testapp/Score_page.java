@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 
 public class Score_page extends ActionBarActivity {
-
-    private Score wrong;
-    private Score correct;
+    Score correct, wrong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +40,10 @@ public class Score_page extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }/*
-    TextView CorrectC= (TextView) findViewById(R.id.CorrectC);
-    TextView WrongC = (TextView) findViewById(R.id.WrongC);
-    TextView AnsweredC = (TextView) findViewById(R.id.AnsweredC);
-*/
-        //CorrectC.setText(correct.StringValue());
-        //AnsweredC.setText(correct.StringValue());
-        //WrongC.setText(wrong.StringValue());
+    }
+
+
+
     }
 
 

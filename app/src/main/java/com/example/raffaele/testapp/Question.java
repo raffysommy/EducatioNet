@@ -41,15 +41,18 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static android.view.View.OnClickListener;
+
 public class Question extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
+        Score_click();
 
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
-        findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
@@ -68,6 +71,7 @@ public class Question extends ActionBarActivity {
     //variabili per contatori Score
     private Score correct = new Score();
     private Score wrong = new Score();
+    private static Button Score_btn;
 
 
     public Query request_data() {
@@ -164,7 +168,6 @@ public class Question extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-
             correct.increment();
 
 
@@ -176,6 +179,19 @@ public class Question extends ActionBarActivity {
             wrong.increment();
 
         }
+    }
+    public void Score_click(){
+        Score_btn= (Button) findViewById(R.id.Score_button);
+        Score_btn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v){
+                        Intent i=new Intent("com.example.raffaele.testapp.Score_page");
+                        startActivity(i);
+                    }
+                }
+        );
+
     }
 
 

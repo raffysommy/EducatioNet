@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.raffaele.testapp.Score_page">
+    tools:context="com.example.raffaele.testapp.Score_page"
+    android:id="@+id/Score_page">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,7 +13,11 @@
         android:text="Scores"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
-        android:textSize="48dp" />
+        android:textSize="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="460dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -20,21 +25,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Correct Answers:"
         android:id="@+id/CorrectA"
-        android:layout_marginTop="200dp"
-        android:layout_marginRight="525dp"
+        android:layout_marginTop="50dp"
         android:background="#ff23ff00"
         android:textSize="32dp"
-        android:layout_marginLeft="500dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0"
-        android:id="@+id/CorrectC"
-        android:layout_marginRight="600dp"
-        android:textSize="32dp"
-        android:layout_marginLeft="625dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="500dp"
+        android:layout_marginRight="400dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -43,19 +42,13 @@
         android:text="Wrong Answers:"
         android:id="@+id/WrongA"
         android:background="#ffff0007"
-        android:layout_marginRight="525dp"
         android:textSize="32dp"
-        android:layout_marginLeft="500dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0"
-        android:id="@+id/WrongC"
-        android:layout_marginLeft="625dp"
-        android:textSize="32dp"
-        android:layout_marginRight="600dp" />
+        android:layout_below="@+id/CorrectA"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="400dp"
+        android:layout_marginLeft="500dp"
+        android:layout_marginTop="80dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -64,9 +57,37 @@
         android:text="Answered Questions:"
         android:id="@+id/Answered"
         android:background="#b23653ff"
-        android:layout_marginRight="500dp"
         android:textSize="32dp"
-        android:layout_marginLeft="475dp" />
+        android:layout_marginTop="85dp"
+        android:layout_below="@+id/WrongA"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="450dp"
+        android:layout_marginRight="375dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0"
+        android:id="@+id/CorrectC"
+        android:textSize="32dp"
+        android:layout_below="@+id/CorrectA"
+        android:layout_marginLeft="600dp"
+        android:layout_marginRight="400dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0"
+        android:id="@+id/WrongC"
+        android:textSize="32dp"
+        android:layout_below="@+id/WrongA"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="600dp"
+        android:layout_marginRight="400dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -75,7 +96,10 @@
         android:text="0"
         android:id="@+id/AnsweredC"
         android:textSize="32dp"
-        android:layout_marginLeft="625dp"
-        android:layout_marginRight="600dp" />
+        android:layout_below="@+id/Answered"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="400dp"
+        android:layout_marginLeft="600dp" />
 
 </RelativeLayout>
