@@ -47,12 +47,14 @@ public class Question extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
+
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
                 startActivity(browserIntent);
+
 
             }
         });
@@ -63,6 +65,10 @@ public class Question extends ActionBarActivity {
     private Button buttonc;
     private Button buttond;
     private Query Domanda;
+    //variabili per contatori Score
+    private Score correct = new Score();
+    private Score wrong = new Score();
+
 
     public Query request_data() {
         Query Domand = new Query();
@@ -114,16 +120,17 @@ public class Question extends ActionBarActivity {
         index.add(1);
         index.add(2);
         index.add(3);
-        CambiaBottone(R.id.Risposta1,Domanda.getRisposteprob().get(0));
-        CambiaBottone(R.id.Risposta2,Domanda.getRisposteprob().get(1));
-        CambiaBottone(R.id.Risposta3,Domanda.getRisposteprob().get(2));
-        CambiaBottone(R.id.Risposta4,Domanda.getRisposteprob().get(3));
+        CambiaBottone(R.id.Risposta1, Domanda.getRisposteprob().get(0));
+        CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
+        CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
+        CambiaBottone(R.id.Risposta4, Domanda.getRisposteprob().get(3));
     }
-    public void CambiaBottone(int buttonid,String risp){
+
+    public void CambiaBottone(int buttonid, String risp) {
         Button button = (Button) findViewById(buttonid);
         String regtex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-        RegEx regex=new RegEx(regtex);
-        if(regex.Match(risp)){
+        RegEx regex = new RegEx(regtex);
+        if (regex.Match(risp)) {
             HTMLDrawable htmlimg = new HTMLDrawable(risp);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 button.setBackground(htmlimg.getimg());
@@ -132,38 +139,46 @@ public class Question extends ActionBarActivity {
             }
             button.setText(" ");
             button.setHint(risp);
-        }
-        else{
+        } else {
             button.setBackgroundResource(R.drawable.abc_btn_check_to_on_mtrl_000);
             button.setText(risp);
         }
     }
 
     public boolean checkrisposta(int buttonid) {
-        Button buttonpressed= (Button) findViewById(buttonid);
-        if(buttonpressed.getText().equals(this.Domanda.getRisposta())){
+        Button buttonpressed = (Button) findViewById(buttonid);
+        if (buttonpressed.getText().equals(this.Domanda.getRisposta())) {
             return true;
-        }
-        else {
+        } else {
             if (!(buttonpressed.getHint() == null)) {
-            return buttonpressed.getHint().equals(this.Domanda.getRisposta());
+                return buttonpressed.getHint().equals(this.Domanda.getRisposta());
             }
         }
         return false;
-        }
+    }
 
     public void onClick1(View v) {
+
+
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-        }
-        else {//risposta sbagliata
+
+            correct.increment();
+
+
+        } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
+
+            wrong.increment();
+
         }
     }
+
+
 }
     /*
     public void addListenerOnButton(final String risposta) {

@@ -7,5 +7,6 @@
     <string name="title_activity_welcome_student">welcome_student</string>
 
     <string name="title_activity_register_form">Register_form</string>
+    <string name="title_activity_score_page">Score_page</string>
 
 </resources>
