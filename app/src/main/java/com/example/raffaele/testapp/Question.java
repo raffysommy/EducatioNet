@@ -202,6 +202,11 @@ public class Question extends ActionBarActivity {
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnDisplay = (Button) findViewById(R.id.button2);//commentopush
         btnDisplay = (Button) findViewById(R.id.button2);
+        //Dichiarazione variabili contatori e li imposto uguali a 0
+        final TextView RightCTxt=(TextView) findViewById(R.id.RightC);
+        TextView WrongCTxt=(TextView) findViewById(R.id.WrongC);
+        RightCTxt.setText("0");
+        WrongCTxt.setText("0");
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -219,6 +224,7 @@ public class Question extends ActionBarActivity {
                         cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
                         //non ha bisogno di suggerimenti
                         findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+                        RightCTxt.setText(+1);
                     } else {//risposta sbagliata
                         Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
                         //ha bisogno di suggerimenti

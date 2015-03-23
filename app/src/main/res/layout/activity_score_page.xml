@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,11 +16,10 @@
         android:text="Scores"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
-        android:textSize="48dp"
+        android:textSize="40dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="460dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -25,15 +27,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Correct Answers:"
         android:id="@+id/CorrectA"
-        android:layout_marginTop="50dp"
         android:background="#ff23ff00"
-        android:textSize="32dp"
+        android:textSize="30dp"
+        android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="500dp"
-        android:layout_marginRight="400dp" />
+        android:layout_marginRight="920dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -42,13 +41,11 @@
         android:text="Wrong Answers:"
         android:id="@+id/WrongA"
         android:background="#ffff0007"
-        android:textSize="32dp"
-        android:layout_below="@+id/CorrectA"
+        android:textSize="30dp"
+        android:layout_below="@+id/CorrectC"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="400dp"
-        android:layout_marginLeft="500dp"
-        android:layout_marginTop="80dp" />
+        android:layout_marginRight="920dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -57,13 +54,11 @@
         android:text="Answered Questions:"
         android:id="@+id/Answered"
         android:background="#b23653ff"
-        android:textSize="32dp"
-        android:layout_marginTop="85dp"
-        android:layout_below="@+id/WrongA"
+        android:textSize="30dp"
+        android:layout_below="@+id/WrongC"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="450dp"
-        android:layout_marginRight="375dp" />
+        android:layout_marginRight="860dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -73,8 +68,9 @@
         android:id="@+id/CorrectC"
         android:textSize="32dp"
         android:layout_below="@+id/CorrectA"
-        android:layout_marginLeft="600dp"
-        android:layout_marginRight="400dp" />
+        android:layout_marginRight="1000dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -84,10 +80,9 @@
         android:id="@+id/WrongC"
         android:textSize="32dp"
         android:layout_below="@+id/WrongA"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="600dp"
-        android:layout_marginRight="400dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="1000dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -97,9 +92,9 @@
         android:id="@+id/AnsweredC"
         android:textSize="32dp"
         android:layout_below="@+id/Answered"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="400dp"
-        android:layout_marginLeft="600dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="1000dp" />
 
 </RelativeLayout>
+</ScrollView>
