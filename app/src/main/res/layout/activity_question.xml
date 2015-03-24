@@ -24,57 +24,58 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Do you want to repeat this topic?Click here!"
         android:id="@+id/textView3"
-        android:textSize="10dp"
+        android:textSize="30dp"
         android:visibility="invisible"
-        android:layout_alignRight="@+id/Risposta2"
-        android:layout_alignEnd="@+id/Risposta2"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/domanda"
-        android:layout_alignBottom="@+id/Risposta1"
-        android:layout_toRightOf="@+id/domanda" />
+        android:height="60dp" />
 
     <Button
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/Risposta1"
         android:onClick="onClick1"
         android:text=" "
         android:layout_below="@+id/domanda"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="35dp" />
 
     <Button
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/Risposta2"
         android:onClick="onClick1"
         android:text=" "
         android:layout_gravity="right"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_below="@+id/domanda"
         android:layout_alignLeft="@+id/Risposta4"
-        android:layout_alignStart="@+id/Risposta4" />
+        android:layout_alignStart="@+id/Risposta4"
+        android:textSize="35dp" />
 
     <Button
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/Risposta3"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="onClick1"
         android:text=" "
-        android:layout_gravity="left|bottom" />
+        android:layout_gravity="left|bottom"
+        android:textSize="35dp" />
 
     <Button
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/Risposta4"
         android:layout_alignTop="@+id/Risposta3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="onClick1"
         android:text=" "
-        android:layout_gravity="right|bottom" />
+        android:layout_gravity="right|bottom"
+        android:textSize="35dp" />
 
 </RelativeLayout>

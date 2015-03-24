@@ -9,16 +9,15 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Welcome_student extends ActionBarActivity {
+    User utente;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_student);
         //prendo l'oggetto passato alla view
         Intent i = getIntent();
-        //user utente = new user(i.getStringExtra("user"), i.getStringExtra("pass"));
-        //utente.connetti();
         Bundle extras=i.getExtras();
-        User utente = extras.getParcelable("utentec");
+        this.utente = extras.getParcelable("utentec");
         //imposto valori di nome,cognome e scuola in view
         ((TextView)findViewById(R.id.first_name)).setText(utente.getNome());
         ((TextView)findViewById(R.id.last_name)).setText(utente.getCognome());
@@ -49,6 +48,10 @@ public class Welcome_student extends ActionBarActivity {
     //richiamo view Question
     public void toQuestion(View v) {
         Intent i = new Intent(this, Question.class);
+        Bundle extras=new Bundle();
+        //passo l'oggetto user alla prossima view
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
         startActivity(i);
 
     }

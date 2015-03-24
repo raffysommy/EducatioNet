@@ -56,7 +56,6 @@ public class MainActivity extends ActionBarActivity {
             Intent i = new Intent(this, Welcome_student.class);
             Bundle extras=new Bundle();
             //passo l'oggetto user alla prossima view
-            // TODO: Oggetto passato.Bisogna testare se la soluzione adottata è ok
             extras.putParcelable("utentec",utente);
             i.putExtras(extras);
             startActivity(i);

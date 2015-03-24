@@ -42,9 +42,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Question extends ActionBarActivity {
+    private String token = new String();
+    private final String api = new String("https://k12-api.mybluemix.net/api/question/random");
+    private User utente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* prendo token di accesso passato */
+        Intent i = getIntent();
+        Bundle extras=i.getExtras();
+        this.utente = extras.getParcelable("utentec");
+        this.token = this.utente.getAccessToken();
+
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
@@ -67,12 +77,13 @@ public class Question extends ActionBarActivity {
     public Query request_data() {
         Query Domand = new Query();
         String result = "";
-        String url = "http://mysql-raffysommy-1.c9.io/oldapi/questions.php";
-        HTMLRequest htmlRequest = new HTMLRequest(url);
+        JSONObject jo;
+        JSONArray ja;
+        HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token);
         try {
             result = htmlRequest.getHTMLThread();
-            JSONArray ja = new JSONArray(result.toString());
-            JSONObject jo = (JSONObject) ja.get(0);
+            ja = new JSONArray(result.toString());
+            jo = (JSONObject)ja.get(0);
 
             Domand = new Query(jo.getString("Domanda"), jo.getString("Risposta"), jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"));
         } catch (Exception e) {
