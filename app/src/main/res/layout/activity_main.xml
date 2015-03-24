@@ -75,6 +75,7 @@
         android:textSize="50sp"
         android:layout_alignTop="@+id/loginButton"
         android:layout_toLeftOf="@+id/loginButton"
-        android:layout_toStartOf="@+id/loginButton" />
+        android:layout_toStartOf="@+id/loginButton"
+        android:onClick="Register" />
 
 </RelativeLayout>

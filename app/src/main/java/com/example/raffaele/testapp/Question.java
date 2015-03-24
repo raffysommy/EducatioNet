@@ -41,6 +41,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static android.view.View.OnClickListener;
+
 public class Question extends ActionBarActivity {
     private String token = new String();
     private final String api = new String("https://k12-api.mybluemix.net/api/question/random");
@@ -57,12 +59,15 @@ public class Question extends ActionBarActivity {
 
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
+        Score_click();
+
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
-        findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
                 startActivity(browserIntent);
+
 
             }
         });
@@ -73,6 +78,11 @@ public class Question extends ActionBarActivity {
     private Button buttonc;
     private Button buttond;
     private Query Domanda;
+    //variabili per contatori Score
+    private Score correct = new Score();
+    private Score wrong = new Score();
+    private static Button Score_btn;
+
 
     public Query request_data() {
         Query Domand = new Query();
@@ -125,16 +135,17 @@ public class Question extends ActionBarActivity {
         index.add(1);
         index.add(2);
         index.add(3);
-        CambiaBottone(R.id.Risposta1,Domanda.getRisposteprob().get(0));
-        CambiaBottone(R.id.Risposta2,Domanda.getRisposteprob().get(1));
-        CambiaBottone(R.id.Risposta3,Domanda.getRisposteprob().get(2));
-        CambiaBottone(R.id.Risposta4,Domanda.getRisposteprob().get(3));
+        CambiaBottone(R.id.Risposta1, Domanda.getRisposteprob().get(0));
+        CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
+        CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
+        CambiaBottone(R.id.Risposta4, Domanda.getRisposteprob().get(3));
     }
-    public void CambiaBottone(int buttonid,String risp){
+
+    public void CambiaBottone(int buttonid, String risp) {
         Button button = (Button) findViewById(buttonid);
         String regtex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-        RegEx regex=new RegEx(regtex);
-        if(regex.Match(risp)){
+        RegEx regex = new RegEx(regtex);
+        if (regex.Match(risp)) {
             HTMLDrawable htmlimg = new HTMLDrawable(risp);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 button.setBackground(htmlimg.getimg());
@@ -143,38 +154,58 @@ public class Question extends ActionBarActivity {
             }
             button.setText(" ");
             button.setHint(risp);
-        }
-        else{
+        } else {
             button.setBackgroundResource(R.drawable.abc_btn_check_to_on_mtrl_000);
             button.setText(risp);
         }
     }
 
     public boolean checkrisposta(int buttonid) {
-        Button buttonpressed= (Button) findViewById(buttonid);
-        if(buttonpressed.getText().equals(this.Domanda.getRisposta())){
+        Button buttonpressed = (Button) findViewById(buttonid);
+        if (buttonpressed.getText().equals(this.Domanda.getRisposta())) {
             return true;
-        }
-        else {
+        } else {
             if (!(buttonpressed.getHint() == null)) {
-            return buttonpressed.getHint().equals(this.Domanda.getRisposta());
+                return buttonpressed.getHint().equals(this.Domanda.getRisposta());
             }
         }
         return false;
-        }
+    }
 
     public void onClick1(View v) {
+
+
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-        }
-        else {//risposta sbagliata
+            correct.increment();
+
+
+        } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
+
+            wrong.increment();
+
         }
     }
+    public void Score_click(){
+        Score_btn= (Button) findViewById(R.id.Score_button);
+        Score_btn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v){
+                        Intent i=new Intent("com.example.raffaele.testapp.Score_page");
+                        startActivity(i);
+                    }
+                }
+        );
+
+    }
+
+
 }
     /*
     public void addListenerOnButton(final String risposta) {
@@ -182,6 +213,11 @@ public class Question extends ActionBarActivity {
         radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnDisplay = (Button) findViewById(R.id.button2);//commentopush
         btnDisplay = (Button) findViewById(R.id.button2);
+        //Dichiarazione variabili contatori e li imposto uguali a 0
+        final TextView RightCTxt=(TextView) findViewById(R.id.RightC);
+        TextView WrongCTxt=(TextView) findViewById(R.id.WrongC);
+        RightCTxt.setText("0");
+        WrongCTxt.setText("0");
         btnDisplay.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -199,6 +235,7 @@ public class Question extends ActionBarActivity {
                         cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
                         //non ha bisogno di suggerimenti
                         findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+                        RightCTxt.setText(+1);
                     } else {//risposta sbagliata
                         Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
                         //ha bisogno di suggerimenti

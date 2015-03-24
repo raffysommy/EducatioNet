@@ -1,30 +1,29 @@
 package com.example.raffaele.testapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class Register_form extends ActionBarActivity {
-    EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt;
 
+public class Score_page extends ActionBarActivity {
+    Score correct, wrong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_form);
-        nomeTxt =(EditText) findViewById(R.id.Reg_name);
-        cognomeTxt =(EditText) findViewById(R.id.Reg_surname);
-        emailTxt=(EditText) findViewById(R.id.Reg_email);
-        indirizzoTxt=(EditText) findViewById(R.id.Reg_address);
-        userTxt=(EditText) findViewById(R.id.Reg_username);
-        passTxt=(EditText) findViewById(R.id.Reg_pass);
-        }
+        setContentView(R.layout.activity_score_page);
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_form, menu);
+        getMenuInflater().inflate(R.menu.menu_score_page, menu);
         return true;
     }
 
@@ -42,4 +41,10 @@ public class Register_form extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+
+
+    }
+
+
+
