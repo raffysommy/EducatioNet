@@ -60,7 +60,8 @@ public class Question extends ActionBarActivity {
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
         Score_click();
-
+        TextView Ccounter = (TextView) findViewById(R.id.CorrectC);
+        TextView Wcounter= (TextView) findViewById(R.id.WrongC);
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
             @Override

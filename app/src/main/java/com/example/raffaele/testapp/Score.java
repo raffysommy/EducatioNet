@@ -7,16 +7,30 @@ import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Antonio on 21/03/2015.
  */
 
 
-public class Score {
+public class Score implements Parcelable{
     private int value;
 
 
+
+    public static final Creator<Score> CREATOR= new Creator<Score>(){
+        @Override
+        public Score createFromParcel(Parcel in){
+            return new Score(in);
+        }
+
+        @Override
+        public Score[] newArray(int size) {return new Score[size];}
+    };
+    private Score(Parcel in){readFromParcel(in);}
     public Score(int x) {
         setValue(x);
     }
@@ -31,18 +45,31 @@ public class Score {
     private void setValue(int value) {
         this.value = value;
     }
+    //incrementa il contatatore
     public void increment (){
         setValue(getValue()+1);
     }
 
+    //restituisce il tipo stringa da int
     public String StringValue ()
     {
        return String.valueOf(value);
     }
+       //parcelable
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(value);
+    }
+    public void readFromParcel (Parcel in){
+        value= in.readInt();
 
+    }
+
+    @Override
+    public int describeContents() {return 0;}
 }
-/*
 
+/*
 public class Score {
     private int Correct;
     private int Wrong;
@@ -79,5 +106,6 @@ public class Score {
         Wrong = wrong;
     }
 };
-*/
 
+
+*/

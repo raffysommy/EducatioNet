@@ -16,8 +16,7 @@ public class Score_page extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_page);
-
-    }
+        }
 
 
     @Override
