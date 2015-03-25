@@ -40,9 +40,14 @@
             android:name=".Score_page"
             android:label="@string/title_activity_score_page" >
             <intent-filter>
-                <action android:name="com.example.raffaele.testapp.Score_page"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.example.raffaele.testapp.Score_page" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Argument_Page"
+            android:label="@string/title_activity_argument__page" >
         </activity>
     </application>
 

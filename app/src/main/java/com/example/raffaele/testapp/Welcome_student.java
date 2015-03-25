@@ -1,5 +1,6 @@
 package com.example.raffaele.testapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Welcome_student extends ActionBarActivity {
     User utente;
+    ArgumentList argumentList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,28 @@ public class Welcome_student extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (0) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle extras=data.getExtras();
+                    this.argumentList = extras.getParcelable("argomenti");
+                    StringBuffer responseText = new StringBuffer();
+                    responseText.append("The following topic were selected...\n");
+                    for (int i = 0; i < argumentList.size(); i++) {
+                        Argument arg = argumentList.get(i);
+                        if (arg.isCheck()) {
+                            responseText.append("\n" + arg.getArg());
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+        }
+    }
     //richiamo view Question
     public void toQuestion(View v) {
         Intent i = new Intent(this, Question.class);
@@ -53,6 +78,15 @@ public class Welcome_student extends ActionBarActivity {
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
         startActivity(i);
+
+    }
+    public void toArgument(View v) {
+        Intent i = new Intent(this, Argument_Page.class);
+        Bundle extras=new Bundle();
+        //passo l'oggetto user alla prossima view
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
+        startActivityForResult(i,0);
 
     }
 
