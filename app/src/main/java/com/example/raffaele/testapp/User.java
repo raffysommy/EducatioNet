@@ -2,9 +2,6 @@ package com.example.raffaele.testapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -16,19 +13,21 @@ import org.json.JSONObject;
 public class User implements Parcelable {
     //costanti della classe
     private final String url_login = "https://k12-api.mybluemix.net/oauth";
+    private final String url_info = "https://mysql-raffysommy-1.c9.io/api/user/info";
     private final String params = "grant_type=password&client_id=student-app&client_secret=student-app-pw&";
     //membri privati
 
-    private String nome = new String();
-    private String cognome = new String();
-    private String scuola = new String();
-    private String username = new String();
-    private String password = new String();
-    private String email= new String();
-    private String address=new String();
-    private String permessi = new String();
-    private String access_token = new String();
-    private String refresh_token = new String();
+    private String firstName = "";
+    private String lastName = "";
+    private String school = "";
+    private String username = "";
+    private String password = "";
+    private String email="";
+    private String address="";
+    private String role = "";
+    private String access_token = "";
+    private String refresh_token = "";
+    private String ID = "";
     public static final Creator<User> CREATOR= new Creator<User>(){
         @Override
         public User createFromParcel(Parcel in){
@@ -49,9 +48,9 @@ public class User implements Parcelable {
     public User (String user, String pass, String n, String c, String s, String e, String a){
         this.username= user;
         this.password= pass;
-        this.nome= n;
-        this.cognome= c;
-        this.scuola=s;
+        this.firstName= n;
+        this.lastName= c;
+        this.school=s;
         this.email= e;
         this.address=a;
     }
@@ -69,42 +68,65 @@ public class User implements Parcelable {
         //estrapola dati
         JSONObject data = null;
         try {
-            data = new JSONObject(result.toString());
-            //TODO attendere tonino e il servizio di getCazziUser();
-            setPermessi("0"/*data.getString("permissions")*/);
-            //cognome e nome
-            setCognome("panza"/*data.getString("cognome")*/);
-            setNome("ciccio"/*data.getString("nome")*/);
-            setScuola("carcere"/*data.getString("scuola")*/);
+            data = new JSONObject(result);
             setAccessToken(data.getString("access_token"));
             setRefreshToken(data.getString("refresh_token"));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //chiamo API per informazioni utente
+        setInfoUser();
         if (data == null) //connessione fallita
             return false;
         else return true;//connessione riuscita
     }
+    //retrieve info about user from online API
+    public void setInfoUser() {
+        //richiesta http al backend
+        HTMLRequest dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
+        //richiede json di risposta
+        String result = dl.getHTMLThread();
+        //estrapola dati
+        JSONObject data = null;
+        try {
+            data = new JSONObject(result);
+            setID("id");
+            setRole("role");
+            setLastName(data.getString("lastName"));
+            setFirstName(data.getString("firstName"));
+            setSchool("Scuola"/*data.getString("school")*/);
+            setEmail(data.getString("email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     //setters
-    public void setNome(String n) {
-        this.nome = n;
+    public void setFirstName(String n) {
+        this.firstName = n;
     }
-    public void setCognome(String c) {
-        this.cognome = c;
+    public void setEmail(String e) {
+        this.email = e;
     }
-    public void setScuola(String s) { this.scuola = s;  }
+    public void setLastName(String c) {
+        this.lastName = c;
+    }
+    public void setSchool(String s) { this.school = s;  }
+    public void setID(String i) { this.ID = i;  }
     public void setAccessToken(String at) { this.access_token = at;  }
     public void setRefreshToken(String rt) { this.refresh_token = rt;  }
-    public void setPermessi(String p) { this.permessi = p;  }
+    public void setRole(String p) { this.role = p;  }
     //getters
-    public String getNome() {
-        return this.nome;
+    public String getFirstName() {
+        return this.firstName;
     }
-    public String getCognome() {
-        return this.cognome;
+    public String getLastName() {
+        return this.lastName;
     }
-    public String getScuola() {
-        return this.scuola;
+    public String getEmail() {
+        return this.email;
+    }
+    public String getSchool() {
+        return this.school;
     }
     public String getUsername() {
         return this.username;
@@ -118,16 +140,26 @@ public class User implements Parcelable {
     public String getRefreshToken() {
         return this.refresh_token;
     }
-    public String getPermessi() {
-        return this.permessi;
+    public String getRole() {
+        return this.role;
     }
+    public String getID() {
+        return this.ID;
+    }
+
+
     public void readFromParcel(Parcel in) {
-        nome = in.readString();
-        cognome = in.readString();
-        scuola= in.readString();
-        username= in.readString();
-        access_token=in.readString();
-        refresh_token=in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        school = in.readString();
+        role = in.readString();
+        address = in.readString();
+        username = in.readString();
+        password = in.readString();
+        access_token = in.readString();
+        refresh_token = in.readString();
+        ID = in.readString();
+        email = in.readString();
     }
 
     @Override
@@ -137,11 +169,16 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nome);
-        dest.writeString(cognome);
-        dest.writeString(scuola);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(school);
         dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(address);
+        dest.writeString(role);
         dest.writeString(access_token);
         dest.writeString(refresh_token);
+        dest.writeString(ID);
+        dest.writeString(email);
     }
 }

@@ -19,9 +19,9 @@ public class Welcome_student extends ActionBarActivity {
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
         //imposto valori di nome,cognome e scuola in view
-        ((TextView)findViewById(R.id.first_name)).setText(utente.getNome());
-        ((TextView)findViewById(R.id.last_name)).setText(utente.getCognome());
-        ((TextView)findViewById(R.id.school)).setText(utente.getScuola());
+        ((TextView)findViewById(R.id.first_name)).setText(utente.getFirstName());
+        ((TextView)findViewById(R.id.last_name)).setText(utente.getLastName());
+        ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
     }
 
     @Override
