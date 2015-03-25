@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Register();
+
 
 
     }
@@ -65,18 +65,12 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void Register() {
+    public void Register(View v) {
         register_btn = (Button) findViewById(R.id.RegisterButton);
-        register_btn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+
                         Intent i = new Intent("com.example.raffaele.testapp.Register_form");
                         startActivity(i);
-                    }
-                }
 
-        );
 
 
     }
