@@ -86,7 +86,8 @@
         android:text="Scores"
         android:id="@+id/Score_button"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="Score_click" />
 
 </RelativeLayout>
 

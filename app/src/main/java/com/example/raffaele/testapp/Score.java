@@ -16,25 +16,26 @@ import org.w3c.dom.Text;
  */
 
 
-public class Score implements Parcelable{
+public class Score implements Parcelable {
     private int value;
 
 
+    /*
+        public static final Creator<Score> CREATOR= new Creator<Score>(){
+            @Override
+            public Score createFromParcel(Parcel in){
+                return new Score(in);
+            }
 
-    public static final Creator<Score> CREATOR= new Creator<Score>(){
-        @Override
-        public Score createFromParcel(Parcel in){
-            return new Score(in);
+            @Override
+            public Score[] newArray(int size) {return new Score[size];}
+        };
+        private Score(Parcel in){readFromParcel(in);}
+        public Score(int x) {
+            setValue(x);
         }
-
-        @Override
-        public Score[] newArray(int size) {return new Score[size];}
-    };
-    private Score(Parcel in){readFromParcel(in);}
-    public Score(int x) {
-        setValue(x);
-    }
-    public Score () {
+        */
+    public Score() {
         setValue(0);
     }
 
@@ -45,16 +46,47 @@ public class Score implements Parcelable{
     private void setValue(int value) {
         this.value = value;
     }
+
     //incrementa il contatatore
-    public void increment (){
-        setValue(getValue()+1);
+    public void increment() {
+        setValue(getValue() + 1);
     }
 
     //restituisce il tipo stringa da int
-    public String StringValue ()
-    {
-       return String.valueOf(value);
+    public String StringValue() {
+        return String.valueOf(value);
     }
+
+    // Parcelling part
+    public Score(Parcel parcel){
+        this.value= parcel.readInt();
+    }
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+       dest.writeInt(value);
+    }
+
+
+    public final static Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
+        public Score createFromParcel(Parcel in) {
+            return new Score(in);
+        }
+
+        @Override
+        public Score[] newArray(int size) {
+            return new Score[size];
+        }
+    };
+
+}
+/*
        //parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -68,7 +100,7 @@ public class Score implements Parcelable{
     @Override
     public int describeContents() {return 0;}
 }
-
+*/
 /*
 public class Score {
     private int Correct;

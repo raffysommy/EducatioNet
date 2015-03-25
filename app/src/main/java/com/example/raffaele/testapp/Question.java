@@ -59,7 +59,6 @@ public class Question extends ActionBarActivity {
 
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
-        Score_click();
         TextView Ccounter = (TextView) findViewById(R.id.CorrectC);
         TextView Wcounter= (TextView) findViewById(R.id.WrongC);
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
@@ -192,19 +191,17 @@ public class Question extends ActionBarActivity {
 
         }
     }
-    public void Score_click(){
-        Score_btn= (Button) findViewById(R.id.Score_button);
-        Score_btn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v){
-                        Intent i=new Intent("com.example.raffaele.testapp.Score_page");
-                        startActivity(i);
-                    }
-                }
-        );
 
-    }
+    public void Score_click(View v){
+       Intent i = new Intent("com.example.raffaele.testapp.Score_page");
+        Bundle extras= new Bundle();
+        extras.putParcelable("Correct", this.correct );
+        extras.putParcelable("Wrong", this.wrong);
+        i.putExtras(extras);
+       startActivity(i);
+      }
+
+
 
 
 }
