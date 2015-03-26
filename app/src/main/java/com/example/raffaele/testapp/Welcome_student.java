@@ -61,7 +61,7 @@ public class Welcome_student extends ActionBarActivity {
                     for (int i = 0; i < argumentList.size(); i++) {
                         Argument arg = argumentList.get(i);
                         if (arg.isCheck()) {
-                            responseText.append("\n" + arg.getArg());
+                            responseText.append("\n").append(arg.getArg());
                         }
                     }
                     Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
@@ -86,7 +86,7 @@ public class Welcome_student extends ActionBarActivity {
         //passo l'oggetto user alla prossima view
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
-        startActivityForResult(i,0);
+        startActivityForResult(i, 0);
 
     }
 

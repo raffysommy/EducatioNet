@@ -76,9 +76,7 @@ public class User implements Parcelable {
         }
         //chiamo API per informazioni utente
         setInfoUser();
-        if (data == null) //connessione fallita
-            return false;
-        else return true;//connessione riuscita
+        return data != null; //Stato connessione
     }
     //retrieve info about user from online API
     public void setInfoUser() {
@@ -87,7 +85,7 @@ public class User implements Parcelable {
         //richiede json di risposta
         String result = dl.getHTMLThread();
         //estrapola dati
-        JSONObject data = null;
+        JSONObject data;
         try {
             data = new JSONObject(result);
             setID("id");

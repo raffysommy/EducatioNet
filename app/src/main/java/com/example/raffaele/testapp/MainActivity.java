@@ -1,18 +1,15 @@
 package com.example.raffaele.testapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-    private static Button register_btn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +63,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void Register(View v) {
-        register_btn = (Button) findViewById(R.id.RegisterButton);
-
-                        Intent i = new Intent("com.example.raffaele.testapp.Register_form");
-                        startActivity(i);
-
-
-
+        Intent i = new Intent(this,Register_form.class);
+        startActivity(i);
     }
-
-
-    }
+}

@@ -9,7 +9,6 @@ package com.example.raffaele.testapp;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -23,9 +22,9 @@ import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
 public class HTMLRequest extends AsyncTask<Void,Void,String> {
-    private String site = new String();
-    private String cookie = new String();
-    private String parameters = new String();
+    private String site = "";
+    private String cookie = "";
+    private String parameters = "";
 
 
     public HTMLRequest(String u, String par) {
@@ -67,6 +66,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
             // TODO Auto-generated catch block
             e2.printStackTrace();
         }
+        assert cox != null;
         cox.addRequestProperty("Cookie", cookie);
         cox.setDoOutput( true );
         cox.setDoInput ( true );
@@ -97,7 +97,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
             e.printStackTrace();
             return null;
         }
-        String htmlfile = new String();
+        String htmlfile = "";
         String temp;
         try {
             while ((temp = br.readLine()) != null) {
@@ -112,12 +112,10 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
 
     }
     String getHTMLThread(){//metodo che usa i thread
-        String rit=new String();
+        String rit= "";
         try {
             rit= this.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return rit;

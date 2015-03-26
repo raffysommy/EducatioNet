@@ -1,10 +1,9 @@
 package com.example.raffaele.testapp;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
+/***
  * Created by Raffaele on 11/03/2015.
  */
 public class Query {
@@ -47,12 +46,12 @@ public class Query {
     public ArrayList<String> getRisposteprob() {
         return Risposteprob;
     }
-
+    @SuppressWarnings({"unchecked"})
     public void setRisposteprob(ArrayList<String> risposteprob) {
-        Risposteprob = (ArrayList<String>)risposteprob.clone();
+        Risposteprob = (ArrayList<String>) risposteprob.clone();
     }
     public void setRispostarray(String a,String b,String c,String d) {
-        ArrayList<String> rispostepro = new ArrayList<String>();
+        ArrayList<String> rispostepro = new ArrayList<>();
         rispostepro.add(a);
         rispostepro.add(b);
         rispostepro.add(c);

@@ -1,51 +1,26 @@
 package com.example.raffaele.testapp;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.net.Uri;
 import android.os.Build;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static android.view.View.OnClickListener;
 
 public class Question extends ActionBarActivity {
-    private String token = new String();
-    private final String api = new String("https://k12-api.mybluemix.net/api/question/random");
+    private String token = "";
+    private final String api = "https://k12-api.mybluemix.net/api/question/random";
     private User utente;
 
     @Override
@@ -56,11 +31,8 @@ public class Question extends ActionBarActivity {
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
         this.token = this.utente.getAccessToken();
-
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
-        TextView Ccounter = (TextView) findViewById(R.id.CorrectC);
-        TextView Wcounter= (TextView) findViewById(R.id.WrongC);
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
             @Override
@@ -72,27 +44,20 @@ public class Question extends ActionBarActivity {
             }
         });
     }
-
-    private Button buttona;
-    private Button buttonb;
-    private Button buttonc;
-    private Button buttond;
     private Query Domanda;
     //variabili per contatori Score
     private Score correct = new Score();
     private Score wrong = new Score();
-    private static Button Score_btn;
-
 
     public Query request_data() {
         Query Domand = new Query();
-        String result = "";
+        String result;
         JSONObject jo;
         JSONArray ja;
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token);
         try {
             result = htmlRequest.getHTMLThread();
-            ja = new JSONArray(result.toString());
+            ja = new JSONArray(result);
             jo = (JSONObject)ja.get(0);
 
             Domand = new Query(jo.getString("Domanda"), jo.getString("Risposta"), jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"));
@@ -130,7 +95,7 @@ public class Question extends ActionBarActivity {
         TextView view = (TextView) findViewById(R.id.domanda);
         view.setText(this.Domanda.getDomanda());
         this.Domanda.RandomQuery();
-        ArrayList<Integer> index = new ArrayList<>();
+        ArrayList<Integer> index = new ArrayList<>(); //TODO:Ma l'array list integer serve davvero?
         index.add(0);
         index.add(1);
         index.add(2);
@@ -205,48 +170,4 @@ public class Question extends ActionBarActivity {
 
 
 }
-    /*
-    public void addListenerOnButton(final String risposta) {
-        final Intent i=new Intent(this,Question.class);
-        radiogroup = (RadioGroup) findViewById(R.id.radioGroup);
-        btnDisplay = (Button) findViewById(R.id.button2);//commentopush
-        btnDisplay = (Button) findViewById(R.id.button2);
-        //Dichiarazione variabili contatori e li imposto uguali a 0
-        final TextView RightCTxt=(TextView) findViewById(R.id.RightC);
-        TextView WrongCTxt=(TextView) findViewById(R.id.WrongC);
-        RightCTxt.setText("0");
-        WrongCTxt.setText("0");
-        btnDisplay.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // get selected radio button from radioGroup
-                int selectedId = radiogroup.getCheckedRadioButtonId();
-                // check if an answer has given
-                if (selectedId != -1) {
-                    // find the radiobutton by returned id
-                    radioselected = (RadioButton) findViewById(selectedId);
-                    if (radioselected.getText().equals(risposta)) {//risposta esatta
-                        Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
-                        //startActivity(i);
-                        radioselected.setChecked(false);//reimposta il bottone premuto
-                        cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
-                        //non ha bisogno di suggerimenti
-                        findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-                        RightCTxt.setText(+1);
-                    } else {//risposta sbagliata
-                        Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
-                        //ha bisogno di suggerimenti
-                        findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-                    }
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Please, choose an answer!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        });
-
-    }
-*/
+//Todo: Va aggiunta una gestione degli argomenti per domanda in modo da poter incrementare anche delle variabili score definite per argomento  (forse è il caso di inserire un oggetto Score in arguments)

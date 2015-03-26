@@ -5,19 +5,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-/**
+/***
  * Created by Raffaele on 20/03/2015.
  */
 public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
-    private String site = new String();
+    private String site = "";
     public HTMLDrawable(String site) {
         this.site=site;
     }
@@ -34,12 +32,7 @@ public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
             Bitmap img;
             img = BitmapFactory.decodeStream(is);
             return img;
-        }
-        catch ( MalformedURLException e )
-        {
-            e.printStackTrace();
-        }
-        catch ( IOException e )
+        } catch ( IOException e )
         {
             e.printStackTrace();
         }
@@ -48,9 +41,7 @@ public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
     public Drawable getimg(){
         try {
             return this.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return null;

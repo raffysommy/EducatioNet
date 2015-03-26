@@ -1,9 +1,9 @@
 package com.example.raffaele.testapp;
 
-import java.util.regex.Matcher;
+
 import java.util.regex.Pattern;
 
-/**
+/***
  * Created by Raffaele on 20/03/2015.
  */
 public class RegEx {
@@ -13,7 +13,7 @@ public class RegEx {
         setPatt(Pattern.compile(pattern));
     }
     public boolean Match(String Text){
-        return patt.matcher(Text).matches();
+        return getPatt().matcher(Text).matches();
     }
     public Pattern getPatt() {
         return patt;

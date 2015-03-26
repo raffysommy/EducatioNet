@@ -1,20 +1,17 @@
 package com.example.raffaele.testapp;
 
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-/**
+/***
  * Created by Raffaele on 25/03/2015.
  */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
-    private String url=new String("http://mysql-raffysommy-1.c9.io/oldapi/args.php");
+    private final String url = "http://mysql-raffysommy-1.c9.io/oldapi/args.php";
     public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){
         @Override
         public ArgumentList createFromParcel(Parcel in){
@@ -41,7 +38,7 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
         String result=htmlRequest.getHTMLThread();
         try{
             JSONArray ja=new JSONArray(result);
-            JSONObject jo=null;
+            JSONObject jo;
             for(int i=0;i<ja.length();i++){
                 jo=ja.getJSONObject(i);
                 this.add(new Argument(jo.getString("Argomento"), jo.getString("Descrizione")));

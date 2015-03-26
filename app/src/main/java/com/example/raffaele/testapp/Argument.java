@@ -3,7 +3,7 @@ package com.example.raffaele.testapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
+/***
  * Created by Raffaele on 25/03/2015.
  */
 public class Argument implements Parcelable {
