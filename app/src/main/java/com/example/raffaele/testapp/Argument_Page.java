@@ -22,6 +22,7 @@ public class Argument_Page extends Activity {
     private ArgumentList argumentList = new ArgumentList();
     private MyCustomAdapter dataAdapter = null;
     private User utente;
+    private String token = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +30,13 @@ public class Argument_Page extends Activity {
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
+        this.token = this.utente.getAccessToken();
         displayListView(); //genera lista
     }
 
     private void displayListView() {
         //Array list di Argomenti
-        argumentList.getHttp();
+        argumentList.getHttp(token);
         dataAdapter = new MyCustomAdapter(this, R.layout.row, argumentList);
         ListView listView = (ListView) findViewById(R.id.listView1);
         // Assegna l'adapter alla listview
@@ -107,7 +109,6 @@ public class Argument_Page extends Activity {
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
         extras.putParcelable("argomenti",this.argumentList);
-        extras.putParcelable("utentec",this.utente);
         resultintent.putExtras(extras);
         setResult(Activity.RESULT_OK,resultintent);
         finish();

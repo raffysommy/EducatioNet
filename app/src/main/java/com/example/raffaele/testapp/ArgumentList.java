@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by Raffaele on 25/03/2015.
  */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
-    private final String url = "http://mysql-raffysommy-1.c9.io/oldapi/args.php";
+    private final String url = "https://mysql-raffysommy-1.c9.io/api/topic/list";
     public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){
         @Override
         public ArgumentList createFromParcel(Parcel in){
@@ -32,16 +32,16 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
         this.clear();
         in.readList(this,ArgumentList.class.getClassLoader());
     }
-    public void getHttp(){
+    public void getHttp(String token){
         this.clear();
-        HTMLRequest htmlRequest =new HTMLRequest(url);
+        HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token);
         String result=htmlRequest.getHTMLThread();
         try{
             JSONArray ja=new JSONArray(result);
             JSONObject jo;
             for(int i=0;i<ja.length();i++){
                 jo=ja.getJSONObject(i);
-                this.add(new Argument(jo.getString("Argomento"), jo.getString("Descrizione")));
+                this.add(new Argument(jo.getString("name"), jo.getString("description")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
