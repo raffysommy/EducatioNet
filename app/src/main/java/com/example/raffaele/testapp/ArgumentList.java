@@ -2,6 +2,8 @@ package com.example.raffaele.testapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * Created by Raffaele on 25/03/2015.
  */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
-    private final String url = "https://mysql-raffysommy-1.c9.io/api/topic/list";
+    private final String url = "http://mysql-raffysommy-1.c9.io/api/topic/list";
     public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){
         @Override
         public ArgumentList createFromParcel(Parcel in){
@@ -36,6 +38,7 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
         this.clear();
         HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token);
         String result=htmlRequest.getHTMLThread();
+        Log.d("token",token);
         try{
             JSONArray ja=new JSONArray(result);
             JSONObject jo;
@@ -47,7 +50,19 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
             e.printStackTrace();
         }
     }
+    public String toString(){
+      StringBuilder responseText = new StringBuilder();
+      responseText.append("[");
+      if(this.size()==0){
+            return responseText.append("]").toString();
+        }
 
+      for(int i=0;i<this.size();i++) {
+          if(this.get(i).isCheck())
+                responseText.append("\""+this.get(i).getArg()).append("\",");
+      }
+      return responseText.deleteCharAt(responseText.length()-1).append("]").toString();
+    }
     @Override
     public int describeContents() {
         return 0;

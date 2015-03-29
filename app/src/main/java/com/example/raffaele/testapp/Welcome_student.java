@@ -25,6 +25,7 @@ public class Welcome_student extends ActionBarActivity {
         ((TextView)findViewById(R.id.first_name)).setText(utente.getFirstName());
         ((TextView)findViewById(R.id.last_name)).setText(utente.getLastName());
         ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
+        argumentList=null;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class Welcome_student extends ActionBarActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     Bundle extras=data.getExtras();
                     this.argumentList = extras.getParcelable("argomenti");
-                    StringBuffer responseText = new StringBuffer();
+                    /*StringBuffer responseText = new StringBuffer();
                     responseText.append("The following topic were selected...\n");
                     for (int i = 0; i < argumentList.size(); i++) {
                         Argument arg = argumentList.get(i);
@@ -64,7 +65,9 @@ public class Welcome_student extends ActionBarActivity {
                             responseText.append("\n").append(arg.getArg());
                         }
                     }
-                    Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), this.argumentList.toString(), Toast.LENGTH_LONG).show();
+                    */
                 }
                 break;
             }
@@ -75,6 +78,9 @@ public class Welcome_student extends ActionBarActivity {
         Intent i = new Intent(this, Question.class);
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
+        if(argumentList!=null){
+            extras.putParcelable("argomenti",this.argumentList);
+        }
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
         startActivity(i);
@@ -84,6 +90,9 @@ public class Welcome_student extends ActionBarActivity {
         Intent i = new Intent(this, Argument_Page.class);
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
+        if(argumentList!=null){
+            extras.putParcelable("argomenti",this.argumentList);
+        }
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
         startActivityForResult(i, 0);

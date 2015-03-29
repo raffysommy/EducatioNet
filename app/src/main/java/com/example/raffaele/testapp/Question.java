@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,9 @@ import static android.view.View.OnClickListener;
 
 public class Question extends ActionBarActivity {
     private String token = "";
-    private final String api = "https://k12-api.mybluemix.net/api/question/random";
+    private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
     private User utente;
-
+    private ArgumentList argumentList=new ArgumentList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class Question extends ActionBarActivity {
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
+        if(extras.getParcelable("argomenti")!=null)
+            this.argumentList=extras.getParcelable("argomenti");
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
         cambiatestobottoni();
@@ -53,14 +56,12 @@ public class Question extends ActionBarActivity {
         Query Domand = new Query();
         String result;
         JSONObject jo;
-        JSONArray ja;
-        HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token);
+        Log.w("append", this.argumentList.toString());
+        HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&Topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
-            ja = new JSONArray(result);
-            jo = (JSONObject)ja.get(0);
-
-            Domand = new Query(jo.getString("Domanda"), jo.getString("Risposta"), jo.getString("Risposte_Falsa1"), jo.getString("Risposte_Falsa2"), jo.getString("Risposte_Falsa3"));
+            jo = new JSONObject(result);
+            Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
         } catch (Exception e) {
             e.printStackTrace();
         }
