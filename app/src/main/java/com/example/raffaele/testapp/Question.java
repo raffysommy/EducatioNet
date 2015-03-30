@@ -56,7 +56,7 @@ public class Question extends ActionBarActivity {
         Query Domand = new Query();
         String result;
         JSONObject jo;
-        Log.w("append", this.argumentList.toString());
+        Log.d("append", this.argumentList.toString());
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&Topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
