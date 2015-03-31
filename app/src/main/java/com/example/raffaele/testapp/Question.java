@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +52,7 @@ public class Question extends ActionBarActivity {
     //variabili per contatori Score
     private Score correct = new Score();
     private Score wrong = new Score();
-
+    private TextView score;
     public Query request_data() {
         Query Domand = new Query();
         String result;
@@ -72,8 +73,9 @@ public class Question extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_question, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_question, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -87,7 +89,9 @@ public class Question extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if(id==R.id.Correct||id==R.id.CorrectIMG||id==R.id.Wrong||id==R.id.WrongImg){
+            this.Score_click(this.getCurrentFocus());
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -139,23 +143,24 @@ public class Question extends ActionBarActivity {
     }
 
     public void onClick1(View v) {
-
-
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+            score=(TextView) findViewById(R.id.Correct);
             correct.increment();
-
+            score.setText("Correct: "+ correct.toString());
 
         } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-
+            score=(TextView) findViewById(R.id.Wrong);
             wrong.increment();
+            score.setText("Wrong: "+ wrong.toString());
 
         }
+
     }
 
     public void Score_click(View v){

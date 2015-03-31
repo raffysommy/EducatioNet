@@ -2,6 +2,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.raffaele.testapp.Question">
+    <item
+        android:title="Correct"
+        android:text="@string/Correct"
+        android:orderInCategory="99"
+        android:id="@+id/Correct"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:title="Correct"
+        android:icon="@mipmap/ic_correct"
+        android:orderInCategory="99"
+        android:id="@+id/CorrectIMG"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:title="Wrong"
+        android:text="@string/Wrong"
+        android:orderInCategory="99"
+        android:id="@+id/Wrong"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:title="WrongImg"
+        android:icon="@mipmap/ic_wrong"
+        android:orderInCategory="99"
+        android:id="@+id/WrongImg"
+        app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

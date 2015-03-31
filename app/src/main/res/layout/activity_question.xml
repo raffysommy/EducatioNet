@@ -80,14 +80,5 @@
         android:layout_gravity="right|bottom"
         android:textSize="35dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scores"
-        android:id="@+id/Score_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="Score_click" />
-
 </RelativeLayout>
 
