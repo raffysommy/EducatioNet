@@ -9,5 +9,7 @@
     <string name="title_activity_register_form">Register_form</string>
     <string name="title_activity_score_page">Score_page</string>
     <string name="title_activity_argument__page">Argument_Page</string>
-
+    <string name="Score">Score-></string>
+    <string name="Wrong">Wrong: 0</string>
+    <string name="Correct">Correct: 0</string>
 </resources>

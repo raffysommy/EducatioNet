@@ -9,6 +9,12 @@ import android.os.Parcelable;
 
 public class Score implements Parcelable {
     private int value;
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.value);
+    }
+
     public Score() {
         setValue(0);
     }
