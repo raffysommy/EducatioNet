@@ -35,6 +35,7 @@ public class User implements Parcelable {
     private String access_token = "";
     private String refresh_token = "";
     private String ID = "";
+
     public static final Creator<User> CREATOR= new Creator<User>(){
         @Override
         public User createFromParcel(Parcel in){
@@ -109,6 +110,7 @@ public class User implements Parcelable {
     public String saveScore(ArrayList<String[]> scores) {
         //da ArrayList a JSON
         JSONArray jsonA = new JSONArray(scores);
+        Log.i("JSON SCORE=>", jsonA.toString());
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_score, params +
                                                         "access_token=" + this.access_token +
@@ -170,7 +172,6 @@ public class User implements Parcelable {
     public String getID() {
         return this.ID;
     }
-
 
     public void readFromParcel(Parcel in) {
         firstName = in.readString();

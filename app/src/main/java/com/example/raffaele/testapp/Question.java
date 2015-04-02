@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -15,7 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.view.View.OnClickListener;
 
@@ -24,6 +29,8 @@ public class Question extends ActionBarActivity {
     private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
+    private ArrayList<String[]> scores = new ArrayList<String[]>();
+    private String id_question;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,8 @@ public class Question extends ActionBarActivity {
 
             }
         });
+        //svuoto precedente lista di scores
+        scores = new ArrayList<String[]>();
     }
     private Query Domanda;
     //variabili per contatori Score
@@ -62,6 +71,7 @@ public class Question extends ActionBarActivity {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
             Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
+            id_question = jo.getString("id");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,25 +147,41 @@ public class Question extends ActionBarActivity {
         }
         return false;
     }
-
+    //chiusura aplicazione?salvo score senza interessarmi del messaggio di esito
+    /*protected void onPause() {
+        utente.saveScore(scores);
+        super.onPause();
+    }*/
+    //premo back? mostro risultato salvataggio nell'activity chiamata
+    public void onBackPressed() {
+        String msg = utente.saveScore(scores);
+        Intent i = new Intent();
+        i.putExtra("msg", msg);
+        setResult(Activity.RESULT_OK, i);
+        finish();
+    }
     public void onClick1(View v) {
 
-
+        String result = "";
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             correct.increment();
-
-
+            result = "1";
         } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-
+            result = "0";
             wrong.increment();
-
         }
+        //data e ora dello score
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        Log.i("DATA=>", dateFormat.format(date));
+        Log.i("RESULT=>", result);
+        scores.add(new String[]{id_question, result, dateFormat.format(date)});
     }
 
     public void Score_click(View v){

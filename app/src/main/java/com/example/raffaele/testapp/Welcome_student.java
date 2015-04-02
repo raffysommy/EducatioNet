@@ -54,6 +54,8 @@ public class Welcome_student extends ActionBarActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("resultCode=>", Integer.toString(resultCode));
+        Log.i("requestCode=>", Integer.toString(requestCode));
         switch(requestCode) {
             case (0) : {
                 if (resultCode == Activity.RESULT_OK) {
