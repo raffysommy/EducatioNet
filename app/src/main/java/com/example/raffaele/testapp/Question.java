@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -15,7 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.view.View.OnClickListener;
 
@@ -24,6 +29,8 @@ public class Question extends ActionBarActivity {
     private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
+    private String question_id = "";
+    private ArrayList<String[]> scores;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +49,28 @@ public class Question extends ActionBarActivity {
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
                 startActivity(browserIntent);
-
-
             }
         });
     }
+    //al riavvio dell' interfaccia con le domande, svuota la lista di risposte date
+    protected void onResume() {
+        scores = new ArrayList<String[]>();
+        super.onResume();
+    }
+    //esco dall' app? il sistema la congela? salvo le informazioni senza tener conto del messaggio
+    protected void onPause() {
+        String msg = utente.saveScore(scores);
+        super.onPause();
+    }
+    //premo sul pulsante "indietro"? salvo scores e mostro esito salvataggio!
+    public void onBackPressed() {
+        String msg = utente.saveScore(scores);
+        Intent intent = new Intent();
+        intent.putExtra("msg", msg);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
     private Query Domanda;
     //variabili per contatori Score
     private Score correct = new Score();
@@ -62,6 +86,7 @@ public class Question extends ActionBarActivity {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
             Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
+            question_id = jo.getString("id");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,22 +165,26 @@ public class Question extends ActionBarActivity {
 
     public void onClick1(View v) {
 
-
+        int result;
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             correct.increment();
-
+            result = 1;
 
         } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-
+            result = 0;
             wrong.increment();
-
         }
+        //pusho nella lista di punteggi: id domanda + risultato (castato a Stringa) + current date
+        //prendo data nel formato anno/mese/giorno
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        scores.add(new String[] {question_id, Integer.toString(result), dateFormat.format(date)});
     }
 
     public void Score_click(View v){

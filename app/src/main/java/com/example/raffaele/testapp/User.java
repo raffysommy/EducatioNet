@@ -2,7 +2,13 @@ package com.example.raffaele.testapp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by paolo on 15/03/2015.
@@ -14,6 +20,7 @@ public class User implements Parcelable {
     //costanti della classe
     private final String url_login = "https://k12-api.mybluemix.net/oauth";
     private final String url_info = "https://mysql-raffysommy-1.c9.io/api/user/info";
+    private final String url_score = "https://mysql-raffysommy-1.c9.io/api/question/score";
     private final String params = "grant_type=password&client_id=student-app&client_secret=student-app-pw&";
     //membri privati
 
@@ -75,11 +82,11 @@ public class User implements Parcelable {
             e.printStackTrace();
         }
         //chiamo API per informazioni utente
-        setInfoUser();
+        downloadInfoUser();
         return data != null; //Stato connessione
     }
     //retrieve info about user from online API
-    public void setInfoUser() {
+    public void downloadInfoUser() {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
         //richiede json di risposta
@@ -97,6 +104,25 @@ public class User implements Parcelable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    //permette il salvataggio online del risultato di una domanda. Ritorna il campo message JSON
+    public String saveScore(ArrayList<String[]> scores) {
+        //da ArrayList a JSON
+        JSONArray jsonA = new JSONArray(scores);
+        //richiesta http al backend
+        HTMLRequest dl = new HTMLRequest(url_score, params +
+                                                        "access_token=" + this.access_token +
+                                                        "&scores=" + jsonA.toString()
+        );
+        //invoco api
+        String result = dl.getHTMLThread();
+        String msg = "";
+        try {
+            msg = new JSONObject(result).getString("message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return msg;
     }
     //setters
     public void setFirstName(String n) {

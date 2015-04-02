@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Welcome_student extends ActionBarActivity {
-    User utente;
-    ArgumentList argumentList;
+    private User utente;
+    private ArgumentList argumentList;
+    static final int MSG_SAVE_SCORE_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,22 +57,20 @@ public class Welcome_student extends ActionBarActivity {
         switch(requestCode) {
             case (0) : {
                 if (resultCode == Activity.RESULT_OK) {
-                    Bundle extras=data.getExtras();
+                    Bundle extras = data.getExtras();
                     this.argumentList = extras.getParcelable("argomenti");
-                    /*StringBuffer responseText = new StringBuffer();
-                    responseText.append("The following topic were selected...\n");
-                    for (int i = 0; i < argumentList.size(); i++) {
-                        Argument arg = argumentList.get(i);
-                        if (arg.isCheck()) {
-                            responseText.append("\n").append(arg.getArg());
-                        }
-                    }
-                    //Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), this.argumentList.toString(), Toast.LENGTH_LONG).show();
-                    */
                 }
-                break;
-            }
+            }   break;
+            //se premo su back dal questionario, mostro risultato del salvataggio scores
+            case (1) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle b = data.getExtras();
+                    if (b != null) {
+                        String msg = (String) b.getSerializable("msg");
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } break;
         }
     }
     //richiamo view Question
@@ -83,9 +83,11 @@ public class Welcome_student extends ActionBarActivity {
         }
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
-        startActivity(i);
+        startActivityForResult(i, MSG_SAVE_SCORE_REQUEST);
 
     }
+
+
     public void toArgument(View v) {
         Intent i = new Intent(this, Argument_Page.class);
         Bundle extras=new Bundle();
