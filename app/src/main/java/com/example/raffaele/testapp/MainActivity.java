@@ -2,12 +2,14 @@ package com.example.raffaele.testapp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
@@ -15,9 +17,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
+        try {
+            ((TextView)findViewById(R.id.usernameLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
+            ((TextView)findViewById(R.id.passwordLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
