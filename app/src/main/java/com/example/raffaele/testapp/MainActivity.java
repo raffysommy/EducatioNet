@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -18,7 +19,12 @@ public class MainActivity extends ActionBarActivity {
 
 
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
