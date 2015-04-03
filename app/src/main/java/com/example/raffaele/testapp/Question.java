@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import static android.view.View.OnClickListener;
 
 public class Question extends ActionBarActivity {
@@ -25,6 +28,8 @@ public class Question extends ActionBarActivity {
     private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
+    private ArrayList<String[]> scores = new ArrayList<String[]>();
+    private String id_question;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,8 @@ public class Question extends ActionBarActivity {
 
             }
         });
+        //svuoto precedente lista di scores
+        scores = new ArrayList<String[]>();
     }
     private Query Domanda;
     //variabili per contatori Score
@@ -57,18 +64,26 @@ public class Question extends ActionBarActivity {
         Query Domand = new Query();
         String result;
         JSONObject jo;
-        Log.d("append", this.argumentList.toString());
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&Topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
             Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
+            id_question = jo.getString("id");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Domand;
     }
 
+    //premo back? mostro risultato salvataggio nell'activity chiamata
+    public void onBackPressed() {
+        String msg = utente.saveScore(scores);
+        Intent i = new Intent();
+        i.putExtra("msg", msg);
+        setResult(Activity.RESULT_OK, i);
+        finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,7 +158,9 @@ public class Question extends ActionBarActivity {
     }
 
     public void onClick1(View v) {
+        String result = "";
         if (checkrisposta(v.getId())) {
+            result = "1";
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
@@ -152,6 +169,7 @@ public class Question extends ActionBarActivity {
             score.setText("Correct: "+ correct.toString());
 
         } else {//risposta sbagliata
+            result = "0";
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
@@ -160,6 +178,9 @@ public class Question extends ActionBarActivity {
             score.setText("Wrong: "+ wrong.toString());
 
         }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        scores.add(new String[]{id_question, result, dateFormat.format(date)});
 
     }
 
