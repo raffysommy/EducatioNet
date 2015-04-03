@@ -16,13 +16,15 @@ public class Score_page extends ActionBarActivity {
         setContentView(R.layout.activity_score_page);
         Intent i = getIntent();
         Bundle extras=i.getExtras();
-        this.correct = extras.getParcelable("Correct");
-        this.wrong=extras.getParcelable("Wrong");
-        //imposto valori di nome,cognome e scuola in view
-        ((TextView)findViewById(R.id.CorrectC)).setText(correct.StringValue());
-        ((TextView)findViewById(R.id.WrongC)).setText(wrong.StringValue());
-        ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
-
+        if(this.correct!=null || this.correct!=null) {
+            //TODO: Qui si dovrebbe inserire il getscore totale se il campo passato non è null (ciru ce pienz tu :) )
+            this.correct = extras.getParcelable("Correct");
+            this.wrong = extras.getParcelable("Wrong");
+            //imposto valori di nome,cognome e scuola in view
+            ((TextView) findViewById(R.id.CorrectC)).setText(correct.StringValue());
+            ((TextView) findViewById(R.id.WrongC)).setText(wrong.StringValue());
+            ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
+        }
     }
 
 
