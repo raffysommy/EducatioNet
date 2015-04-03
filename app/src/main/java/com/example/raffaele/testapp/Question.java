@@ -1,7 +1,6 @@
 package com.example.raffaele.testapp;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -9,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static android.view.View.OnClickListener;
 
@@ -29,8 +25,6 @@ public class Question extends ActionBarActivity {
     private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
-    private ArrayList<String[]> scores = new ArrayList<String[]>();
-    private String id_question;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,25 +47,22 @@ public class Question extends ActionBarActivity {
 
             }
         });
-        //svuoto precedente lista di scores
-        scores = new ArrayList<String[]>();
     }
     private Query Domanda;
     //variabili per contatori Score
     private Score correct = new Score();
     private Score wrong = new Score();
-
+    private TextView score;
     public Query request_data() {
         Query Domand = new Query();
         String result;
         JSONObject jo;
-        Log.w("append", this.argumentList.toString());
+        Log.d("append", this.argumentList.toString());
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&Topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
             Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
-            id_question = jo.getString("id");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,8 +73,9 @@ public class Question extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_question, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_question, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -97,7 +89,9 @@ public class Question extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if(id==R.id.Correct||id==R.id.CorrectIMG||id==R.id.Wrong||id==R.id.WrongImg){
+            this.Score_click(this.getCurrentFocus());
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -147,41 +141,26 @@ public class Question extends ActionBarActivity {
         }
         return false;
     }
-    //chiusura aplicazione?salvo score senza interessarmi del messaggio di esito
-    /*protected void onPause() {
-        utente.saveScore(scores);
-        super.onPause();
-    }*/
-    //premo back? mostro risultato salvataggio nell'activity chiamata
-    public void onBackPressed() {
-        String msg = utente.saveScore(scores);
-        Intent i = new Intent();
-        i.putExtra("msg", msg);
-        setResult(Activity.RESULT_OK, i);
-        finish();
-    }
-    public void onClick1(View v) {
 
-        String result = "";
+    public void onClick1(View v) {
         if (checkrisposta(v.getId())) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+            score=(TextView) findViewById(R.id.Correct);
             correct.increment();
-            result = "1";
+            score.setText("Correct: "+ correct.toString());
+
         } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-            result = "0";
+            score=(TextView) findViewById(R.id.Wrong);
             wrong.increment();
+            score.setText("Wrong: "+ wrong.toString());
+
         }
-        //data e ora dello score
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        Log.i("DATA=>", dateFormat.format(date));
-        Log.i("RESULT=>", result);
-        scores.add(new String[]{id_question, result, dateFormat.format(date)});
+
     }
 
     public void Score_click(View v){

@@ -10,6 +10,7 @@ public class Argument implements Parcelable {
     private String Arg;
     private String Descr;
     private boolean Check;
+
     public static final Creator<Argument> CREATOR= new Creator<Argument>(){
         @Override
         public Argument createFromParcel(Parcel in){
@@ -39,6 +40,7 @@ public class Argument implements Parcelable {
         setDescr(argument.getDescr());
         setCheck(argument.isCheck());
     }
+
     public String getArg() {
         return Arg;
     }
@@ -46,6 +48,9 @@ public class Argument implements Parcelable {
     public void setArg(String arg) {
         Arg = arg;
     }
+
+
+
 
     public String getDescr() {
         return Descr;
@@ -66,6 +71,7 @@ public class Argument implements Parcelable {
         setArg(in.readString());
         setDescr(in.readString());
         setCheck(in.readByte() != 0);
+
     }
     @Override
     public int describeContents() {
@@ -77,6 +83,7 @@ public class Argument implements Parcelable {
         dest.writeString(Arg);
         dest.writeString(Descr);
         dest.writeInt((byte) (isCheck() ? 1 : 0));
+
     }
 }
 

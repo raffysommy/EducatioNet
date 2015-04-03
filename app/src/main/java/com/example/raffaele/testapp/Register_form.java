@@ -2,12 +2,21 @@ package com.example.raffaele.testapp;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Register_form extends ActionBarActivity {
     EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt,schoolTxt;
@@ -34,8 +43,12 @@ public class Register_form extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Ops! Some mandatory fields are empty!", Toast.LENGTH_LONG).show();
         }
         else {
+            //creazione di un nuovo utente x, con dati inseriti da tastiera
             x = new User(userTxt.getText().toString(), passTxt.getText().toString(), nomeTxt.getText().toString(), cognomeTxt.getText().toString(), schoolTxt.getText().toString(),
                     emailTxt.getText().toString(), indirizzoTxt.getText().toString());
+            //registrazione utente
+            registerUser(x);
+
             Toast.makeText(getApplicationContext(), "You have been registered! Well done!", Toast.LENGTH_LONG).show();
             userTxt.setText("");
             cognomeTxt.setText("");
@@ -45,6 +58,26 @@ public class Register_form extends ActionBarActivity {
             indirizzoTxt.setText("");
             emailTxt.setText("");
         }
+    }
+
+    public JSONArray registerUser(User x){
+        // Si crea array con input da tastiera
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("name", x.getFirstName()));
+        params.add(new BasicNameValuePair("surname", x.getLastName()));
+        params.add(new BasicNameValuePair("school", x.getSchool()));
+        params.add(new BasicNameValuePair("user", x.getUsername()));
+        params.add(new BasicNameValuePair("email", x.getEmail()));
+        params.add(new BasicNameValuePair("password", x.getPassword()));
+
+
+        // creazione JSONArray
+        JSONArray json = new JSONArray(params);
+        // controllo che tutto vada bene
+        Log.d("append", params.toString());
+        //return json
+        return json;
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
