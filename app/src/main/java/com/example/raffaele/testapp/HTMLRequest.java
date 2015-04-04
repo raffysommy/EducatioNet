@@ -9,6 +9,10 @@ package com.example.raffaele.testapp;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+
+import org.apache.http.HttpVersion;
+import org.apache.http.params.CoreProtocolPNames;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -47,14 +51,6 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
             e.printStackTrace();
             return null;
         }
-        URLConnection connection;
-        try {
-            connection = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        connection.addRequestProperty("Cookie", cookie);
 
         String urlParameters  = this.parameters;
         byte[] postData       = urlParameters.getBytes( Charset.forName( "UTF-8" ));
