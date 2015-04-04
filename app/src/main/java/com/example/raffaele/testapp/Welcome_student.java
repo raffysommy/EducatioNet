@@ -2,6 +2,7 @@ package com.example.raffaele.testapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -29,7 +30,12 @@ public class Welcome_student extends ActionBarActivity {
         ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
         argumentList=null;
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_welcome_student); //al cambiamento della configurazione dello schermo refresha il layout
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -102,6 +108,9 @@ public class Welcome_student extends ActionBarActivity {
         startActivityForResult(i, 0);
 
     }
-
+    public void onScore(View v ) {
+        Intent i = new Intent(this, Score_page.class);
+        startActivity(i);
+    }
 
 }
