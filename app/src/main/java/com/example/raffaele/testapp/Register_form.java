@@ -1,5 +1,6 @@
 package com.example.raffaele.testapp;
 
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,8 +35,13 @@ public class Register_form extends ActionBarActivity {
         userTxt=(EditText) findViewById(R.id.Reg_username);
         passTxt=(EditText) findViewById(R.id.Reg_pass);
         schoolTxt =(EditText) findViewById(R.id.Reg_school);
-        Rbtn =(Button) findViewById(R.id.Reg_button);
 
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_register_form); //al cambiamento della configurazione dello schermo refresha il layout
     }
     public void Registrazione(View v) {
         if (nomeTxt.getText().toString().equals("") || cognomeTxt.getText().toString().equals("") || emailTxt.getText().toString().equals("") || userTxt.getText().toString().equals("") ||
