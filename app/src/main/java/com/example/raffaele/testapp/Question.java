@@ -3,6 +3,7 @@ package com.example.raffaele.testapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
@@ -30,6 +32,7 @@ public class Question extends ActionBarActivity {
     private ArgumentList argumentList=new ArgumentList();
     private ArrayList<String[]> scores = new ArrayList<String[]>();
     private String id_question;
+    private DrawableManager draw=new DrawableManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,7 @@ public class Question extends ActionBarActivity {
         Query Domand = new Query();
         String result;
         JSONObject jo;
-        HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&Topics="+this.argumentList.toString());
+        HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
@@ -104,7 +107,7 @@ public class Question extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id==R.id.Correct||id==R.id.CorrectIMG||id==R.id.Wrong||id==R.id.WrongImg){
+        if(id==R.id.CorrectCnt||id==R.id.CorrectImg||id==R.id.WrongCnt||id==R.id.WrongImg){
             this.Score_click(this.getCurrentFocus());
         }
         return super.onOptionsItemSelected(item);
@@ -131,12 +134,14 @@ public class Question extends ActionBarActivity {
         String regtex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         RegEx regex = new RegEx(regtex);
         if (regex.Match(risp)) {
-            HTMLDrawable htmlimg = new HTMLDrawable(risp);
+            /*HTMLDrawable htmlimg = new HTMLDrawable(risp);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 button.setBackground(htmlimg.getimg());
             } else {
                 button.setBackgroundDrawable(htmlimg.getimg());
-            }
+            }*/
+
+            draw.setDrawable(risp,findViewById(buttonid));
             button.setText(" ");
             button.setHint(risp);
         } else {
@@ -164,18 +169,18 @@ public class Question extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-            score=(TextView) findViewById(R.id.Correct);
+            score=(TextView) findViewById(R.id.CorrectCnt);
             correct.increment();
-            score.setText("Correct: "+ correct.toString());
+            score.setText(correct.toString());
 
         } else {//risposta sbagliata
             result = "0";
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-            score=(TextView) findViewById(R.id.Wrong);
+            score=(TextView) findViewById(R.id.WrongCnt);
             wrong.increment();
-            score.setText("Wrong: "+ wrong.toString());
+            score.setText(wrong.toString());
 
         }
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

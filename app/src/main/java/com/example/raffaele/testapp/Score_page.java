@@ -16,7 +16,7 @@ public class Score_page extends ActionBarActivity {
         setContentView(R.layout.activity_score_page);
         Intent i = getIntent();
         Bundle extras=i.getExtras();
-        if(this.correct!=null || this.correct!=null) {
+        if(extras.getParcelable("Correct")!=null || extras.getParcelable("Wrong")!=null) {
             //TODO: Qui si dovrebbe inserire il getscore totale se il campo passato non è null (ciru ce pienz tu :) )
             this.correct = extras.getParcelable("Correct");
             this.wrong = extras.getParcelable("Wrong");
@@ -25,6 +25,7 @@ public class Score_page extends ActionBarActivity {
             ((TextView) findViewById(R.id.WrongC)).setText(wrong.StringValue());
             ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
         }
+
     }
 
 

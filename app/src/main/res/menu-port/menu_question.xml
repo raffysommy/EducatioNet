@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.raffaele.testapp.Question">
+    <item
+        android:title="CorrectImg"
+        android:icon="@mipmap/ic_correct"
+        android:orderInCategory="99"
+        android:id="@+id/CorrectIMG"
+        app:showAsAction="always"/>
+    <item
+        android:title="0"
+        android:text="0"
+        android:orderInCategory="99"
+        android:id="@+id/CorrectCnt"
+        app:showAsAction="always"/>
+    <item
+        android:title="WrongImg"
+        android:icon="@mipmap/ic_wrong"
+        android:orderInCategory="99"
+        android:id="@+id/WrongImg"
+        app:showAsAction="always"/>
+    <item
+        android:title="0"
+        android:text="0"
+        android:orderInCategory="99"
+        android:id="@+id/WrongCnt"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>

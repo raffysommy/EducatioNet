@@ -3,29 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.raffaele.testapp.Question">
     <item
-        android:title="Correct"
-        android:text="@string/Correct"
-        android:orderInCategory="99"
-        android:id="@+id/Correct"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:title="Correct"
+        android:title="Correct: "
+        android:text="Correct: "
         android:icon="@mipmap/ic_correct"
         android:orderInCategory="99"
-        android:id="@+id/CorrectIMG"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/CorrectImg"
+        app:showAsAction="always|withText"/>
     <item
-        android:title="Wrong"
-        android:text="@string/Wrong"
+        android:title="0"
+        android:text="0"
         android:orderInCategory="99"
-        android:id="@+id/Wrong"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/CorrectCnt"
+        app:showAsAction="always"/>
     <item
-        android:title="WrongImg"
+        android:title="Wrong: "
+        android:text="Wrong: "
         android:icon="@mipmap/ic_wrong"
         android:orderInCategory="99"
         android:id="@+id/WrongImg"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always|withText"/>
+    <item
+        android:title="0"
+        android:text="0"
+        android:orderInCategory="99"
+        android:id="@+id/WrongCnt"
+        app:showAsAction="always"/>
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
