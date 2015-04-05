@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +40,12 @@ public class Argument_Page extends Activity {
         }
         displayListView(); //genera lista
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+    }
     private void displayListView() {
         //Array list di Argomenti
         dataAdapter = new MyCustomAdapter(this, R.layout.row, argumentList);

@@ -12,4 +12,5 @@
     <string name="Score">Score-></string>
     <string name="Wrong">Wrong: 0</string>
     <string name="Correct">Correct: 0</string>
+    <string name="title_activity_main_activity2">MainActivity2Activity</string>
 </resources>

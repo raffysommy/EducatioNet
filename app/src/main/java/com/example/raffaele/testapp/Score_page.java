@@ -2,28 +2,54 @@ package com.example.raffaele.testapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.TwoStatePreference;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Score_page extends ActionBarActivity {
-    Score correct, wrong;
+    private Score correct, wrong;
+    private final String api = "https://mysql-raffysommy-1.c9.io/api/score/total";
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_page);
         Intent i = getIntent();
-        Bundle extras=i.getExtras();
-        if(extras.getParcelable("Correct")!=null || extras.getParcelable("Wrong")!=null) {
+        Bundle extras=null;
+        if(i.hasExtra("Correct")&&i.hasExtra("Wrong")) {
             //TODO: Qui si dovrebbe inserire il getscore totale se il campo passato non è null (ciru ce pienz tu :) )
+            extras=i.getExtras();
             this.correct = extras.getParcelable("Correct");
             this.wrong = extras.getParcelable("Wrong");
             //imposto valori di nome,cognome e scuola in view
             ((TextView) findViewById(R.id.CorrectC)).setText(correct.StringValue());
             ((TextView) findViewById(R.id.WrongC)).setText(wrong.StringValue());
             ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
+        }
+        else if(i.hasExtra("utentec")){
+            extras=i.getExtras();
+            ((TextView) findViewById(R.id.ScoreName)).setText("Global Score");
+            user=extras.getParcelable("utentec");
+            String result="";
+            JSONObject jo;
+            HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.user.getAccessToken() +"&user="+this.user.getUsername());
+            result=htmlRequest.getHTMLThread();
+            if(result==null)
+                   return;
+            try {
+                jo=new JSONObject(result);
+                ((TextView)findViewById(R.id.CorrectC)).setText(jo.getString("correct"));
+                ((TextView)findViewById(R.id.WrongC)).setText(jo.getString("wrong"));
+                ((TextView)findViewById(R.id.AnsweredC)).setText(jo.getString("answered"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }

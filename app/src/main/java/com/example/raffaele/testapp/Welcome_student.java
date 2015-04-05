@@ -110,6 +110,9 @@ public class Welcome_student extends ActionBarActivity {
     }
     public void onScore(View v ) {
         Intent i = new Intent(this, Score_page.class);
+        Bundle extras=new Bundle();
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
         startActivity(i);
     }
 

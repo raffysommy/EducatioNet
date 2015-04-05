@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Scores"
-        android:id="@+id/textView4"
+        android:id="@+id/ScoreName"
         android:layout_gravity="center_horizontal"
         android:textSize="40dp"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:id="@+id/CorrectA"
         android:background="#ff23ff00"
         android:textSize="30dp"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/ScoreName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="920dp" />

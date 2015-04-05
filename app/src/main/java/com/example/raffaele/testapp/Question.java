@@ -2,18 +2,25 @@ package com.example.raffaele.testapp;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +35,7 @@ import static android.view.View.OnClickListener;
 public class Question extends ActionBarActivity {
     private String token = "";
     private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
+    private final String apiDoc="https://mysql-raffysommy-1.c9.io/api/teacher/help";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
     private ArrayList<String[]> scores = new ArrayList<String[]>();
@@ -51,12 +59,45 @@ public class Question extends ActionBarActivity {
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
                 startActivity(browserIntent);
-
-
             }
         });
         //svuoto precedente lista di scores
         scores = new ArrayList<String[]>();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+    }
+    public void opendialog(View view, final String quesiton){
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator =linf.inflate(R.layout.dialog_help_wanted,null);
+        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Send queston to Teacher");
+        alertDialogBuilder.setView(inflator);
+        final EditText editText= (EditText) inflator.findViewById(R.id.textquest);
+        alertDialogBuilder
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String question = editText.getText().toString().trim();
+                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + quesiton + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
+                        if (Boolean.valueOf(htmlRequest.getHTMLThread())) {
+                            Toast.makeText(getApplicationContext(), "Question Sent", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Error: Question not Sent", Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
     private Query Domanda;
     //variabili per contatori Score
@@ -109,6 +150,9 @@ public class Question extends ActionBarActivity {
         }
         if(id==R.id.CorrectCnt||id==R.id.CorrectImg||id==R.id.WrongCnt||id==R.id.WrongImg){
             this.Score_click(this.getCurrentFocus());
+        }
+        if (id==R.id.help_wanted){
+            opendialog(this.getCurrentFocus(),id_question);
         }
         return super.onOptionsItemSelected(item);
     }
