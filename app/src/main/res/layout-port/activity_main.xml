@@ -6,34 +6,23 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:id="@+id/MainActivity">
 
-    <ImageButton
-        android:layout_width="160dip"
-        android:layout_height="60dip"
-        android:id="@+id/loginButton"
-        android:onClick="onStartClick"
-        android:background="@drawable/ic_login"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dip" />
-
-    <ImageButton
-        android:layout_width="160dip"
-        android:layout_height="60dip"
-        android:id="@+id/RegisterButton"
-        android:onClick="Register"
-        android:background="@drawable/ic_signup"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dip" />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/titolo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="900dp"
+        android:layout_height="500dp"
+        android:id="@+id/linearLayout"
         android:layout_above="@+id/loginButton"
-        android:id="@+id/linearLayout">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imageView2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,17 +30,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Username"
             android:id="@+id/usernameLabel"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="60dp"
-            android:textColor="#ff1e00ff" />
+            android:textColor="#ffff2e3c" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/username"
-            android:textSize="60dp"
+            android:textSize="25dp"
             android:text="root"
+            android:ems="100"
             android:layout_below="@+id/usernameLabel"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -61,20 +48,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Password"
-            android:id="@+id/passwordLabel"
-            android:textSize="60dp"
-            android:layout_below="@+id/password"
-            android:layout_alignRight="@+id/usernameLabel"
-            android:layout_alignEnd="@+id/usernameLabel"
-            android:textColor="#ff1e00ff" />
+            android:id="@+id/usernameLabel"
+            android:textColor="#ff5042c4" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:ems="10"
+            android:ems="100"
             android:id="@+id/password"
-            android:textSize="60dp"
+            android:textSize="25dp"
             android:text="rootroot"
             android:layout_above="@+id/loginButton"
             android:layout_alignParentLeft="true"
@@ -82,5 +65,27 @@
             android:layout_marginBottom="91dp" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="110dip"
+        android:layout_height="40dip"
+        android:id="@+id/RegisterButton"
+        android:onClick="Register"
+        android:background="@drawable/ic_signup"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/imageView2"
+        android:layout_alignStart="@+id/imageView2" />
+
+    <ImageButton
+        android:layout_width="110dip"
+        android:layout_height="40dip"
+        android:id="@+id/loginButton"
+        android:onClick="onStartClick"
+        android:background="@drawable/ic_login"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView2"
+        android:layout_alignEnd="@+id/imageView2" />
 
 </RelativeLayout>
