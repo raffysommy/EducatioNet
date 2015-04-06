@@ -7,12 +7,12 @@
     android:id="@+id/MainActivity">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="180dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:id="@+id/imageView5"
         android:background="@drawable/titolo"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/linearLayout3" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="120dip"
@@ -20,9 +20,9 @@
         android:id="@+id/RegisterButton"
         android:onClick="Register"
         android:background="@drawable/ic_signup"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4" />
+        android:layout_below="@+id/scrollView"
+        android:layout_toLeftOf="@+id/imageView5"
+        android:layout_toStartOf="@+id/imageView5" />
 
     <ImageButton
         android:layout_width="120dip"
@@ -30,18 +30,27 @@
         android:id="@+id/loginButton"
         android:onClick="onStartClick"
         android:background="@drawable/ic_login"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/imageView5"
-        android:layout_alignStart="@+id/imageView5" />
+        android:layout_below="@+id/scrollView"
+        android:layout_toRightOf="@+id/imageView5"
+        android:layout_toEndOf="@+id/imageView5" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="250dp"
-        android:layout_height="210dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/linearLayout3"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,7 +58,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Username"
             android:id="@+id/usernameLabel"
-            android:textColor="#ffff2e3c" />
+            android:textColor="#ffff2e3c"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="1194dp"
@@ -61,7 +71,8 @@
             android:ems="10"
             android:layout_alignTop="@+id/linearLayout2"
             android:layout_toLeftOf="@+id/loginButton"
-            android:layout_toStartOf="@+id/loginButton" />
+            android:layout_toStartOf="@+id/loginButton"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,7 +80,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Password"
             android:id="@+id/passwordLabel"
-            android:textColor="#ff5042c4" />
+            android:textColor="#ff5042c4"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="1180dp"
@@ -84,9 +96,10 @@
             android:layout_alignRight="@+id/imageView4"
             android:layout_alignEnd="@+id/imageView4"
             android:layout_marginRight="106dp"
-            android:layout_marginEnd="106dp" />
+            android:layout_marginEnd="106dp"
+            android:textAlignment="center" />
 
 
     </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>
