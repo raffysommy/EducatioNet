@@ -7,8 +7,8 @@
     android:id="@+id/MainActivity">
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
         android:id="@+id/imageView5"
         android:background="@drawable/titolo"
         android:layout_alignParentTop="true"
@@ -20,9 +20,10 @@
         android:id="@+id/RegisterButton"
         android:onClick="Register"
         android:background="@drawable/ic_signup"
-        android:layout_below="@+id/scrollView"
-        android:layout_toLeftOf="@+id/imageView5"
-        android:layout_toStartOf="@+id/imageView5" />
+        android:layout_alignTop="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/scrollView" />
 
     <ImageButton
         android:layout_width="120dip"
@@ -30,16 +31,19 @@
         android:id="@+id/loginButton"
         android:onClick="onStartClick"
         android:background="@drawable/ic_login"
-        android:layout_below="@+id/scrollView"
-        android:layout_toRightOf="@+id/imageView5"
-        android:layout_toEndOf="@+id/imageView5" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/scrollView"
+        android:layout_alignBottom="@+id/scrollView" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:layout_below="@+id/imageView5"
-        android:layout_centerHorizontal="true">
+        android:layout_toLeftOf="@+id/loginButton"
+        android:layout_toRightOf="@+id/RegisterButton"
+        android:layout_toEndOf="@+id/RegisterButton">
 
     <LinearLayout
         android:orientation="vertical"

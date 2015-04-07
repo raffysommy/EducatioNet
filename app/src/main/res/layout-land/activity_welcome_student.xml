@@ -78,7 +78,7 @@
 
     <ImageButton
         android:layout_width="200dip"
-        android:layout_height="60dip"
+        android:layout_height="match_parent"
         android:id="@+id/QuestionButton"
         android:background="@drawable/ic_questions"
         android:nestedScrollingEnabled="false"
@@ -88,7 +88,8 @@
         android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tableLayout" />
 
     <ImageButton
         android:layout_width="150dip"

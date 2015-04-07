@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            ((TextView)findViewById(R.id.usernameLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
+            ((TextView)findViewById(R.id.passwordLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
             ((TextView)findViewById(R.id.passwordLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
         } catch (Exception e) {
             e.printStackTrace();
