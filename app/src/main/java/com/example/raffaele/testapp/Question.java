@@ -73,7 +73,7 @@ public class Question extends ActionBarActivity {
         LayoutInflater linf = LayoutInflater.from(this);
         final View inflator =linf.inflate(R.layout.dialog_help_wanted,null);
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Send queston to Teacher");
+        alertDialogBuilder.setTitle("Send question to Teacher");
         alertDialogBuilder.setView(inflator);
         final EditText editText= (EditText) inflator.findViewById(R.id.textquest);
         alertDialogBuilder

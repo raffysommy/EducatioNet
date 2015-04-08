@@ -70,7 +70,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textSize="25dp"
-            android:text="root"
             android:layout_column="1"
             android:ems="10"
             android:layout_alignTop="@+id/linearLayout2"
@@ -94,7 +93,6 @@
             android:ems="10"
             android:id="@+id/password"
             android:textSize="25dp"
-            android:text="rootroot"
             android:layout_column="1"
             android:layout_above="@+id/RegisterButton"
             android:layout_alignRight="@+id/imageView4"
@@ -120,4 +118,13 @@
         android:layout_alignEnd="@+id/imageView5"
         android:layout_alignLeft="@+id/imageView5"
         android:layout_alignStart="@+id/imageView5" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember Me"
+        android:id="@+id/rememberme"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -1,17 +1,16 @@
 package com.example.raffaele.testapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
@@ -42,15 +41,22 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
+    private SharedPreferences loginSharedPreferences;
+    private SharedPreferences.Editor EditorSharedPreference;
+    private Boolean saveLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            ((TextView)findViewById(R.id.passwordLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
-            ((TextView)findViewById(R.id.passwordLabel)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
-        } catch (Exception e) {
-            e.printStackTrace();
+        setloginsaved();
+    }
+    private void setloginsaved(){
+        loginSharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        EditorSharedPreference = loginSharedPreferences.edit();
+        if(loginSharedPreferences.getBoolean("saveLogin",false)==true){
+            ((EditText)findViewById(R.id.username)).setText(loginSharedPreferences.getString("username", ""));
+            ((EditText)findViewById(R.id.password)).setText(loginSharedPreferences.getString("password", ""));
+            ((CheckBox)findViewById(R.id.rememberme)).setChecked(true);
         }
     }
     @Override
@@ -58,6 +64,7 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+        setloginsaved();
     }
 
     @Override
@@ -86,6 +93,16 @@ public class MainActivity extends ActionBarActivity {
 
         String user = ((EditText) findViewById(R.id.username)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
+        if(((CheckBox)findViewById(R.id.rememberme)).isChecked()){
+            EditorSharedPreference.putBoolean("saveLogin", true);
+            EditorSharedPreference.putString("username", user);
+            EditorSharedPreference.putString("password", pass);
+            EditorSharedPreference.commit();
+        }
+        else{
+            EditorSharedPreference.clear();
+            EditorSharedPreference.commit();
+        }
         findViewById(R.id.loadBar).setVisibility(View.VISIBLE);
         User utente = new User(user, pass);
         new LoginTask().execute(utente);

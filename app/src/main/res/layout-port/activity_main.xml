@@ -24,10 +24,10 @@
         android:onClick="Register"
         android:background="@drawable/ic_signup"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/linearLayout4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/loginButton" />
+        android:layout_alignBottom="@+id/loginButton"
+        android:layout_alignTop="@+id/loginButton" />
 
     <ImageButton
         android:layout_width="100dip"
@@ -36,7 +36,7 @@
         android:onClick="onStartClick"
         android:background="@drawable/ic_login"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/linearLayout4"
+        android:layout_below="@+id/rememberme"
         android:layout_alignRight="@+id/linearLayout4"
         android:layout_alignEnd="@+id/linearLayout4" />
 
@@ -48,6 +48,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember Me"
+        android:id="@+id/rememberme"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ProgressBar
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="75dp"
@@ -57,7 +68,7 @@
         android:progress="50"
         android:max="100"
         android:indeterminate="false"
-        android:layout_below="@+id/linearLayout4"
+        android:layout_alignTop="@+id/RegisterButton"
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
@@ -87,7 +98,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textSize="25dp"
-            android:text="root"
             android:ems="100"
             android:layout_below="@+id/passwordLabel"
             android:layout_alignParentLeft="true"
@@ -108,7 +118,6 @@
             android:ems="100"
             android:id="@+id/password"
             android:textSize="25dp"
-            android:text="rootroot"
             android:layout_above="@+id/loginButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />

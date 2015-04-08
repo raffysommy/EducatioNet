@@ -50,12 +50,13 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="900dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,14 +64,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Username"
             android:id="@+id/usernameLabel"
-            android:textColor="#ffff2e3c" />
+            android:textColor="#ffff2e3c"
+            android:textSize="35sp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textSize="25dp"
-            android:text="root"
             android:layout_below="@+id/passwordLabel"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -82,7 +83,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Password"
             android:id="@+id/passwordLabel"
-            android:textColor="#ff5042c4" />
+            android:textColor="#ff5042c4"
+            android:textSize="35sp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -91,12 +93,20 @@
             android:ems="100"
             android:id="@+id/password"
             android:textSize="25dp"
-            android:text="rootroot"
             android:layout_above="@+id/loginButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="91dp"
             android:textIsSelectable="false" />
+
+        <CheckBox
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            android:text="Remember Me"
+            android:id="@+id/rememberme"
+            android:layout_below="@+id/loadBar"
+            android:layout_centerHorizontal="true"
+            android:textSize="35sp"/>
 
     </LinearLayout>
 
