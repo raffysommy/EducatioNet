@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class User implements Parcelable {
     //costanti della classe
     private final String url_login = "https://k12-api.mybluemix.net/oauth";
-    private final String url_info = "https://mysql-raffysommy-1.c9.io/api/user/info";
+    private final String url_info = "https://k12-api.mybluemix.net/api/user/info";
     private final String url_score = "https://mysql-raffysommy-1.c9.io/api/question/score";
     private final String params = "grant_type=password&client_id=student-app&client_secret=student-app-pw&";
     //membri privati
@@ -70,7 +70,7 @@ public class User implements Parcelable {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, params + "username="+this.username+"&password="+this.password);
         //richiede json di risposta
-        String result = dl.getHTMLThread();
+        String result = dl.getHTML();
         //debug + console = <3
         //Log.i("User", "User.result =" + result);
         //estrapola dati
@@ -83,15 +83,33 @@ public class User implements Parcelable {
             e.printStackTrace();
         }
         //chiamo API per informazioni utente
-        downloadInfoUser();
+        //downloadInfoUser();
+
+        //richiesta http al backend
+        dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
+        //richiede json di risposta
+        result = dl.getHTML();
+        //estrapola dati
+        try {
+            data = new JSONObject(result);
+            setID("id");
+            setRole("role");
+            setLastName(data.getString("lastName"));
+            setFirstName(data.getString("firstName"));
+            setSchool("Scuola");
+            setEmail(data.getString("email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //prova
         return data != null; //Stato connessione
     }
     //retrieve info about user from online API
-    public void downloadInfoUser() {
+    /*public void downloadInfoUser() {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
         //richiede json di risposta
-        String result = dl.getHTMLThread();
+        String result = dl.getHTML();
         //estrapola dati
         JSONObject data;
         try {
@@ -100,12 +118,12 @@ public class User implements Parcelable {
             setRole("role");
             setLastName(data.getString("lastName"));
             setFirstName(data.getString("firstName"));
-            setSchool("Scuola"/*data.getString("school")*/);
+            setSchool("Scuola");
             setEmail(data.getString("email"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
     //permette il salvataggio online del risultato di una domanda. Ritorna il campo message JSON
     public String saveScore(ArrayList<String[]> scores) {
         //da ArrayList a JSON
@@ -113,8 +131,8 @@ public class User implements Parcelable {
         Log.i("JSON SCORE=>", jsonA.toString());
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_score, params +
-                                                        "access_token=" + this.access_token +
-                                                        "&scores=" + jsonA.toString()
+                "access_token=" + this.access_token +
+                "&scores=" + jsonA.toString()
         );
         //invoco api
         String result = dl.getHTMLThread();

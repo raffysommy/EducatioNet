@@ -27,6 +27,18 @@
         android:layout_alignEnd="@+id/imageView4"
         android:layout_alignParentBottom="true" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/loadBar"
+        android:visibility="invisible"
+        android:progress="50"
+        android:max="100"
+        android:indeterminate="false"
+        android:layout_alignTop="@+id/loginButton"
+        android:layout_centerHorizontal="true" />
+
     <ImageView
         android:layout_width="500dp"
         android:layout_height="250dp"

@@ -106,4 +106,18 @@
 
     </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/loadBar"
+        android:visibility="invisible"
+        android:progress="50"
+        android:max="100"
+        android:indeterminate="false"
+        android:layout_below="@+id/scrollView"
+        android:layout_alignRight="@+id/imageView5"
+        android:layout_alignEnd="@+id/imageView5"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignStart="@+id/imageView5" />
 </RelativeLayout>

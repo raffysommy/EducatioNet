@@ -3,8 +3,10 @@ package com.example.raffaele.testapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+    //subclass for login execution
+    private class LoginTask extends AsyncTask<User, Integer, User> {
+        protected User doInBackground(User... utenti) {
+            User u=utenti[0];
+            boolean connected = u.connetti();
+            if(connected)
+                return u;
+            return null;
+        }
+
+        protected void onPostExecute(User utente) {
+
+            if(utente!=null){
+                Intent i = new Intent(getApplicationContext(), Welcome_student.class);
+                Bundle extras=new Bundle();
+                //passo l'oggetto user alla prossima view
+                extras.putParcelable("utentec", utente);
+                i.putExtras(extras);
+                findViewById(R.id.loadBar).setVisibility(View.INVISIBLE);
+                startActivity(i);
+            }
+            else {
+                findViewById(R.id.loadBar).setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +86,10 @@ public class MainActivity extends ActionBarActivity {
 
         String user = ((EditText) findViewById(R.id.username)).getText().toString();
         String pass = ((EditText) findViewById(R.id.password)).getText().toString();
-
+        findViewById(R.id.loadBar).setVisibility(View.VISIBLE);
         User utente = new User(user, pass);
+        new LoginTask().execute(utente);
+        /*
         boolean connected = utente.connetti();
         if (!connected) {//user non presente
             Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
@@ -69,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
             extras.putParcelable("utentec",utente);
             i.putExtras(extras);
             startActivity(i);
-        }
+        }*/
 
     }
 
@@ -78,3 +109,4 @@ public class MainActivity extends ActionBarActivity {
         startActivity(i);
     }
 }
+

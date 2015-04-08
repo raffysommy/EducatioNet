@@ -24,7 +24,10 @@
         android:onClick="Register"
         android:background="@drawable/ic_signup"
         android:layout_gravity="center_horizontal"
-        android:layout_alignTop="@+id/loginButton" />
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/loginButton" />
 
     <ImageButton
         android:layout_width="100dip"
@@ -33,9 +36,9 @@
         android:onClick="onStartClick"
         android:background="@drawable/ic_login"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignRight="@+id/linearLayout4"
+        android:layout_alignEnd="@+id/linearLayout4" />
 
     <ImageView
         android:layout_width="200dp"
@@ -45,15 +48,31 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/loadBar"
+        android:visibility="invisible"
+        android:progress="50"
+        android:max="100"
+        android:indeterminate="false"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_centerHorizontal="true" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout4"
-        android:layout_above="@+id/RegisterButton"
+        android:baselineAligned="false"
+        android:measureWithLargestChild="false"
+        android:longClickable="false"
+        android:nestedScrollingEnabled="false"
+        android:clickable="false"
+        android:layout_below="@+id/imageView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView2">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,8 +111,7 @@
             android:text="rootroot"
             android:layout_above="@+id/loginButton"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="91dp" />
+            android:layout_alignParentStart="true" />
 
     </LinearLayout>
 
