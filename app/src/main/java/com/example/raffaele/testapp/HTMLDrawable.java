@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 /***
  * Created by Raffaele on 20/03/2015.
  */
+@Deprecated
 public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
     private String site = "";
     public HTMLDrawable(String site) {

@@ -7,24 +7,36 @@ import java.util.Collections;
  * Created by Raffaele on 11/03/2015.
  */
 public class Query {
+
+    private String id_domanda;
     private String Domanda;
     private String Risposta;
     private ArrayList<String> Risposteprob;
 
-    public Query(String domanda,String risposta,String rispostaf1,String rispostaf2,String rispostaf3){
+    public Query(String id_domanda,String domanda,String risposta,String rispostaf1,String rispostaf2,String rispostaf3){
+        setid_domanda(id_domanda);
         setDomanda(domanda);
         setRisposta(risposta);
         setRispostarray(rispostaf1, rispostaf2, rispostaf3, risposta);
     }
     public Query(){
+        setid_domanda("");
         setDomanda("");
         setRisposta("");
         setRispostarray("","","","");
     }
     public Query(Query q){
+       setid_domanda(q.getid_domanda());
        setDomanda(q.getDomanda());
        setRisposta(q.getRisposta());
        setRisposteprob(q.getRisposteprob());
+    }
+    public String getid_domanda() {
+        return id_domanda;
+    }
+
+    public void setid_domanda(String id_domanda) {
+        this.id_domanda = id_domanda;
     }
 
     public String getDomanda() {

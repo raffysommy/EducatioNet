@@ -39,7 +39,6 @@ public class Question extends ActionBarActivity {
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
     private ArrayList<String[]> scores = new ArrayList<String[]>();
-    private String id_question;
     private DrawableManager draw=new DrawableManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class Question extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
     }
-    public void opendialog(View view, final String quesiton){
+    public void opendialog(View view, final String id_question){
         LayoutInflater linf = LayoutInflater.from(this);
         final View inflator =linf.inflate(R.layout.dialog_help_wanted,null);
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
@@ -82,7 +81,7 @@ public class Question extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String question = editText.getText().toString().trim();
-                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + quesiton + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
+                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + question + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
                         if (Boolean.valueOf(htmlRequest.getHTMLThread())) {
                             Toast.makeText(getApplicationContext(), "Question Sent", Toast.LENGTH_SHORT).show();
                         } else {
@@ -112,8 +111,8 @@ public class Question extends ActionBarActivity {
         try {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
-            Domand = new Query(jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
-            id_question = jo.getString("id");
+            Domand = new Query(jo.getString("id"),jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
+            Log.d("id",Domanda.getid_domanda());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,7 +151,7 @@ public class Question extends ActionBarActivity {
             this.Score_click(this.getCurrentFocus());
         }
         if (id==R.id.help_wanted){
-            opendialog(this.getCurrentFocus(),id_question);
+            opendialog(this.getCurrentFocus(),Domanda.getid_domanda());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -162,11 +161,6 @@ public class Question extends ActionBarActivity {
         TextView view = (TextView) findViewById(R.id.domanda);
         view.setText(this.Domanda.getDomanda());
         this.Domanda.RandomQuery();
-        ArrayList<Integer> index = new ArrayList<>(); //TODO:Ma l'array list integer serve davvero?
-        index.add(0);
-        index.add(1);
-        index.add(2);
-        index.add(3);
         CambiaBottone(R.id.Risposta1, Domanda.getRisposteprob().get(0));
         CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
         CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
@@ -207,9 +201,10 @@ public class Question extends ActionBarActivity {
     }
 
     public void onClick1(View v) {
-        String result = "";
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
         if (checkrisposta(v.getId())) {
-            result = "1";
+            scores.add(new String[]{Domanda.getid_domanda(), "1", dateFormat.format(date)});
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
@@ -218,7 +213,7 @@ public class Question extends ActionBarActivity {
             score.setText(correct.toString());
 
         } else {//risposta sbagliata
-            result = "0";
+            scores.add(new String[]{Domanda.getid_domanda(),"0", dateFormat.format(date)});
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
@@ -227,10 +222,6 @@ public class Question extends ActionBarActivity {
             score.setText(wrong.toString());
 
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        scores.add(new String[]{id_question, result, dateFormat.format(date)});
-
     }
 
     public void Score_click(View v){
@@ -246,4 +237,3 @@ public class Question extends ActionBarActivity {
 
 
 }
-//Todo: Va aggiunta una gestione degli argomenti per domanda in modo da poter incrementare anche delle variabili score definite per argomento  (forse è il caso di inserire un oggetto Score in arguments)
