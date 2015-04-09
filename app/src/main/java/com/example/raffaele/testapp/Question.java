@@ -38,7 +38,7 @@ public class Question extends ActionBarActivity {
     private final String apiDoc="https://mysql-raffysommy-1.c9.io/api/teacher/help";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
-    private ArrayList<String[]> scores = new ArrayList<String[]>();
+    private ScoreManager scoreManager=null;
     private DrawableManager draw=new DrawableManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class Question extends ActionBarActivity {
             this.argumentList=extras.getParcelable("argomenti");
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
-        cambiatestobottoni();
+        cambiadomanda();
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
             @Override
@@ -61,14 +61,16 @@ public class Question extends ActionBarActivity {
             }
         });
         //svuoto precedente lista di scores
-        scores = new ArrayList<String[]>();
+        scoreManager=new ScoreManager(token,this.getApplication());
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_question); //al cambiamento della configurazione dello schermo refresha il layout
+        impostabottoni();
     }
+
     public void opendialog(View view, final String id_question){
         LayoutInflater linf = LayoutInflater.from(this);
         final View inflator =linf.inflate(R.layout.dialog_help_wanted,null);
@@ -121,10 +123,8 @@ public class Question extends ActionBarActivity {
 
     //premo back? mostro risultato salvataggio nell'activity chiamata
     public void onBackPressed() {
-        String msg = utente.saveScore(scores);
-        Intent i = new Intent();
-        i.putExtra("msg", msg);
-        setResult(Activity.RESULT_OK, i);
+        this.scoreManager.saveScore();
+        setResult(Activity.RESULT_OK);
         finish();
     }
 
@@ -155,12 +155,14 @@ public class Question extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void cambiatestobottoni() {
+    public void cambiadomanda(){
         this.Domanda = new Query(request_data());
         TextView view = (TextView) findViewById(R.id.domanda);
         view.setText(this.Domanda.getDomanda());
         this.Domanda.RandomQuery();
+        impostabottoni();
+    }
+    public void impostabottoni() {
         CambiaBottone(R.id.Risposta1, Domanda.getRisposteprob().get(0));
         CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
         CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
@@ -201,19 +203,17 @@ public class Question extends ActionBarActivity {
     }
 
     public void onClick1(View v) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        if (checkrisposta(v.getId())) {
-            scores.add(new String[]{Domanda.getid_domanda(), "1", dateFormat.format(date)});
+        Boolean esito=checkrisposta(v.getId());
+        scoreManager.addScore(Domanda.getid_domanda(),esito);
+        if (esito) {
             Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
-            cambiatestobottoni();//cambia il testo dei bottoni con una nuova domanda
+            cambiadomanda();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             score=(TextView) findViewById(R.id.CorrectCnt);
             correct.increment();
             score.setText(correct.toString());
 
         } else {//risposta sbagliata
-            scores.add(new String[]{Domanda.getid_domanda(),"0", dateFormat.format(date)});
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);

@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.TwoStatePreference;
 import android.support.v7.app.ActionBarActivity;
@@ -53,8 +54,13 @@ public class Score_page extends ActionBarActivity {
         }
 
     }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_argument__page); //al cambiamento della configurazione dello schermo refresha il layout
 
-
+    }
 
 
     @Override

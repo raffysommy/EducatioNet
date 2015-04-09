@@ -72,11 +72,6 @@ public class Welcome_student extends ActionBarActivity {
             //se premo su back dal questionario, mostro risultato del salvataggio scores
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {
-                    Bundle b = data.getExtras();
-                    if (b != null) {
-                        String msg = (String) b.getSerializable("msg");
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                    }
                 }
             } break;
         }
