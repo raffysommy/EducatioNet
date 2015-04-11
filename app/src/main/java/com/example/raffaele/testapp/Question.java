@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -51,6 +52,7 @@ public class Question extends ActionBarActivity {
             this.argumentList=extras.getParcelable("argomenti");
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
+        ((TextView) findViewById(R.id.domanda)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
         cambiadomanda();
         //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
         findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
@@ -68,6 +70,7 @@ public class Question extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_question); //al cambiamento della configurazione dello schermo refresha il layout
+        ((TextView) findViewById(R.id.domanda)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
         impostabottoni();
     }
 
@@ -157,12 +160,12 @@ public class Question extends ActionBarActivity {
     }
     public void cambiadomanda(){
         this.Domanda = new Query(request_data());
-        TextView view = (TextView) findViewById(R.id.domanda);
-        view.setText(this.Domanda.getDomanda());
         this.Domanda.RandomQuery();
         impostabottoni();
     }
     public void impostabottoni() {
+        TextView view = (TextView) findViewById(R.id.domanda);
+        view.setText(this.Domanda.getDomanda());
         CambiaBottone(R.id.Risposta1, Domanda.getRisposteprob().get(0));
         CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
         CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
