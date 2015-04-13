@@ -17,27 +17,54 @@ import java.util.Date;
 /**
  * Created by Raffaele trasferendo il  codice di Paolo on 08/04/2015.
  */
+
+/**
+ * Gestore degli Score
+ * @Autor Paolo ft Raffaele
+ * @version 0.2
+ */
 public class ScoreManager extends ArrayList<String[]> {
 
     private  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final String url_score = "https://mysql-raffysommy-1.c9.io/api/question/score";
     private final String access_token;
     private final Application application;
+
+    /**
+     * @param access_token Token di accesso al backend
+     * @param application Applicazione chiamante
+     */
     public ScoreManager(String access_token, Application application){
         super();
         this.access_token = access_token;
         this.application = application;
     }
 
+    /**
+     * Aggiunge lo score all'array
+     * @param id_domanda Domanda
+     * @param result Risultato utente
+     */
     public void addScore(String id_domanda,Boolean result){
         Date date = new Date();
         this.add(new String[]{id_domanda, String.valueOf(result), dateFormat.format(date)});
     }
+
+    /**
+     * Salva lo score
+     */
     public void saveScore() {
         new ScoreSender().execute(this);
     }
-    private class  ScoreSender extends AsyncTask<ScoreManager,Void,String>{
 
+    /**
+     * Classe di salvataggio dello score
+     */
+    private class  ScoreSender extends AsyncTask<ScoreManager,Void,String>{
+        /**
+         * @param params Arraylist di Score
+         * @return Esito operazione
+         */
         @Override
         protected String doInBackground(ScoreManager... params) {
             //da ArrayList a JSON
@@ -57,6 +84,10 @@ public class ScoreManager extends ArrayList<String[]> {
             }
             return msg;
         }
+
+        /**
+         * @param msg Messaggio da mostrare
+         */
         protected void onPostExecute(String msg) {
             Toast.makeText(application.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }

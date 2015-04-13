@@ -15,6 +15,12 @@ import java.util.ArrayList;
  * e un metodo per ritornare i dati in stringa in formato json
  * Implementa inoltre un metodo di richiesta argomenti al database
  */
+
+/**
+ * Array di Argomenti
+ * @version 0.1
+ * @author Raffaele
+ */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
     private final String url = "http://mysql-raffysommy-1.c9.io/api/topic/list"; //Url di connessione al backend
     public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){ //creatore dell'argumentlist
@@ -27,16 +33,33 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
             return new ArgumentList[0];
         }
     };
+
+    /**
+     * Costruttore vuoto
+     */
     public ArgumentList(){
         super();
     } //costruttore vuoto
+
+    /**
+     * @param in Parcel di ingresso
+     */
     private ArgumentList(Parcel in ){
         readFromParcel(in);
     } //Costruttore della parceable
+
+    /**
+     * @param in Parcel di ingresso
+     */
     public void readFromParcel(Parcel in){
         this.clear(); //pulisce la lista per sicurezza
         in.readList(this,ArgumentList.class.getClassLoader()); //riempie la lista con gli elementi dal parceable
     }
+
+    /**
+     * Richiesta lista argomenti al backend
+     * @param token Token di autenticazione al backend
+     */
     public void getHttp(String token){ //metodo di richiesta al backend
         this.clear(); //pulisce la lista per sicurezza
         HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token); //richiesta con token
@@ -53,6 +76,11 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
             e.printStackTrace(); //in caso di eccezzioni stampo la lista chiamate (Le eccezzioni json non sono recuperabili ma non impediscono il continuo dell'esecuzione)
         }
     }
+
+    /**
+     * Metodo toString
+     * @return Json encoded string output
+     */
     public String toString(){ //metodo toString con output stile JSON
       StringBuilder responseText = new StringBuilder();
       responseText.append("[");
@@ -66,6 +94,10 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
       }
       return responseText.deleteCharAt(responseText.length()-1).append("]").toString();
     }
+
+    /**
+     * @return Torna un ArrayList di soli elementi selezionati
+     */
     public ArrayList<String> toArrayString(){ //metodo per restituire un arraylist di stringhe degli elementi selezionati
         ArrayList<String> arrayList=new ArrayList<String>();
         if(this.size()==0){
@@ -77,11 +109,19 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
         }
         return arrayList;
     }
+
+    /**
+     * @return 0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * @param dest Parcel di destinazione
+     * @param flags (optional)
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(this);

@@ -14,6 +14,12 @@ import java.util.concurrent.ExecutionException;
 /***
  * Created by Raffaele on 20/03/2015.
  */
+
+/**
+ * Vecchi gestore delle immagini
+ * @author Raffaele
+ * @deprecated
+ */
 @Deprecated
 public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
     private String site = "";

@@ -18,21 +18,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Gestore della pagina Topics
+ * @author Raffaele
+ * @version 0.1
+ */
 
 public class Argument_Page extends Activity {
     private ArgumentList argumentList=new ArgumentList();
-    private MyCustomAdapter dataAdapter = null;
+    private AdapterCustom dataAdapter = null;
     private User utente;
     private String token = "";
+
+    /**
+     * Creatore dell'interfaccia
+     * @param savedInstanceState Istanza precedente
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_argument__page);
+        setContentView(R.layout.activity_argument__page); //imposta il layout
         Intent i = getIntent();
         Bundle extras=i.getExtras();
-        this.utente = extras.getParcelable("utentec");
+        this.utente = extras.getParcelable("utentec"); //riceve da welcome l'utente
         this.token = this.utente.getAccessToken();
-        if(extras.getParcelable("argomenti")!=null){
+        if(extras.getParcelable("argomenti")!=null){ //se welcome non passa gli argomenti li chiede via http al backend
             this.argumentList=extras.getParcelable("argomenti");
         }
         else{
@@ -40,15 +50,23 @@ public class Argument_Page extends Activity {
         }
         displayListView(); //genera lista
     }
+
+    /**
+     * @param newConfig Configurazione schermo
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
     }
+
+    /**
+     * Classe che mostra la lista di argomenti
+     */
     private void displayListView() {
         //Array list di Argomenti
-        dataAdapter = new MyCustomAdapter(this, R.layout.row, argumentList);
+        dataAdapter = new AdapterCustom(this, R.layout.row, argumentList);
         ListView listView = (ListView) findViewById(R.id.listView1);
         // Assegna l'adapter alla listview
         listView.setAdapter(dataAdapter);
@@ -62,37 +80,55 @@ public class Argument_Page extends Activity {
 
     }
 
-    private class MyCustomAdapter extends ArrayAdapter<Argument> {
+    /**
+     * Classe privata interna che gestisce la lista arggomenti
+     */
+    private class AdapterCustom extends ArrayAdapter<Argument> {
         private ArgumentList argumentList = null;
 
-        public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Argument> argsList) {
-            super(context, textViewResourceId, argsList);
+        /**
+         * @param context Context dell'applicazione
+         * @param textViewResourceId Id della textview
+         * @param argsList Lista di argomenti
+         */
+        public AdapterCustom(Context context, int textViewResourceId, ArrayList<Argument> argsList) {
+            super(context, textViewResourceId, argsList); //costruttore della superclasse
             argumentList = new ArgumentList();
-            argumentList.addAll(argsList);
+            argumentList.addAll(argsList); //aggiunta degli elementi alla arraylist
         }
 
-        private class ViewHolder {
+        /**
+         * Classe privata per la gestione della tupla testo checkbox
+         */
+        private class TextCheck {
             TextView code;
             CheckBox name;
         }
 
+        /**
+         *
+         * @param position Posizione attuale dell'elemento selezionato
+         * @param convertView Vista convertita
+         * @param parent Vista originaria
+         * @return Vista di ritorno
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            ViewHolder holder;
-            Log.v("ConvertView", String.valueOf(position));
+            TextCheck textcheck;
+            Log.v("Converter View", String.valueOf(position));
 
             if (convertView == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
-                convertView = vi.inflate(R.layout.row, null);
+                convertView = vi.inflate(R.layout.row, null); //inserisce le tuple checkbox testo come righe
 
-                holder = new ViewHolder();
-                holder.code = (TextView) convertView.findViewById(R.id.textView1);
-                holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
-                convertView.setTag(holder);
+                textcheck = new TextCheck();
+                textcheck.code = (TextView) convertView.findViewById(R.id.textView1);
+                textcheck.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
+                convertView.setTag(textcheck);
 
-                holder.name.setOnClickListener(new OnClickListener() {
+                textcheck.name.setOnClickListener(new OnClickListener() { //controlla la selezione dell'argomento
                     public void onClick(View v) {
                         CheckBox cb = (CheckBox) v;
                         Argument arg = (Argument) cb.getTag();
@@ -100,13 +136,13 @@ public class Argument_Page extends Activity {
                     }
                 });
             } else {
-                holder = (ViewHolder) convertView.getTag();
+                textcheck = (TextCheck) convertView.getTag();
             }
-            Argument arg = argumentList.get(position);
-            holder.code.setText(" (" + arg.getArg() + ")");
-            holder.name.setText(arg.getDescr());
-            holder.name.setChecked(arg.isCheck());
-            holder.name.setTag(arg);
+            Argument arg = argumentList.get(position); //ritorna la posizione dell' elemento selezionato
+            textcheck.code.setText(" (" + arg.getArg() + ")");
+            textcheck.name.setText(arg.getDescr());
+            textcheck.name.setChecked(arg.isCheck());
+            textcheck.name.setTag(arg);
 
             return convertView;
 
@@ -114,6 +150,10 @@ public class Argument_Page extends Activity {
 
     }
 
+    /**
+     * Ritorna all'activity welcome ripassando la lista di argomenti
+     * @param v Vista attuale
+     */
     public void toWelcome(View v) {
         argumentList = dataAdapter.argumentList;
         Intent resultintent = new Intent();

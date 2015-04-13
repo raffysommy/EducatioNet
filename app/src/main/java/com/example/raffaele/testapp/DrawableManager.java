@@ -25,6 +25,7 @@ package com.example.raffaele.testapp;
  * E' stato inoltre sistemato l'algoritmo di caching in memoria delle immagini usante il SoftReference
  */
 
+
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -45,7 +46,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
+/**
+ * Gestore delle immagini
+ * @version 0.2
+ * @author Raffaele
+ */
 public class DrawableManager {
 	private static final String LOG_TAG = "DrawableManager";
     protected final Map<String, SoftReference<Drawable>> drawableMap;
@@ -55,6 +60,10 @@ public class DrawableManager {
         return _instance;
     }
 
+    /**
+     * @param drawable Immagine in ingresso
+     * @param view Oggetto su cui impostare l'immagine come background
+     */
     private void setByObject(Drawable drawable,Object view){ //setta il drawable al seconda del tipo e delle api.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (view instanceof Button) {
@@ -83,10 +92,17 @@ public class DrawableManager {
         return;
     }
 
+    /**
+     * Costruttore che crea la mappa di immagini
+     */
     protected DrawableManager() {
         drawableMap = new HashMap<String, SoftReference<Drawable>>();
     }
 
+    /**
+     * @param urlString Url dell' immagine
+     * @param view Vista attuale
+     */
     public void setDrawable(final String urlString, final Object view){
         if(drawableMap.containsKey(urlString)){ //se l'oggetto è in cache ed è valido lo setto altrimenti rimuovo l'url
             Drawable drawable = drawableMap.get(urlString).get();
@@ -105,8 +121,9 @@ public class DrawableManager {
         }; //Handler di settaggio
 
         final Thread thread = new Thread(){
-            //			final int id = millis;
-//			final HttpClient client = httpClient;
+            /**
+             * Metodo di esecuzione richiesta http,conversione ad immagine e inserimento in cache map
+             */
             @Override
             public void run() { //dichiaro il thread
 				Log.i(LOG_TAG, urlString);

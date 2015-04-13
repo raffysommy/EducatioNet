@@ -24,7 +24,6 @@ public class Score_page extends ActionBarActivity {
         Intent i = getIntent();
         Bundle extras=null;
         if(i.hasExtra("Correct")&&i.hasExtra("Wrong")) {
-            //TODO: Qui si dovrebbe inserire il getscore totale se il campo passato non è null (ciru ce pienz tu :) )
             extras=i.getExtras();
             this.correct = extras.getParcelable("Correct");
             this.wrong = extras.getParcelable("Wrong");
