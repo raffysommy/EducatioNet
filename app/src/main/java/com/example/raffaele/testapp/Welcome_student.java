@@ -90,6 +90,13 @@ public class Welcome_student extends ActionBarActivity {
 
     }
 
+    //richiamo view Question
+    public void toChat(View v) {
+        Intent i = new Intent(this, ChatPage.class);
+        startActivity(i);
+
+    }
+
 
     public void toArgument(View v) {
         Intent i = new Intent(this, Argument_Page.class);

@@ -51,6 +51,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ChatPage"
+            android:label="@string/title_activity_chat_page"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="com.example.raffaele.testapp.ChatPage" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Argument_Page"
             android:label="@string/title_activity_argument__page"
             android:configChanges="keyboardHidden|orientation|screenSize">

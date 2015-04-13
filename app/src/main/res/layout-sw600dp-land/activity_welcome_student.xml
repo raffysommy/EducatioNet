@@ -109,5 +109,16 @@
         android:layout_alignTop="@+id/QuestionButton"
         android:layout_alignLeft="@+id/imageView"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To the ChatCave!"
+        android:id="@+id/chat_button"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/ScoreButton"
+        android:layout_alignEnd="@+id/ScoreButton"
+        android:onClick="toChat"
+        android:textSize="25dp" />
+
 
 </RelativeLayout>
