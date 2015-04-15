@@ -34,7 +34,7 @@ public class Score_page extends ActionBarActivity {
         }
         else if(i.hasExtra("utentec")){
             extras=i.getExtras();
-            ((TextView) findViewById(R.id.ScoreName)).setText("Global Score");
+            //((TextView) findViewById(R.id.ScoreName)).setText("Global Score");
             user=extras.getParcelable("utentec");
             String result="";
             JSONObject jo;
