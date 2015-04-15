@@ -78,7 +78,7 @@
 
     <ImageButton
         android:layout_width="200dip"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:id="@+id/QuestionButton"
         android:background="@drawable/ic_questions"
         android:nestedScrollingEnabled="false"
@@ -88,25 +88,24 @@
         android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tableLayout" />
-
-    <ImageButton
-        android:layout_width="150dip"
-        android:layout_height="60dip"
-        android:id="@+id/ScoreButton"
-        android:background="@drawable/ic_score"
-        android:onClick="onScore"
-        android:layout_alignTop="@+id/tableLayout"
-        android:layout_alignRight="@+id/QuestionButton"
-        android:layout_alignEnd="@+id/QuestionButton" />
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="200dip"
-        android:layout_height="60dip"
+        android:layout_height="100dip"
+        android:id="@+id/ScoreButton"
+        android:background="@drawable/score"
+        android:onClick="onScore"
+        android:layout_alignTop="@+id/tableLayout"
+        android:layout_alignLeft="@+id/QuestionButton"
+        android:layout_alignStart="@+id/QuestionButton" />
+
+    <ImageButton
+        android:layout_width="200dip"
+        android:layout_height="100dp"
         android:id="@+id/button2"
         android:onClick="toArgument"
-        android:background="@drawable/ic_topic"
+        android:background="@drawable/topic"
         android:layout_alignBottom="@+id/QuestionButton"
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView" />

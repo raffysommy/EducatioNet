@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:minHeight="350dp"
     android:minWidth="350dp"
-    tools:context=".welcome_student">
+    tools:context=".welcome_student"
+    android:id="@+id/layoutwelcome">
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -78,33 +79,36 @@
 
     <ImageButton
         android:layout_width="200dip"
-        android:layout_height="60dip"
+        android:layout_height="90dip"
         android:id="@+id/QuestionButton"
         android:background="@drawable/ic_questions"
         android:nestedScrollingEnabled="false"
         android:onClick="toQuestion"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageButton
-        android:layout_width="130dip"
-        android:layout_height="60dip"
-        android:id="@+id/ScoreButton"
-        android:background="@drawable/ic_score"
-        android:onClick="onScore"
-        android:layout_alignTop="@+id/tableLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/ScoreButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp" />
 
     <ImageButton
         android:layout_width="200dip"
-        android:layout_height="60dip"
+        android:layout_height="100dip"
+        android:id="@+id/ScoreButton"
+        android:background="@drawable/score"
+        android:onClick="onScore"
+        android:layout_below="@+id/tableLayout"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="100dip"
+        android:layout_height="100dip"
         android:id="@+id/button2"
         android:onClick="toArgument"
-        android:background="@drawable/ic_topic"
-        android:layout_marginBottom="145dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/topic"
+        android:layout_marginTop="68dp"
+        android:layout_below="@+id/QuestionButton"
+        android:layout_alignRight="@+id/QuestionButton"
+        android:layout_alignEnd="@+id/QuestionButton"
+        android:layout_alignLeft="@+id/QuestionButton"
+        android:layout_alignStart="@+id/QuestionButton" />
 
 
 </RelativeLayout>
