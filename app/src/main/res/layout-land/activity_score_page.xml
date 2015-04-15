@@ -1,136 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.raffaele.testapp.Score_page"
     android:id="@+id/Score_page"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
+
+    <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/ScoreName"
+        android:layout_gravity="center_horizontal"
+        android:textSize="100dp"
+        android:textColor="#ff1528ff"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/score1" />
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+        android:id="@+id/Correct"
+        android:layout_below="@+id/ScoreName">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/ScoreName"
-            android:layout_gravity="center_horizontal"
-            android:textSize="100dp"
-            android:textColor="#ff1528ff"
-            android:textStyle="bold"
-            android:background="@drawable/score1"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/CorrectA"
-                android:background="@drawable/ans_corr"
-                android:textSize="30dp"
-                android:layout_marginTop="90dp" />
+            android:textSize="30dp"
+            android:src="@drawable/ans_corr"
+            android:scaleType="fitCenter"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/CorrectC"
-                android:textSize="50dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="#ff32ff03"
+                android:layout_marginRight="220dp"
+                android:layout_marginEnd="234dp"
                 android:layout_alignBottom="@+id/CorrectA"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginLeft="850dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginBottom="82dp" />
+                android:layout_marginBottom="14dp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/Wrong"
+            android:layout_below="@+id/Correct">
             <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/WrongA"
-                android:background="@drawable/ans_wrong"
                 android:textSize="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentTop="true"></RelativeLayout>
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ans_wrong" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/WrongC"
-                android:textSize="50dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="#ffff0713"
-                android:layout_marginRight="364dp"
-                android:layout_marginEnd="364dp"
-                android:layout_alignParentBottom="false"
+                android:layout_marginRight="257dp"
+                android:layout_marginEnd="257dp"
+                android:layout_alignBottom="@+id/WrongA"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="190dp" />
+                android:layout_marginBottom="5dp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/Rel">
+            android:layout_height="85dp"
+            android:id="@+id/Answeredlay"
+            android:layout_below="@+id/Wrong">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="70dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/Answered"
-                android:background="@drawable/ans_ques"
                 android:textSize="30dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ans_ques"
+                android:scaleType="fitCenter"
+                android:layout_alignParentTop="true" />
 
 
 
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
                 android:id="@+id/AnsweredC"
-                android:textSize="60dp"
+                android:textSize="20dp"
                 android:textColor="#fffbfff4"
                 android:textStyle="bold"
+                android:layout_marginRight="208dp"
+                android:layout_marginEnd="208dp"
+                android:layout_alignBottom="@+id/Answered"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginLeft="930dp"
-                android:layout_marginTop="100dp" />
+                android:layout_marginBottom="25dp" />
 
         </RelativeLayout>
-    </LinearLayout>
 
 
 
 
 </RelativeLayout>
-</ScrollView>

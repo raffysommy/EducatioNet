@@ -58,7 +58,8 @@ public class Argument_Page extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_argument__page); //al cambiamento della configurazione dello schermo refresha il layout
+        displayListView();
     }
 
     /**
