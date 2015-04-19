@@ -214,7 +214,7 @@ public class Question extends ActionBarActivity {
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             score=(TextView) findViewById(R.id.CorrectCnt);
             correct.increment();
-            score.setText(correct.toString());
+            score.setText(correct.StringValue());
 
         } else {//risposta sbagliata
             Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
@@ -222,7 +222,7 @@ public class Question extends ActionBarActivity {
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
             score=(TextView) findViewById(R.id.WrongCnt);
             wrong.increment();
-            score.setText(wrong.toString());
+            score.setText(wrong.StringValue());
 
         }
     }

@@ -18,6 +18,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+Classe realizzata per gestire la registrazione di nuovi utenti, I dati prelevati dalla pagina verrano poi inviati al
+database tramite un oggetto JsonArray.
+*/
 
 public class Register_form extends ActionBarActivity {
     EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt,schoolTxt;
@@ -28,6 +32,7 @@ public class Register_form extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_form);
+        //Dichiarazione delle TextView da cui verrano prelevati i dati
         nomeTxt =(EditText) findViewById(R.id.Reg_name);
         cognomeTxt =(EditText) findViewById(R.id.Reg_surname);
         emailTxt=(EditText) findViewById(R.id.Reg_email);
@@ -43,7 +48,9 @@ public class Register_form extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_register_form); //al cambiamento della configurazione dello schermo refresha il layout
     }
+    //funzione da applicare sul pulsante "Submit"
     public void Registrazione(View v) {
+        //controllo che i campi necessari siano riempiti
         if (nomeTxt.getText().toString().equals("") || cognomeTxt.getText().toString().equals("") || emailTxt.getText().toString().equals("") || userTxt.getText().toString().equals("") ||
                 passTxt.getText().toString().equals("")|| schoolTxt.getText().toString().equals("")){
             Toast.makeText(getApplicationContext(), "Ops! Some mandatory fields are empty!", Toast.LENGTH_LONG).show();
@@ -65,9 +72,10 @@ public class Register_form extends ActionBarActivity {
             emailTxt.setText("");
         }
     }
-
+        //metodo di tipo JSONArray per la registrazione dell'utente: Viene creato un array JSON con i dati del nuovo iscritto
+        //da pasare al database
     public JSONArray registerUser(User x){
-        // Si crea array con input da tastiera
+        // Si riempie l'array con gli input da tastiera
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("name", x.getFirstName()));
         params.add(new BasicNameValuePair("surname", x.getLastName()));
@@ -75,11 +83,9 @@ public class Register_form extends ActionBarActivity {
         params.add(new BasicNameValuePair("user", x.getUsername()));
         params.add(new BasicNameValuePair("email", x.getEmail()));
         params.add(new BasicNameValuePair("password", x.getPassword()));
-
-
         // creazione JSONArray
         JSONArray json = new JSONArray(params);
-        // controllo che tutto vada bene
+        // controllo che l'array sia stato riempito tramite una stampa del log
         Log.d("append", params.toString());
         //return json
         return json;

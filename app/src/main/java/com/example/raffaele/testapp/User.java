@@ -1,5 +1,7 @@
 package com.example.raffaele.testapp;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -9,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.content.Intent.getIntent;
 
 /**
  * Created by paolo on 15/03/2015.
