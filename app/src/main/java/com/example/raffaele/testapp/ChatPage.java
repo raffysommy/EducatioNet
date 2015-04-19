@@ -25,7 +25,6 @@ public class ChatPage extends ActionBarActivity {
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.chat_activity); //al cambiamento della configurazione dello schermo refresha il layout
     }

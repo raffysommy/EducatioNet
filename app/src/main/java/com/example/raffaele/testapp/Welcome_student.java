@@ -32,7 +32,6 @@ public class Welcome_student extends ActionBarActivity {
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_welcome_student); //al cambiamento della configurazione dello schermo refresha il layout
     }

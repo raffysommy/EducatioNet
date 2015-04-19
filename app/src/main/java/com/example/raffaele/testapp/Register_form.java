@@ -43,8 +43,7 @@ public class Register_form extends ActionBarActivity {
 
     }
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
+    public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_register_form); //al cambiamento della configurazione dello schermo refresha il layout
     }

@@ -60,7 +60,6 @@ public class Question extends ActionBarActivity {
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_question); //al cambiamento della configurazione dello schermo refresha il layout
         ((TextView) findViewById(R.id.domanda)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));

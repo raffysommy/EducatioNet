@@ -9,6 +9,7 @@ package com.example.raffaele.testapp;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.params.CoreProtocolPNames;
@@ -59,7 +60,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         try {
             cox = (HttpURLConnection) url.openConnection();
         } catch (IOException e2) {
-            // TODO Auto-generated catch block
+            Log.e("HTMLRequest","Error on openConnection");
             e2.printStackTrace();
         }
         assert cox != null;
@@ -71,7 +72,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         try {
             cox.setRequestMethod( "POST" );
         } catch (ProtocolException e1) {
-            // TODO Auto-generated catch block
+            Log.e("HTMLRequest","Error on setRequestMethod");
             e1.printStackTrace();
         }
         cox.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
@@ -81,7 +82,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         try( DataOutputStream wr = new DataOutputStream( cox.getOutputStream())) {
             wr.write( postData );
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
+            Log.e("HTMLRequest","Error on writeData");
             e1.printStackTrace();
         }
 
@@ -89,7 +90,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         try {
             br = new BufferedReader(new InputStreamReader(cox.getInputStream()));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            Log.e("HTMLRequest","Error on BufferedReader");
             e.printStackTrace();
             return null;
         }
@@ -100,7 +101,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
                 htmlfile+= temp;
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            Log.e("HTMLRequest","Error on readLine");
             e.printStackTrace();
         }
 
@@ -111,7 +112,11 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         String rit= "";
         try {
             rit= this.execute().get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException e) {
+            Log.e("HTMLRequest","Execution Interrupted");
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Log.e("HTMLRequest","Execution Exception");
             e.printStackTrace();
         }
         return rit;
@@ -119,7 +124,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... params) {//Il metodo doinbackground specifica le azioni da eseguire in un Thread separato
         return getHTML();
-        //Todo Bisogna implementare il metodo onPostExecute per ora il thread principale aspetta il secondario.
+
     }
 
 }
