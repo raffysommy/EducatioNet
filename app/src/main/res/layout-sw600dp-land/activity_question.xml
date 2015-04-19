@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.raffaele.testapp.Question"
-    android:id="@+id/textbox1"
+    android:id="@+id/questionlayout"
     android:nestedScrollingEnabled="false">
 
     <ImageView
@@ -10,8 +10,8 @@
         android:layout_height="fill_parent"
         android:id="@+id/imageView6"
         android:layout_alignParentTop="true"
-        android:src="@drawable/questionbg"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/landscapequestion" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -45,7 +45,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:height="60dp" />
+            android:height="60dp"
+            android:onClick="Help_click" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -60,7 +61,8 @@
                 android:textSize="35dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:background="@drawable/risposta1bg" />
 
             <Button
                 android:layout_width="130dp"
@@ -72,7 +74,8 @@
                 android:textSize="35dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/risposta2bg" />
 
             <Button
                 android:layout_width="130dp"
@@ -84,7 +87,8 @@
                 android:textSize="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:background="@drawable/risposta3bg" />
 
             <Button
                 android:layout_width="130dp"
@@ -96,7 +100,8 @@
                 android:textSize="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/risposta4bg" />
         </RelativeLayout>
 
     </LinearLayout>

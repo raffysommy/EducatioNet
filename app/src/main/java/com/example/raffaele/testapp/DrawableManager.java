@@ -63,8 +63,10 @@ public class DrawableManager {
     /**
      * @param drawable Immagine in ingresso
      * @param view Oggetto su cui impostare l'immagine come background
+     * @throws UnknownTypeException Tipo Sconosciuto
      */
-    private void setByObject(Drawable drawable,Object view){ //setta il drawable al seconda del tipo e delle api.
+
+    protected static void setByObject(Drawable drawable, Object view) throws UnknownTypeException { //setta il drawable al seconda del tipo e delle api.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (view instanceof Button) {
                 ((Button) view).setBackground(drawable);
@@ -89,7 +91,7 @@ public class DrawableManager {
             ((ImageView)view).setImageDrawable(drawable);
             return;
         }
-        return;
+        throw new UnknownTypeException(view.getClass().getName());
     }
 
     /**
@@ -107,7 +109,11 @@ public class DrawableManager {
         if(drawableMap.containsKey(urlString)){ //se l'oggetto è in cache ed è valido lo setto altrimenti rimuovo l'url
             Drawable drawable = drawableMap.get(urlString).get();
             if(drawable != null){
-                setByObject(drawable,view);
+                try {
+                    setByObject(drawable,view);
+                } catch (UnknownTypeException e) {
+                    e.logException();
+                }
                 Log.i(LOG_TAG,"Image Cached");
                 return;
             }
@@ -116,7 +122,11 @@ public class DrawableManager {
         final HttpClient httpClient = new DefaultHttpClient(); //instanzio httpclient
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
-                if(msg.obj != null) setByObject((Drawable) msg.obj,view);
+                if(msg.obj != null) try {
+                    setByObject((Drawable) msg.obj,view);
+                } catch (UnknownTypeException e) {
+                    e.logException();
+                }
             }
         }; //Handler di settaggio
 

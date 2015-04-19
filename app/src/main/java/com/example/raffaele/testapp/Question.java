@@ -3,34 +3,29 @@ package com.example.raffaele.testapp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.json.JSONArray;
+
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import static android.view.View.OnClickListener;
 
 public class Question extends ActionBarActivity {
@@ -41,6 +36,11 @@ public class Question extends ActionBarActivity {
     private ArgumentList argumentList=new ArgumentList();
     private ScoreManager scoreManager=null;
     private DrawableManager draw=new DrawableManager();
+    private BackgroundHandler backgroundHandler=new BackgroundHandler(R.drawable.risposta1bg,R.drawable.risposta2bg,R.drawable.risposta3bg, R.drawable.risposta4bg);
+    private View toastview=null;
+    private Score correct = new Score();
+    private Score wrong = new Score();
+    private TextView score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +52,9 @@ public class Question extends ActionBarActivity {
             this.argumentList=extras.getParcelable("argomenti");
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
+        toastview=getLayoutInflater().inflate(R.layout.toastlayout, (ViewGroup)findViewById(R.id.toastlayout));
         ((TextView) findViewById(R.id.domanda)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/FunnyKid.ttf"));
         cambiadomanda();
-        //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
-        findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic=math"));
-                startActivity(browserIntent);
-            }
-        });
         //svuoto precedente lista di scores
         scoreManager=new ScoreManager(token,this.getApplication());
     }
@@ -105,9 +98,7 @@ public class Question extends ActionBarActivity {
     }
     private Query Domanda;
     //variabili per contatori Score
-    private Score correct = new Score();
-    private Score wrong = new Score();
-    private TextView score;
+
     public Query request_data() {
         Query Domand = new Query();
         String result;
@@ -116,8 +107,9 @@ public class Question extends ActionBarActivity {
         try {
             result = htmlRequest.getHTMLThread();
             jo = new JSONObject(result);
-            Domand = new Query(jo.getString("id"),jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"));
-            Log.d("id",Domanda.getid_domanda());
+            Domand = new Query(jo.getString("id"),jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"),jo.getString("topic"));
+            Log.d("id",jo.getString("id"));
+            Log.d("topic",jo.getString("topic"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,7 +180,7 @@ public class Question extends ActionBarActivity {
             button.setText(" ");
             button.setHint(risp);
         } else {
-            button.setBackgroundResource(R.drawable.abc_btn_check_to_on_mtrl_000);
+            backgroundHandler.setbg(button);
             button.setText(risp);
         }
     }
@@ -209,7 +201,7 @@ public class Question extends ActionBarActivity {
         Boolean esito=checkrisposta(v.getId());
         scoreManager.addScore(Domanda.getid_domanda(),esito);
         if (esito) {
-            Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
+            ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastright);
             cambiadomanda();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             score=(TextView) findViewById(R.id.CorrectCnt);
@@ -217,14 +209,18 @@ public class Question extends ActionBarActivity {
             score.setText(correct.toString());
 
         } else {//risposta sbagliata
-            Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+            ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastwrong);
             //ha bisogno di suggerimenti
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
             score=(TextView) findViewById(R.id.WrongCnt);
             wrong.increment();
             score.setText(wrong.toString());
-
         }
+        Toast t=new Toast(this);
+        t.setDuration(Toast.LENGTH_SHORT);
+        t.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        t.setView(toastview);
+        t.show();
     }
 
     public void Score_click(View v){
@@ -235,8 +231,9 @@ public class Question extends ActionBarActivity {
         i.putExtras(extras);
        startActivity(i);
       }
-
-
-
-
+    public void Help_click(View v){
+        //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic="+Domanda.getTopic()));
+        startActivity(browserIntent);
+   }
 }

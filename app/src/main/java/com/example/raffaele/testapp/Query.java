@@ -18,7 +18,7 @@ public class Query {
     private String Domanda;
     private String Risposta;
     private ArrayList<String> Risposteprob;
-
+    private String topic;
     /**
      * Costruttore della classe Domanda
      * @param id_domanda Id della domanda
@@ -27,12 +27,14 @@ public class Query {
      * @param rispostaf1 Risposta errata 1
      * @param rispostaf2 Risposta errata 2
      * @param rispostaf3 Risposta errata 3
+     * @param topic Argomento
      */
-    public Query(final String id_domanda,final String domanda,final String risposta,final String rispostaf1,final String rispostaf2,final String rispostaf3){
+    public Query(final String id_domanda,final String domanda,final String risposta,final String rispostaf1,final String rispostaf2,final String rispostaf3,final String topic){
         setid_domanda(id_domanda);
         setDomanda(domanda);
         setRisposta(risposta);
         setRispostarray(rispostaf1, rispostaf2, rispostaf3, risposta);
+        setTopic(topic);
     }
 
     /**
@@ -54,6 +56,7 @@ public class Query {
        setDomanda(q.getDomanda());
        setRisposta(q.getRisposta());
        setRisposteprob(q.getRisposteprob());
+       setTopic(q.getTopic());
     }
 
     /**
@@ -126,6 +129,20 @@ public class Query {
         rispostepro.add(c);
         rispostepro.add(d);
         setRisposteprob(rispostepro);
+    }
+
+    /**
+     * @return Argomento Domanda
+     */
+    public String getTopic() {
+        return topic;
+    }
+
+    /**
+     * @param topic Argomento
+     */
+    private void setTopic(String topic) {
+        this.topic = topic;
     }
 
     /**
