@@ -201,12 +201,12 @@ public class Question extends ActionBarActivity {
         Boolean esito=checkrisposta(v.getId());
         scoreManager.addScore(Domanda.getid_domanda(),esito);
         if (esito) {
-            ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastright);
+            Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
             cambiadomanda();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             score=(TextView) findViewById(R.id.CorrectCnt);
             correct.increment();
-            score.setText(correct.toString());
+            score.setText(correct.StringValue());
 
         } else {//risposta sbagliata
             ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastwrong);
@@ -214,7 +214,8 @@ public class Question extends ActionBarActivity {
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
             score=(TextView) findViewById(R.id.WrongCnt);
             wrong.increment();
-            score.setText(wrong.toString());
+            score.setText(wrong.StringValue());
+
         }
         Toast t=new Toast(this);
         t.setDuration(Toast.LENGTH_SHORT);
