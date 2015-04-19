@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import static android.view.View.OnClickListener;
+
 
 public class Question extends ActionBarActivity {
     private String token = "";
@@ -201,7 +201,7 @@ public class Question extends ActionBarActivity {
         Boolean esito=checkrisposta(v.getId());
         scoreManager.addScore(Domanda.getid_domanda(),esito);
         if (esito) {
-            Toast.makeText(getApplicationContext(), "Right :)", Toast.LENGTH_SHORT).show();
+            ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastright);
             cambiadomanda();//cambia il testo dei bottoni con una nuova domanda
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
             score=(TextView) findViewById(R.id.CorrectCnt);
