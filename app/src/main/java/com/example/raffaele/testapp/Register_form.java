@@ -18,14 +18,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-Classe realizzata per gestire la registrazione di nuovi utenti, I dati prelevati dalla pagina verrano poi inviati al
-database tramite un oggetto JsonArray.
-*/
+
+/**
+ * Gestore della pagina di registrazione
+ * @author Antonio
+ * @version 0.1
+ */
 
 public class Register_form extends ActionBarActivity {
     EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt,schoolTxt;
-    Button Rbtn;
     User x = null;
 
     @Override
@@ -47,7 +48,11 @@ public class Register_form extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_register_form); //al cambiamento della configurazione dello schermo refresha il layout
     }
-    //funzione da applicare sul pulsante "Submit"
+
+    /**
+     *
+     * @param v Vista in cui si andrà dopo l'aver premuto il pulsante "Submit"
+     */
     public void Registrazione(View v) {
         //controllo che i campi necessari siano riempiti
         if (nomeTxt.getText().toString().equals("") || cognomeTxt.getText().toString().equals("") || emailTxt.getText().toString().equals("") || userTxt.getText().toString().equals("") ||
@@ -71,8 +76,13 @@ public class Register_form extends ActionBarActivity {
             emailTxt.setText("");
         }
     }
-        //metodo di tipo JSONArray per la registrazione dell'utente: Viene creato un array JSON con i dati del nuovo iscritto
-        //da pasare al database
+
+
+    /**
+     *
+     * @param x Generico Utente al cui interno verranno passati i parametri inseriti da tastiera
+     * @return Ritorna un array JSON il quale al suo interno avrà i dati dell'utente da registrare
+     */
     public JSONArray registerUser(User x){
         // Si riempie l'array con gli input da tastiera
         List<NameValuePair> params = new ArrayList<>();
@@ -86,7 +96,6 @@ public class Register_form extends ActionBarActivity {
         JSONArray json = new JSONArray(params);
         // controllo che l'array sia stato riempito tramite una stampa del log
         Log.d("append", params.toString());
-        //return json
         return json;
 
     }

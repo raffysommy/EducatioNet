@@ -3,42 +3,58 @@ package com.example.raffaele.testapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 /***
+ * Classe degli Score
+ * @author Antonio Pizzata
  * Created by Antonio P on 21/03/2015.
- * Classe realizzata per la gestione degli Scores. Comprende metodi che permettono la gestione dei risultati ottenuti
- * ed implementa la classe "Parcelable" che consente di passare i dati da una activity all'altra dell'app.
+ * @version 0.1
  */
 
 
 public class Score implements Parcelable {
-    //dichiaro un tipo privato per la mia classe
-    private int value;
+     private int value;
 
-
-
-    //costruttore inizializzato a 0
+    /**
+     * Costruttore inzializzato a zerpo
+     */
     public Score() {
         setValue(0);
     }
-    //getter
+
+    /**
+     *
+     * @return Ritorna il valore
+     */
     public int getValue() {
         return value;
     }
-    //seter
+
+    /**
+     *
+     * @param value imposta il valore
+     */
     private void setValue(int value) {
         this.value = value;
     }
 
-    //incrementa di 1 il valore dell'oggetto
+    /**
+     * incrementa il valore dello Score di uno
+     */
     public void increment() {
         setValue(getValue() + 1);
     }
 
-    //metodo che mi ritorna il valore di tipo stringa dell'oggetto value
+    /**
+     *
+     * @return Ritorna il tipo stringa del tipo intero
+     */
     public String StringValue() {
         return String.valueOf(value);
     }
 
-    // Inizializzazione dell'oggetto Parcel
+    /**
+     *
+     * @param parcel viene inizializzato con il valore value
+     */
     public Score(Parcel parcel){
         this.value= parcel.readInt();
     }
@@ -47,19 +63,29 @@ public class Score implements Parcelable {
     public int describeContents(){
         return 0;
     }
-    //metodo che mi permette di scrivere in un oggetto di tipo Parcel a cui è associato un flag
+
+    /**
+     *
+     * @param dest viene scritto il valore value di tipo Int
+     * @param flags descrizione del valore
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
        dest.writeInt(value);
     }
 
-    //costruttore del Parcel
+
     public final static Parcelable.Creator CREATOR = new Parcelable.Creator() {
         @Override
         public Score createFromParcel(Parcel in) {
             return new Score(in);
         }
-        //Array che contiene tutti gli oggetti che devo passare tramite i metodi di Parcel
+
+        /**
+         *
+         * @param size cardinalità dell'array
+         * @return ritorna l'array di tipo Score e di cardinalità size
+         */
         @Override
         public Score[] newArray(int size) {
             return new Score[size];
