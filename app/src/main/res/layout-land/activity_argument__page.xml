@@ -14,12 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"></LinearLayout>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm"
-        android:id="@+id/Confirm"
-        android:layout_gravity="right"
-        android:onClick="toWelcome" />
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageButton3"
+        android:background="@drawable/confirm" />
 </LinearLayout>
