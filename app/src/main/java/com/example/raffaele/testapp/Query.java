@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /***
- * Created by Raffaele on 11/03/2015.
+ * Created by K12-Dev-Team on 11/03/2015.
  */
 
 /**
  * Classe delle Domande
- * @author Raffaele
+ * @author K12-Dev-Team
  * @version 0.1
  */
 public class Query {
@@ -43,6 +43,12 @@ public class Query {
     public Query(){
         setid_domanda("");
         setDomanda("");
+        setRisposta("");
+        setRispostarray("","","","");
+    }
+    public Query(String domanda){
+        setid_domanda("");
+        setDomanda(domanda);
         setRisposta("");
         setRispostarray("","","","");
     }

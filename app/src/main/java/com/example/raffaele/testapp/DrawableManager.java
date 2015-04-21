@@ -1,25 +1,7 @@
 package com.example.raffaele.testapp;
 
 /**
- * Created by Raffaele on 05/04/2015.
- * This is a rewrite of  android-drawable-manager library provided under MIT licence,so this is provided under MIT licence
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Created by K12-Dev-Team on 05/04/2015.
  * Questa classe implementa la gestione del download delle immagini in thread indipendenti.
  * E' stata estesa per permettere di gestire non solo le imageview ma anche bottoni e imagebutton
  * E' stato inoltre sistemato l'algoritmo di caching in memoria delle immagini usante il SoftReference
@@ -38,6 +20,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -49,12 +33,13 @@ import android.widget.ImageView;
 /**
  * Gestore delle immagini
  * @version 0.2
- * @author Raffaele
+ * @author K12-Dev-Team
  */
+@SuppressWarnings("deprecation")
 public class DrawableManager {
 	private static final String LOG_TAG = "DrawableManager";
-    protected final Map<String, SoftReference<Drawable>> drawableMap;
-    protected static DrawableManager _instance;
+    private final Map<String, SoftReference<Drawable>> drawableMap;
+    private static DrawableManager _instance;
     public static DrawableManager getInstance(){
         if(_instance == null) _instance = new DrawableManager();
         return _instance;
@@ -66,7 +51,7 @@ public class DrawableManager {
      * @throws UnknownTypeException Tipo Sconosciuto
      */
 
-    protected static void setByObject(Drawable drawable, Object view) throws UnknownTypeException { //setta il drawable al seconda del tipo e delle api.
+    private static void setByObject(Drawable drawable, Object view) throws UnknownTypeException { //setta il drawable al seconda del tipo e delle api.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (view instanceof Button) {
                 ((Button) view).setBackground(drawable);
@@ -98,7 +83,7 @@ public class DrawableManager {
      * Costruttore che crea la mappa di immagini
      */
     protected DrawableManager() {
-        drawableMap = new HashMap<String, SoftReference<Drawable>>();
+        drawableMap = new HashMap<>();
     }
 
     /**
@@ -123,7 +108,7 @@ public class DrawableManager {
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
                 if(msg.obj != null) try {
-                    setByObject((Drawable) msg.obj,view);
+                     setByObject((Drawable) msg.obj,view);
                 } catch (UnknownTypeException e) {
                     e.logException();
                 }
@@ -155,6 +140,7 @@ public class DrawableManager {
                     Drawable drawable = null;
                     try {
                         drawable = Drawable.createFromStream(entity.getContent(), "www");
+                        //noinspection unchecked
                         drawableMap.put(urlString,new SoftReference(drawable));
                     } catch (IOException e) {
                         handler.sendEmptyMessage(NORM_PRIORITY);

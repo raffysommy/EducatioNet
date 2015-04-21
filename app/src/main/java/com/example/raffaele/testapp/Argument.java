@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 /***
  * Classe degli Argomenti
- * @author Raffaele
- * Created by Raffaele on 25/03/2015.
+ * @author K12-Dev-Team
+ * Created by K12-Dev-Team on 25/03/2015.
  * @version 0.1
  */
 public class Argument implements Parcelable { //Classe argomento che implementa l'estensione parceable
@@ -115,7 +115,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
      *
      * @param in Riceve in ingresso un argomento parcellizzato e imposta i membri privati con i parametri del parcel attraverso il readString
      */
-    public void readFromParcel(Parcel in) {
+    void readFromParcel(Parcel in) {
         setArg(in.readString());
         setDescr(in.readString());
         setCheck(in.readByte() != 0);

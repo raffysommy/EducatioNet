@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 /***
  * Classe degli Score
- * @author Antonio Pizzata
- * Created by Antonio P on 21/03/2015.
+ * @author K12-Dev-Team
+ * Created by K12-Dev-Team on 21/03/2015.
  * @version 0.1
  */
 
@@ -55,7 +55,7 @@ public class Score implements Parcelable {
      *
      * @param parcel viene inizializzato con il valore value
      */
-    public Score(Parcel parcel){
+    private Score(Parcel parcel){
         this.value= parcel.readInt();
     }
 

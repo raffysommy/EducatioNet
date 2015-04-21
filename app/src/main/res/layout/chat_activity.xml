@@ -8,22 +8,10 @@
     tools:context=".welcome_student"
     android:id="@+id/e">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout">
-
-
-
-
-    </TableLayout>
-
     <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/chatView"
-        android:layout_below="@+id/tableLayout"
-        android:layout_toRightOf="@+id/tableLayout"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,29 +26,29 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 /**
- * @author Raffaele,Paolo
+ * @author K12-Dev-Team
  * @version 0.4
  * @see android.app.Activity
  */
 
 public class Question extends ActionBarActivity {
     private String token = "";
-    private final String api = "https://mysql-raffysommy-1.c9.io/api/question/random";
-    private final String apiDoc="https://mysql-raffysommy-1.c9.io/api/teacher/help";
+    private final String api = "https://k12-api.mybluemix.net/api/question/random";
+    private final String apiDoc="https://k12-api.mybluemix.net/api/teacher/help";
     private User utente;
     private ArgumentList argumentList=new ArgumentList();
     private ScoreManager scoreManager=null;
-    private DrawableManager draw=new DrawableManager();
-    private BackgroundHandler backgroundHandler=new BackgroundHandler(R.drawable.risposta1bg,R.drawable.risposta2bg,R.drawable.risposta3bg, R.drawable.risposta4bg);
+    private final DrawableManager draw=new DrawableManager();
+    private final BackgroundHandler backgroundHandler=new BackgroundHandler(R.drawable.risposta1bg,R.drawable.risposta2bg,R.drawable.risposta3bg, R.drawable.risposta4bg);
     private View toastview=null;
     private Query Domanda;
     //variabili per contatori Score
-    private Score correct = new Score();
-    private Score wrong = new Score();
+    private final Score correct = new Score();
+    private final Score wrong = new Score();
     private TextView score;
     private FontManager KGPrimary=null;
     private FontManager Funnykid;
-
+    private Toast t;
     /**
      * Costruttore dell'interfaccia
      * @param savedInstanceState Instanza salvata
@@ -86,6 +85,22 @@ public class Question extends ActionBarActivity {
         impostabottoni();
     }
 
+    /**
+     * Metodo di destroy per annullare le toast dopo che l'application è stata chiusa
+     */
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(t!=null){t.cancel();}
+        System.gc();
+    }
+    /**
+     * Metodo di destroy per annullare le toast dopo che l'activity è stata chiusa
+     */
+    public void onDetachedFromWindow(){
+        super.onDetachedFromWindow();
+        if(t!=null){t.cancel();}
+    }
     /**
      * Imposta i font al testo
      */
@@ -148,10 +163,14 @@ public class Question extends ActionBarActivity {
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
-            jo = new JSONObject(result);
-            Domand = new Query(jo.getString("id"),jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"),jo.getString("topic"));
-            Log.d("id",jo.getString("id"));
-            Log.d("topic",jo.getString("topic"));
+            if(result!=null) {
+                jo = new JSONObject(result);
+                Domand = new Query(jo.getString("id"), jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"), jo.getString("topic"));
+                Log.d("id", jo.getString("id"));
+                Log.d("topic", jo.getString("topic"));
+            } else{
+                Domand=new Query("There are not more question");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,11 +211,6 @@ public class Question extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if(id==R.id.CorrectCnt||id==R.id.CorrectImg||id==R.id.WrongCnt||id==R.id.WrongImg){ //Open score page
             this.Score_click(this.getCurrentFocus());
         }
@@ -234,6 +248,9 @@ public class Question extends ActionBarActivity {
      */
     public void CambiaBottone(int buttonid, String risp) {
         Button button = (Button) findViewById(buttonid);
+        if(risp.isEmpty()){
+            button.setEnabled(false);
+        }
         String regtex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         RegEx regex = new RegEx(regtex);
         if (regex.Match(risp)) { //se è un immagine la imposto come background attraverso il Drawablemanager
@@ -287,15 +304,18 @@ public class Question extends ActionBarActivity {
             score.setText(wrong.StringValue());
 
         }
-        Toast t=new Toast(this);
+
+        if(t!=null){t.cancel();}
+        t = new Toast(this);
         t.setDuration(Toast.LENGTH_SHORT);
         t.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         t.setView(toastview);
         t.show(); //imposto e mostro la toast
     }
+
     /**
      * Handler dello score click
-     * @param v
+     * @param v vista v
      */
     public void Score_click(View v){
         Intent i = new Intent("com.example.raffaele.testapp.Score_page");

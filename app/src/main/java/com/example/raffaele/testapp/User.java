@@ -1,30 +1,26 @@
 package com.example.raffaele.testapp;
-
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-import static android.content.Intent.getIntent;
 
 /**
- * Created by paolo on 15/03/2015.
+ * Created by K12-Dev-Team on 15/03/2015.
  * Classe per gestire l' utente. conterrà metodi e proprietà utili per velocizzare l'accesso e l'uso
  * delle funzionalità online. comunica spesso con il backend su bluemix dell' applicazione k12.
  * INPUT: username, password
+ * @author K12-Dev-Team
+ * @version 0.5
  */
 public class User implements Parcelable {
     //costanti della classe
     private final String url_login = "https://k12-api.mybluemix.net/oauth";
     private final String url_info = "https://k12-api.mybluemix.net/api/user/info";
-    private final String url_score = "https://mysql-raffysommy-1.c9.io/api/question/score";
+    private final String url_score = "https://k12-api.mybluemix.net/api/question/score";
     private final String params = "grant_type=password&client_id=student-app&client_secret=student-app-pw&";
     //membri privati
 
@@ -39,7 +35,9 @@ public class User implements Parcelable {
     private String access_token = "";
     private String refresh_token = "";
     private String ID = "";
-
+    /**
+     * Creatore del parcel
+     */
     public static final Creator<User> CREATOR= new Creator<User>(){
         @Override
         public User createFromParcel(Parcel in){
@@ -52,11 +50,26 @@ public class User implements Parcelable {
         }
     };
 
-
+    /**
+     * Costruttore di Login
+     * @param user Username
+     * @param pass Password
+     */
     public User(String user, String pass) {
         this.username = user;
         this.password = pass;
     }
+
+    /**
+     * Costruttore di registrazione
+     * @param user Username
+     * @param pass Password
+     * @param n Nome
+     * @param c Cognome
+     * @param s Scuola
+     * @param e Email
+     * @param a Indirizzo
+     */
     public User (String user, String pass, String n, String c, String s, String e, String a){
         this.username= user;
         this.password= pass;
@@ -66,10 +79,19 @@ public class User implements Parcelable {
         this.email= e;
         this.address=a;
     }
+
+    /**
+     * Metodo di Parcel
+     * @param in Parcel
+     */
     private User(Parcel in){
         readFromParcel(in);
     }
 
+    /**
+     * Metodo di connessione al backend
+     * @return esito
+     */
     public boolean connetti() {
         //richiesta http al backend
         HTMLRequest dl = new HTMLRequest(url_login, params + "username="+this.username+"&password="+this.password);
@@ -108,27 +130,12 @@ public class User implements Parcelable {
         //prova
         return data != null; //Stato connessione
     }
-    //retrieve info about user from online API
-    /*public void downloadInfoUser() {
-        //richiesta http al backend
-        HTMLRequest dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
-        //richiede json di risposta
-        String result = dl.getHTML();
-        //estrapola dati
-        JSONObject data;
-        try {
-            data = new JSONObject(result);
-            setID("id");
-            setRole("role");
-            setLastName(data.getString("lastName"));
-            setFirstName(data.getString("firstName"));
-            setSchool("Scuola");
-            setEmail(data.getString("email"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-    //permette il salvataggio online del risultato di una domanda. Ritorna il campo message JSON
+
+    /**
+     * Metodo che permette il salvataggio online del risultato di una domanda.
+     * @param scores Array di Score
+     * @return Messaggio di esito
+     */
     public String saveScore(ArrayList<String[]> scores) {
         //da ArrayList a JSON
         JSONArray jsonA = new JSONArray(scores);

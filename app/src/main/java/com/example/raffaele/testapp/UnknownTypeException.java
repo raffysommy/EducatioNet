@@ -2,11 +2,12 @@ package com.example.raffaele.testapp;
 
 import android.util.Log;
 /**
- * Created by Raffaele on 19/04/2015.
+ *
+ * Created by K12-Dev-Team on 19/04/2015.
  */
 /**
  * Classe delle eccezzioni per Drawable Manager
- * @author Raffaele
+ * @author K12-Dev-Team
  */
 public class UnknownTypeException extends Exception {
     private final String typename;

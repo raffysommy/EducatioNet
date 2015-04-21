@@ -7,27 +7,31 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Gestore della pagina di registrazione
- * @author Antonio
+ * @author K12-Dev-Team
  * @version 0.1
  */
 
 public class Register_form extends ActionBarActivity {
-    EditText nomeTxt,cognomeTxt,emailTxt,indirizzoTxt,userTxt,passTxt,schoolTxt;
-    User x = null;
+    private EditText nomeTxt;
+    private EditText cognomeTxt;
+    private EditText emailTxt;
+    private EditText indirizzoTxt;
+    private EditText userTxt;
+    private EditText passTxt;
+    private EditText schoolTxt;
+    private User x = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +116,6 @@ public class Register_form extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

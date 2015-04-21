@@ -3,9 +3,8 @@ package com.example.raffaele.testapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.TwoStatePreference;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,14 +14,14 @@ import org.json.JSONObject;
 
 public class Score_page extends ActionBarActivity {
     private Score correct, wrong;
-    private final String api = "https://mysql-raffysommy-1.c9.io/api/score/total";
+    private final String api = "https://k12-api.mybluemix.net/api/scores/total";
     private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_page);
         Intent i = getIntent();
-        Bundle extras=null;
+        Bundle extras;
         if(i.hasExtra("Correct")&&i.hasExtra("Wrong")) {
             extras=i.getExtras();
             this.correct = extras.getParcelable("Correct");
@@ -36,9 +35,9 @@ public class Score_page extends ActionBarActivity {
             extras=i.getExtras();
             //((TextView) findViewById(R.id.ScoreName)).setText("Global Score");
             user=extras.getParcelable("utentec");
-            String result="";
+            String result;
             JSONObject jo;
-            HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.user.getAccessToken() +"&user="+this.user.getUsername());
+            HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.user.getAccessToken());
             result=htmlRequest.getHTMLThread();
             if(result==null)
                    return;
@@ -74,11 +73,6 @@ public class Score_page extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

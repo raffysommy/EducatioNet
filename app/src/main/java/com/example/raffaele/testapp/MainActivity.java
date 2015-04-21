@@ -13,9 +13,24 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Login Main Activity
+ * @author K12-Dev-Team
+ * @version 0.9
+ * @see android.app.Activity
+ */
 public class MainActivity extends ActionBarActivity {
     //subclass for login execution
+
+    /**
+     * Classe interna di gestione della login asincrona
+     */
     private class LoginTask extends AsyncTask<User, Integer, User> {
+        /**
+         * Metood eseguito in background
+         * @param utenti Utente
+         * @return Utente connesso con campi compilati
+         */
         protected User doInBackground(User... utenti) {
             User u=utenti[0];
             boolean connected = u.connetti();
@@ -24,6 +39,10 @@ public class MainActivity extends ActionBarActivity {
             return null;
         }
 
+        /**
+         * Login finito
+         * @param utente Utente loggato
+         */
         protected void onPostExecute(User utente) {
 
             if(utente!=null){
@@ -44,21 +63,36 @@ public class MainActivity extends ActionBarActivity {
     private SharedPreferences loginSharedPreferences;
     private SharedPreferences.Editor EditorSharedPreference;
     private Boolean saveLogin;
+
+    /**
+     * Costruttore della vista
+     * @param savedInstanceState Parametri salvati
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setloginsaved();
     }
+
+    /**
+     * Imposta le credenziali
+     */
     private void setloginsaved(){
         loginSharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         EditorSharedPreference = loginSharedPreferences.edit();
-        if(loginSharedPreferences.getBoolean("saveLogin",false)==true){
+        if(loginSharedPreferences.getBoolean("saveLogin", false)){
             ((EditText)findViewById(R.id.username)).setText(loginSharedPreferences.getString("username", ""));
             ((EditText)findViewById(R.id.password)).setText(loginSharedPreferences.getString("password", ""));
             ((CheckBox)findViewById(R.id.rememberme)).setChecked(true);
         }
+        EditorSharedPreference.commit();
     }
+
+    /**
+     * Handler della rotazione
+     * @param newConfig nuova orientazione
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -79,15 +113,13 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Metodo eseguito alla pressione del pulsante login
+     * @param v vista attuale
+     */
     public void onStartClick(View v) {
 
         String user = ((EditText) findViewById(R.id.username)).getText().toString();
@@ -105,21 +137,12 @@ public class MainActivity extends ActionBarActivity {
         findViewById(R.id.loadBar).setVisibility(View.VISIBLE);
         User utente = new User(user, pass);
         new LoginTask().execute(utente);
-        /*
-        boolean connected = utente.connetti();
-        if (!connected) {//user non presente
-            Toast.makeText(getApplicationContext(), "Credenziali non valide", Toast.LENGTH_SHORT).show();
-        } else {//login effettuato, schermata successiva
-            Intent i = new Intent(this, Welcome_student.class);
-            Bundle extras=new Bundle();
-            //passo l'oggetto user alla prossima view
-            extras.putParcelable("utentec",utente);
-            i.putExtras(extras);
-            startActivity(i);
-        }*/
-
     }
 
+    /**
+     * Metodo di passaggio alla register page
+     * @param v vista attuale
+     */
     public void Register(View v) {
         Intent i = new Intent(this,Register_form.class);
         startActivity(i);

@@ -1,6 +1,6 @@
 package com.example.raffaele.testapp;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,12 +8,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 /**
- * Created by paolo on 12/04/2015.
+ * Classe della chat
+ * @author  K12-Dev-Team
+ * Created by K12-Dev-Team on 12/04/2015.
  */
+
 public class ChatPage extends ActionBarActivity {
+
+    /**
+     * Costruttore della pagina
+     * @param savedInstanceState Istanza salvata
+     */
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +29,13 @@ public class ChatPage extends ActionBarActivity {
         WebView myWebView = (WebView) findViewById(R.id.chatView);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebChromeClient(new WebChromeClient());
-        myWebView.loadUrl("http://chat-k12-paovalle.c9.io/?id=root");
+        myWebView.loadUrl("http://k12-chat.mybluemix.net/?id=root");
     }
+
+    /**
+     * Handler della rotazione
+     * @param newConfig nuova orientazione
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -41,12 +54,6 @@ public class ChatPage extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

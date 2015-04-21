@@ -4,12 +4,12 @@ package com.example.raffaele.testapp;
 import java.util.regex.Pattern;
 
 /***
- * Created by Raffaele on 20/03/2015.
+ * Created by K12-Dev-Team on 20/03/2015.
  */
 
 /**
  * Gestore di espressioni regolari
- * @author Raffaele
+ * @author K12-Dev-Team
  * @version 0.1
  */
 public class RegEx {

@@ -20,7 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Gestore della pagina Topics
- * @author Raffaele
+ * @author K12-Dev-Team
  * @version 0.1
  */
 

@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /***
- * Created by Raffaele on 25/03/2015.
+ * Created by K12-Dev-Team on 25/03/2015.
  * Questa classe estende l'arraylist di argument implementando l'interfaccia parceable
  * e un metodo per ritornare i dati in stringa in formato json
  * Implementa inoltre un metodo di richiesta argomenti al database
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 /**
  * Array di Argomenti
  * @version 0.1
- * @author Raffaele
+ * @author K12-Dev-Team
  */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
-    private final String url = "http://mysql-raffysommy-1.c9.io/api/topic/list"; //Url di connessione al backend
+    private final String url = "https://k12-api.mybluemix.net/api/topic/list"; //Url di connessione al backend
     public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){ //creatore dell'argumentlist
         @Override
         public ArgumentList createFromParcel(Parcel in){
@@ -90,7 +90,7 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
 
       for(int i=0;i<this.size();i++) {
           if(this.get(i).isCheck())
-                responseText.append("\""+this.get(i).getArg()).append("\",");
+                responseText.append("\"").append(this.get(i).getArg()).append("\",");
       }
       return responseText.deleteCharAt(responseText.length()-1).append("]").toString();
     }
@@ -99,7 +99,7 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
      * @return Torna un ArrayList di soli elementi selezionati
      */
     public ArrayList<String> toArrayString(){ //metodo per restituire un arraylist di stringhe degli elementi selezionati
-        ArrayList<String> arrayList=new ArrayList<String>();
+        ArrayList<String> arrayList=new ArrayList<>();
         if(this.size()==0){
             return null;
         }

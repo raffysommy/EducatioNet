@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by Raffaele on 19/04/2015.
+ *
+ * Created by K12-Dev-Team on 19/04/2015.
  */
 
 /**
  * Classe di gestione del background dei bottoni di question
- *@author Raffaele
+ *@author K12-Dev-Team
  */
 public class BackgroundHandler extends ArrayList<Integer> {
     private Integer count = 0;

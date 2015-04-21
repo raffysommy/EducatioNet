@@ -10,12 +10,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+/**
+ * Classe di Benvenuto Utente
+ * @author K12-Dev-Team
+ * @see android.app.Activity
+ * @version 0.4
+ */
 public class Welcome_student extends ActionBarActivity {
     private User utente;
     private ArgumentList argumentList;
-    static final int MSG_SAVE_SCORE_REQUEST = 1;
+    private static final int MSG_SAVE_SCORE_REQUEST = 1;
+
+    /**
+     * Creatore della vista
+     * @param savedInstanceState Parametri salvati
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,16 +34,19 @@ public class Welcome_student extends ActionBarActivity {
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
-        //imposto valori di nome,cognome e scuola in view
-        ((TextView)findViewById(R.id.first_name)).setText(utente.getFirstName());
-        ((TextView)findViewById(R.id.last_name)).setText(utente.getLastName());
-        ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
+        impostacampiutente();
         argumentList=null;
     }
+
+    /**
+     * Handler rotazione
+     * @param newConfig nuova orientazione
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_welcome_student); //al cambiamento della configurazione dello schermo refresha il layout
+        impostacampiutente();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,6 +55,15 @@ public class Welcome_student extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * Metodo che imposta i campi nome cognome e scuola
+     */
+    private void impostacampiutente(){
+        //imposto valori di nome,cognome e scuola in view
+        ((TextView)findViewById(R.id.first_name)).setText(utente.getFirstName());
+        ((TextView)findViewById(R.id.last_name)).setText(utente.getLastName());
+        ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -68,11 +90,6 @@ public class Welcome_student extends ActionBarActivity {
                     this.argumentList = extras.getParcelable("argomenti");
                 }
             }   break;
-            //se premo su back dal questionario, mostro risultato del salvataggio scores
-            case (1) : {
-                if (resultCode == Activity.RESULT_OK) {
-                }
-            } break;
         }
     }
     //richiamo view Question

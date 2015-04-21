@@ -1,18 +1,9 @@
 package com.example.raffaele.testapp;
 
-/**
- * Created by paolo on 14/03/2015.
- * INPUT: URL website + parameters
- * OUTPUT: getHTML() method retrieve url html
- * In case of POST data, use the second parameter in the constructor, otherwise use URL to use GET
- */
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.apache.http.HttpVersion;
-import org.apache.http.params.CoreProtocolPNames;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,27 +13,54 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Created by K12-Dev-Team on 14/03/2015.
+ * INPUT: URL website + parameters
+ * OUTPUT: getHTML() method retrieve url html
+ * In case of POST data, use the second parameter in the constructor, otherwise use URL to use GET
+ * @author K12-Dev-Team
+ * @version 0.3
+ * @see android.os.AsyncTask
+ */
 public class HTMLRequest extends AsyncTask<Void,Void,String> {
     private String site = "";
     private String cookie = "";
     private String parameters = "";
 
-
+    /**
+     * Costruttore per richieste POST
+     * @param u Url
+     * @param par Parametri POST
+     */
     public HTMLRequest(String u, String par) {
         site = u;
         parameters = par;
     }
+
+    /**
+     * Costruttore per richieste GET
+     * @param u Url
+     */
     public HTMLRequest(String u){//Costruttuore per il solo passaggio di Url
         site=u;
     }
+
+    /**
+     * Setter dei Cookie
+     * @param str Cookie
+     */
     void setCookie(String str) {
         cookie = str;
     }
     //request html to url
+
+    /**
+     * Classe di richiesta HTML
+     * @return risultato della richiesta
+     */
     @SuppressLint("NewApi")
     String getHTML() {
         URL url;
@@ -108,6 +126,11 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         return htmlfile;
 
     }
+
+    /**
+     * Richiesta HTTP Sincrona con Thread
+     * @return risultato
+     */
     String getHTMLThread(){//metodo che usa i thread
         String rit= "";
         try {
@@ -121,6 +144,12 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
         }
         return rit;
     }
+
+    /**
+     * Metodo doInBackground
+     * @param params Parametri nulli
+     * @return Risultato get
+     */
     @Override
     protected String doInBackground(Void... params) {//Il metodo doinbackground specifica le azioni da eseguire in un Thread separato
         return getHTML();

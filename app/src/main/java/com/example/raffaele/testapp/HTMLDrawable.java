@@ -12,12 +12,12 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 /***
- * Created by Raffaele on 20/03/2015.
+ * Created by K12-Dev-Team on 20/03/2015.
  */
 
 /**
  * Vecchi gestore delle immagini
- * @author Raffaele
+ * @author K12-Dev-Team
  * @deprecated
  */
 @Deprecated
@@ -54,6 +54,7 @@ public class HTMLDrawable extends AsyncTask<Void,Void,Drawable> {
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected Drawable doInBackground(Void... params) {//Il metodo doinbackground specifica le azioni da eseguire in un Thread separato
         return new BitmapDrawable(fetchImage());

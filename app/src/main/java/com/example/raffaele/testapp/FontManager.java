@@ -7,15 +7,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by Ilaria on 19/04/2015.
+ *
+ * Created by K12-Dev-Team on 19/04/2015.
  */
 
 /**
  * Classe per la gestione dei font
- * @author Ilaria
+ * @author K12-Dev-Team
  */
 public class FontManager {
-    Typeface typeface=null;
+    private Typeface typeface=null;
 
     /**
      * Costruttore della classe
