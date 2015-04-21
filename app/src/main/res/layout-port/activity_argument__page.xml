@@ -17,7 +17,9 @@
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="90dp"
-        android:id="@+id/imageButton4"
-        android:background="@drawable/confirm" />
+        android:background="@drawable/confirm"
+        android:id="@+id/Confirm"
+        android:layout_gravity="right"
+        android:onClick="toWelcome" />
 
 </LinearLayout>
