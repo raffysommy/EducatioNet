@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class Score_page extends ActionBarActivity {
     private Score correct, wrong;
-    private final String api = "https://k12-api.mybluemix.net/api/scores/total";
+    private final String api = "https://k12-api.mybluemix.net/api/score/total";
     private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,8 @@ public class Score_page extends ActionBarActivity {
             ((TextView) findViewById(R.id.WrongC)).setText(wrong.StringValue());
             ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
         }
-        else if(i.hasExtra("utentec")){
+        else if(i.hasExtra("utentec")){ //global score
             extras=i.getExtras();
-            //((TextView) findViewById(R.id.ScoreName)).setText("Global Score");
             user=extras.getParcelable("utentec");
             String result;
             JSONObject jo;
@@ -73,7 +72,13 @@ public class Score_page extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if(id==R.id.chat){
+            Intent i = new Intent(this, ChatPage.class);
+            Bundle extras=new Bundle();
+            extras.putParcelable("utentec",this.user);
+            i.putExtras(extras);
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

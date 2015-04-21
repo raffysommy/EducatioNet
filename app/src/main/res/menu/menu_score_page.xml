@@ -2,4 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.raffaele.testapp.Score_page">
+    <item
+        android:title="Chat"
+        android:icon="@mipmap/ic_chat"
+        android:orderInCategory="99"
+        android:id="@+id/chat"
+        app:showAsAction="withText|always"/>
 </menu>

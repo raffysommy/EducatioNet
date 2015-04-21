@@ -1,6 +1,7 @@
 package com.example.raffaele.testapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,8 @@ import android.webkit.WebView;
 
 public class ChatPage extends ActionBarActivity {
 
+    private User user;
+
     /**
      * Costruttore della pagina
      * @param savedInstanceState Istanza salvata
@@ -26,12 +29,18 @@ public class ChatPage extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
+        Intent i = getIntent();
+        Bundle extras;
+        extras=i.getExtras();
+        user=extras.getParcelable("utentec");
+        loadpage();
+    }
+    private void loadpage(){
         WebView myWebView = (WebView) findViewById(R.id.chatView);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebChromeClient(new WebChromeClient());
-        myWebView.loadUrl("http://k12-chat.mybluemix.net/?id=root");
+        myWebView.loadUrl("http://chat-k12-paovalle.c9.io/?id="+user.getFirstName()+user.getLastName());
     }
-
     /**
      * Handler della rotazione
      * @param newConfig nuova orientazione
@@ -40,6 +49,7 @@ public class ChatPage extends ActionBarActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.chat_activity); //al cambiamento della configurazione dello schermo refresha il layout
+        loadpage();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

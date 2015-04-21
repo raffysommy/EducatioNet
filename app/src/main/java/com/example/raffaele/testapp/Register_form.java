@@ -24,6 +24,7 @@ import java.util.List;
  */
 
 public class Register_form extends ActionBarActivity {
+    private final String url_register = "https://k12-api.mybluemix.net/api/user/register";
     private EditText nomeTxt;
     private EditText cognomeTxt;
     private EditText emailTxt;
@@ -59,25 +60,38 @@ public class Register_form extends ActionBarActivity {
      */
     public void Registrazione(View v) {
         //controllo che i campi necessari siano riempiti
+        String regtex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        RegEx regex = new RegEx(regtex);
         if (nomeTxt.getText().toString().equals("") || cognomeTxt.getText().toString().equals("") || emailTxt.getText().toString().equals("") || userTxt.getText().toString().equals("") ||
                 passTxt.getText().toString().equals("")|| schoolTxt.getText().toString().equals("")){
             Toast.makeText(getApplicationContext(), "Ops! Some mandatory fields are empty!", Toast.LENGTH_LONG).show();
         }
         else {
+            //controllo l'email con una regex
+            if(!regex.Match(emailTxt.getText().toString())){
+                Toast.makeText(getApplicationContext(), "Email not valid!", Toast.LENGTH_LONG).show();
+            }
+            else{
             //creazione di un nuovo utente x, con dati inseriti da tastiera
             x = new User(userTxt.getText().toString(), passTxt.getText().toString(), nomeTxt.getText().toString(), cognomeTxt.getText().toString(), schoolTxt.getText().toString(),
                     emailTxt.getText().toString(), indirizzoTxt.getText().toString());
             //registrazione utente
-            registerUser(x);
+            HTMLRequest htmlRequest=new HTMLRequest(url_register,"User="+registerUser(x).toString());
+            if(htmlRequest.getHTMLThread()!=null) {
+                Toast.makeText(getApplicationContext(), "You have been registered! Well done!", Toast.LENGTH_LONG).show();
+                userTxt.setText("");
+                cognomeTxt.setText("");
+                nomeTxt.setText("");
+                passTxt.setText("");
+                schoolTxt.setText("");
+                indirizzoTxt.setText("");
+                emailTxt.setText("");
 
-            Toast.makeText(getApplicationContext(), "You have been registered! Well done!", Toast.LENGTH_LONG).show();
-            userTxt.setText("");
-            cognomeTxt.setText("");
-            nomeTxt.setText("");
-            passTxt.setText("");
-            schoolTxt.setText("");
-            indirizzoTxt.setText("");
-            emailTxt.setText("");
+                 }
+            else {
+                Toast.makeText(getApplicationContext(), "Error! You cannot register now!", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 

@@ -5,13 +5,6 @@
     android:layout_height="wrap_content"
     android:weightSum="1">
 
-    <ImageView
-        android:src="@drawable/ic_launcher"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:scaleType="fitXY"
-        android:contentDescription="@string/app_name" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

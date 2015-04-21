@@ -51,7 +51,7 @@ public class Welcome_student extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_welcome_student, menu);
         return true;
     }
 
@@ -71,9 +71,8 @@ public class Welcome_student extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(id==R.id.chat){ //Open score page
+            this.toChat(this.getCurrentFocus());
         }
 
         return super.onOptionsItemSelected(item);
@@ -109,8 +108,10 @@ public class Welcome_student extends ActionBarActivity {
     //richiamo view Question
     public void toChat(View v) {
         Intent i = new Intent(this, ChatPage.class);
+        Bundle extras=new Bundle();
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
         startActivity(i);
-
     }
 
 

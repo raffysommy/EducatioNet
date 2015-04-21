@@ -215,7 +215,12 @@ public class Question extends ActionBarActivity {
             this.Score_click(this.getCurrentFocus());
         }
         if (id==R.id.help_wanted){ //Open Help dialog
-            opendialog(this.getCurrentFocus(),Domanda.getid_domanda());
+            //opendialog(this.getCurrentFocus(),Domanda.getid_domanda());
+            Intent i = new Intent(this, ChatPage.class);
+            Bundle extras=new Bundle();
+            extras.putParcelable("utentec",this.utente);
+            i.putExtras(extras);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
