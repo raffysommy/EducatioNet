@@ -127,6 +127,14 @@ public class Welcome_student extends ActionBarActivity {
         startActivityForResult(i, 0);
 
     }
+    public void TeacherQuestion (View v) {
+        Intent i = new Intent(this, TeacherQuestion.class);
+        Bundle extras=new Bundle();
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
+        startActivity(i);
+    }
+
     public void onScore(View v ) {
         Intent i = new Intent(this, Score_page.class);
         Bundle extras=new Bundle();
@@ -134,5 +142,4 @@ public class Welcome_student extends ActionBarActivity {
         i.putExtras(extras);
         startActivity(i);
     }
-
 }

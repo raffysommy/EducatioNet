@@ -14,4 +14,5 @@
     <string name="Correct">Correct: 0</string>
     <string name="title_activity_main_activity">EducatioNet</string>
     <string name="title_activity_chat_page">Chat</string>
+    <string name="title_activity_teacher_question">TeacherQuestion</string>
 </resources>
