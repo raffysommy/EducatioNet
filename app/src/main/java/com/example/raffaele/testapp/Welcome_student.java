@@ -1,15 +1,20 @@
 package com.example.raffaele.testapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Classe di Benvenuto Utente
@@ -91,8 +96,41 @@ public class Welcome_student extends ActionBarActivity {
             }   break;
         }
     }
+    /**
+     * Pulsante di Help Bambino
+     * @param view Vista attuale
+     */
+    public void opendialog(View view){
+        LayoutInflater linf = LayoutInflater.from(this);
+        final View inflator =linf.inflate(R.layout.dialog_question_select,null);
+        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Select the type of Question");
+        alertDialogBuilder.setView(inflator);
+        /*alertDialogBuilder
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String question = editText.getText().toString().trim();
+                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + question + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
+                        if (Boolean.valueOf(htmlRequest.getHTMLThread())) {
+                            Toast.makeText(getApplicationContext(), "Question Sent", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Error: Question not Sent", Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        */
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
     //richiamo view Question
-    public void toQuestion(View v) {
+    public void toQuestion(View v) {/*
         Intent i = new Intent(this, Question.class);
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
@@ -103,6 +141,8 @@ public class Welcome_student extends ActionBarActivity {
         i.putExtras(extras);
         startActivityForResult(i, MSG_SAVE_SCORE_REQUEST);
 
+    */
+    opendialog(this.getCurrentFocus());
     }
 
     //richiamo view Question
@@ -119,12 +159,13 @@ public class Welcome_student extends ActionBarActivity {
         Intent i = new Intent(this, Argument_Page.class);
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
-        if(argumentList!=null){
+        /*if(argumentList!=null){
             extras.putParcelable("argomenti",this.argumentList);
         }
+        */
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
-        startActivityForResult(i, 0);
+        startActivity(i);
 
     }
     public void TeacherQuestion (View v) {

@@ -85,10 +85,9 @@
         android:onClick="toQuestion"
         android:layout_marginBottom="58dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2"
-        android:layout_marginLeft="219dp"
-        android:layout_marginStart="219dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="42dp" />
 
     <ImageButton
         android:layout_width="300dip"
@@ -96,30 +95,23 @@
         android:id="@+id/ScoreButton"
         android:background="@drawable/score"
         android:onClick="onScore"
-        android:layout_alignTop="@+id/tableLayout"
-        android:layout_alignRight="@+id/QuestionButton"
-        android:layout_alignEnd="@+id/QuestionButton" />
+        android:layout_alignTop="@+id/QuestionButton"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignBottom="@+id/QuestionButton" />
 
     <ImageButton
         android:layout_width="270dip"
         android:layout_height="170dip"
         android:id="@+id/button2"
-        android:onClick="toArgument"
-        android:background="@drawable/topic"
-        android:layout_alignTop="@+id/QuestionButton"
-        android:layout_toRightOf="@+id/tableLayout"
-        android:layout_toEndOf="@+id/tableLayout" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To the ChatCave!"
-        android:id="@+id/chat_button"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/ScoreButton"
-        android:layout_alignEnd="@+id/ScoreButton"
         android:onClick="toChat"
-        android:textSize="25dp" />
+        android:layout_alignTop="@+id/tableLayout"
+        android:layout_alignRight="@+id/QuestionButton"
+        android:layout_alignEnd="@+id/QuestionButton"
+        android:scaleType="fitCenter"
+        android:background="@drawable/chat"
+        android:layout_alignLeft="@+id/QuestionButton"
+        android:layout_alignStart="@+id/QuestionButton" />
 
 
 </RelativeLayout>

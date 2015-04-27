@@ -21,5 +21,6 @@
         android:title="Help"
         android:icon="@mipmap/ic_help"
         android:orderInCategory="99"
-        android:id="@+id/help_wanted"/>
+        android:id="@+id/help_wanted"
+        app:showAsAction="always"/>
 </menu>

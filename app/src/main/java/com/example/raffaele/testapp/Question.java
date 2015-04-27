@@ -49,6 +49,7 @@ public class Question extends ActionBarActivity {
     private FontManager KGPrimary=null;
     private FontManager Funnykid;
     private Toast t;
+    private Menu _menu = null;
     /**
      * Costruttore dell'interfaccia
      * @param savedInstanceState Instanza salvata
@@ -81,6 +82,8 @@ public class Question extends ActionBarActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_question); //al cambiamento della configurazione dello schermo refresha il layout
+        if (_menu!=null)
+            this.onCreateOptionsMenu(_menu);
         impostafont();
         impostabottoni();
     }
@@ -117,40 +120,7 @@ public class Question extends ActionBarActivity {
             e.printStackTrace();
         }
     }
-    /**
-     * Pulsante di Help Bambino
-     * @param view Vista attuale
-     * @param id_question Id Domanda
-     */
-    public void opendialog(View view, final String id_question){
-        LayoutInflater linf = LayoutInflater.from(this);
-        final View inflator =linf.inflate(R.layout.dialog_help_wanted,null);
-        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Send question to Teacher");
-        alertDialogBuilder.setView(inflator);
-        final EditText editText= (EditText) inflator.findViewById(R.id.textquest);
-        alertDialogBuilder
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        String question = editText.getText().toString().trim();
-                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + question + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
-                        if (Boolean.valueOf(htmlRequest.getHTMLThread())) {
-                            Toast.makeText(getApplicationContext(), "Question Sent", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Error: Question not Sent", Toast.LENGTH_SHORT).show();
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
+
 
     /**
      * Recupera la domanda dal backend
@@ -183,8 +153,12 @@ public class Question extends ActionBarActivity {
      */
     public void onBackPressed() {
         this.scoreManager.saveScore();
-        setResult(Activity.RESULT_OK);
-        finish();
+        Intent i=new Intent(this, Welcome_student.class);
+        Bundle extras=new Bundle();
+        extras.putParcelable("utentec",this.utente);
+        i.putExtras(extras);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /**
@@ -195,8 +169,11 @@ public class Question extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        if(menu!=null)
+            menu.clear();
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_question, menu);
+        _menu=menu;
         return super.onCreateOptionsMenu(menu);
     }
 

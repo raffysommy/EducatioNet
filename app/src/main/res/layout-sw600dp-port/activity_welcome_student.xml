@@ -77,35 +77,25 @@
         android:maxWidth="100dp" />
 
     <ImageButton
-        android:layout_width="350dip"
-        android:layout_height="170dip"
+        android:layout_width="450dip"
+        android:layout_height="270dip"
         android:id="@+id/QuestionButton"
         android:background="@drawable/ic_questions"
         android:nestedScrollingEnabled="false"
         android:onClick="toQuestion"
-        android:layout_marginTop="131dp"
-        android:layout_below="@+id/button2"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2" />
+        android:layout_below="@+id/ScoreButton"
+        android:layout_alignLeft="@+id/ScoreButton"
+        android:layout_alignStart="@+id/ScoreButton" />
 
     <ImageButton
-        android:layout_width="350dip"
-        android:layout_height="180dip"
+        android:layout_width="450dip"
+        android:layout_height="280dip"
         android:id="@+id/ScoreButton"
         android:background="@drawable/score"
         android:onClick="onScore"
         android:layout_below="@+id/tableLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="108dp" />
-
-    <ImageButton
-        android:layout_width="350dip"
-        android:layout_height="150dip"
-        android:id="@+id/button2"
-        android:onClick="toArgument"
-        android:background="@drawable/topic"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

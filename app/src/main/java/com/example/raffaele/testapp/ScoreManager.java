@@ -50,7 +50,8 @@ public class ScoreManager extends ArrayList<String[]> {
      */
     public void addScore(String id_domanda,Boolean result){
         Date date = new Date();
-        this.add(new String[]{id_domanda, String.valueOf(result), dateFormat.format(date)});
+        int val = result? 1 : 0;
+        this.add(new String[]{id_domanda, String.valueOf(val), dateFormat.format(date)});
     }
 
     /**

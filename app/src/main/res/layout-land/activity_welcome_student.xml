@@ -96,28 +96,22 @@
         android:id="@+id/ScoreButton"
         android:background="@drawable/score"
         android:onClick="onScore"
-        android:layout_alignTop="@+id/tableLayout"
-        android:layout_alignLeft="@+id/QuestionButton"
-        android:layout_alignStart="@+id/QuestionButton" />
+        android:layout_alignTop="@+id/QuestionButton"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
 
     <ImageButton
         android:layout_width="200dip"
         android:layout_height="100dp"
         android:id="@+id/button2"
-        android:onClick="toArgument"
-        android:background="@drawable/topic"
-        android:layout_alignBottom="@+id/QuestionButton"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bottone"
-        android:id="@+id/Tch_Btn"
-        android:layout_above="@+id/QuestionButton"
-        android:layout_centerHorizontal="true"
-        android:onClick="TeacherQuestion" />
+        android:onClick="toChat"
+        android:scaleType="fitCenter"
+        android:background="@drawable/chat"
+        android:layout_alignBottom="@+id/tableLayout"
+        android:layout_alignLeft="@+id/QuestionButton"
+        android:layout_alignStart="@+id/QuestionButton"
+        android:layout_alignRight="@+id/QuestionButton"
+        android:layout_alignEnd="@+id/QuestionButton" />
 
 
 </RelativeLayout>

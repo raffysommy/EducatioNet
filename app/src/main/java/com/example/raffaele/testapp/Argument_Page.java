@@ -151,17 +151,17 @@ public class Argument_Page extends Activity {
     }
 
     /**
-     * Ritorna all'activity welcome ripassando la lista di argomenti
+     * Va a question passando la lista di argomenti
      * @param v Vista attuale
      */
     public void toWelcome(View v) {
         argumentList = dataAdapter.argumentList;
-        Intent resultintent = new Intent();
+        Intent intent = new Intent(this, Question.class);
         Bundle extras=new Bundle();
         //passo l'oggetto user alla prossima view
+        extras.putParcelable("utentec",this.utente);
         extras.putParcelable("argomenti",this.argumentList);
-        resultintent.putExtras(extras);
-        setResult(Activity.RESULT_OK,resultintent);
-        finish();
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }
