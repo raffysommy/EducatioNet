@@ -1,29 +1,31 @@
 package com.example.raffaele.testapp;
 
 /**
- * Created by Muscetti on 25/04/2015.
+ * Created by K12-Dev-Team on 25/04/2015.
  */
 public class Questionnaire  {
-    private String Name;
-    private String Description;
 
-    public String getName() {
-        return Name;
+    private String id;
+    private String name;
+
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDescription() {
-        return Description;
+    public String getname() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setname(String name) {
+        this.name = name;
     }
 
-    public Questionnaire(String name) {
-        Name = name;
+    public Questionnaire(String id,String name) {
+        this.name = name;
+        this.id=id;
     }
 }

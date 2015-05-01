@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:clickable="true"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:onClick="onQuizSelect" />
 </LinearLayout>

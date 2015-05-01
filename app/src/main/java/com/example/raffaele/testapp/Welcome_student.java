@@ -26,6 +26,7 @@ public class Welcome_student extends ActionBarActivity {
     private User utente;
     private ArgumentList argumentList;
     private static final int MSG_SAVE_SCORE_REQUEST = 1;
+    private AlertDialog alertDialog;
 
     /**
      * Creatore della vista
@@ -102,31 +103,12 @@ public class Welcome_student extends ActionBarActivity {
      */
     public void opendialog(View view){
         LayoutInflater linf = LayoutInflater.from(this);
-        final View inflator =linf.inflate(R.layout.dialog_question_select,null);
-        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
+        final View inflator =linf.inflate(R.layout.dialog_question_select, null);
+        AlertDialog.Builder alertDialogBuilder;
+        alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Select the type of Question");
         alertDialogBuilder.setView(inflator);
-        /*alertDialogBuilder
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        String question = editText.getText().toString().trim();
-                        HTMLRequest htmlRequest = new HTMLRequest(apiDoc, "idquestion=" + id_question + "&question=" + question + "&user" + utente.getUsername() + "&access_token" + utente.getAccessToken());
-                        if (Boolean.valueOf(htmlRequest.getHTMLThread())) {
-                            Toast.makeText(getApplicationContext(), "Question Sent", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Error: Question not Sent", Toast.LENGTH_SHORT).show();
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        */
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
     //richiamo view Question
@@ -158,21 +140,18 @@ public class Welcome_student extends ActionBarActivity {
     public void toArgument(View v) {
         Intent i = new Intent(this, Argument_Page.class);
         Bundle extras=new Bundle();
-        //passo l'oggetto user alla prossima view
-        /*if(argumentList!=null){
-            extras.putParcelable("argomenti",this.argumentList);
-        }
-        */
         extras.putParcelable("utentec",this.utente);
         i.putExtras(extras);
+        alertDialog.dismiss();
         startActivity(i);
 
     }
     public void TeacherQuestion (View v) {
         Intent i = new Intent(this, TeacherQuestion.class);
         Bundle extras=new Bundle();
-        extras.putParcelable("utentec",this.utente);
+        extras.putParcelable("utentec", this.utente);
         i.putExtras(extras);
+        alertDialog.dismiss();
         startActivity(i);
     }
 

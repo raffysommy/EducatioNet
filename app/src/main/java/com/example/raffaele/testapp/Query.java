@@ -1,5 +1,9 @@
 package com.example.raffaele.testapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,13 +16,24 @@ import java.util.Collections;
  * @author K12-Dev-Team
  * @version 0.1
  */
-public class Query {
+public class Query implements Parcelable {
 
     private String id_domanda;
     private String Domanda;
     private String Risposta;
     private ArrayList<String> Risposteprob;
     private String topic;
+    public static final Parcelable.Creator<Query> CREATOR= new Parcelable.Creator<Query>(){
+        @Override
+        public Query createFromParcel(Parcel in){
+            return new Query(in);
+        }
+
+        @Override
+        public Query[] newArray(int size) {
+            return new Query[size];
+        }
+    };
     /**
      * Costruttore della classe Domanda
      * @param id_domanda Id della domanda
@@ -36,7 +51,13 @@ public class Query {
         setRispostarray(rispostaf1, rispostaf2, rispostaf3, risposta);
         setTopic(topic);
     }
-
+    /**
+     *
+     * @param in oggetto parceable da convertire
+     */
+    private Query(Parcel in ){
+        readFromParcel(in);
+    }
     /**
      *  Costruttore Vuoto
      */
@@ -44,7 +65,7 @@ public class Query {
         setid_domanda("");
         setDomanda("");
         setRisposta("");
-        setRispostarray("","","","");
+        setRispostarray("", "", "", "");
     }
     public Query(String domanda){
         setid_domanda("");
@@ -117,9 +138,8 @@ public class Query {
     /**
      * @param risposteprob Imposta le risposte probabili
      */
-    @SuppressWarnings({"unchecked"})
-    public void setRisposteprob(final ArrayList<String> risposteprob) {
-        Risposteprob = (ArrayList<String>) risposteprob.clone();
+    public void setRisposteprob(ArrayList<String> risposteprob) {
+        this.Risposteprob =risposteprob;
     }
 
     /**
@@ -156,5 +176,41 @@ public class Query {
      */
     public void RandomQuery(){
         Collections.shuffle(this.Risposteprob);
+    }
+
+    /**
+     * Metodo di default dell'interfaccia parcel
+     * @return 0
+     */
+
+    /**
+     *
+     * @param in Riceve in ingresso una domanda parcellizzata e imposta i membri privati con i parametri del parcel attraverso il readString
+     */
+    private void readFromParcel(Parcel in) {
+        setid_domanda(in.readString());
+        setDomanda(in.readString());
+        setRisposta(in.readString());
+        setRisposteprob(in.createStringArrayList());
+        //Log.d("TeacherQuestionresult", Risposteprob.get(3));
+        setTopic(in.readString());
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Metodo di scrittura del parcel
+     * @param dest Parcel di destinazione
+     * @param flags (optional)
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id_domanda);
+        dest.writeString(Domanda);
+        dest.writeString(Risposta);
+        dest.writeStringList(Risposteprob);
+        dest.writeString(topic);
     }
 }

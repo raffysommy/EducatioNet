@@ -3,8 +3,6 @@ package com.example.raffaele.testapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,27 +10,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 
 public class TeacherQuestion extends Activity {
-    private final String url = "http://k12-api.mybluemix.net/api/questionnaire/list";
-    private ArrayList<Questionnaire> listaquestionari = new ArrayList<Questionnaire>();
+    private QuestionnaireList listaquestionari = new QuestionnaireList();
     private User utente;
-    private String token = "";
+    private static String token;
     private AdapterCustom dataAdapter = null;
-
+    private QueryList teacherQuestionList=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +31,8 @@ public class TeacherQuestion extends Activity {
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec"); //riceve da welcome l'utente
-        this.getHttp(this.utente.getAccessToken());
+        token=this.utente.getAccessToken();
+        this.listaquestionari.getHttp(token);
         displayListView();
 
     }
@@ -67,23 +59,25 @@ public class TeacherQuestion extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void getHttp(String token) { //metodo di richiesta al backend
-        listaquestionari.clear(); //pulisce la lista per sicurezza
-        HTMLRequest htmlRequest = new HTMLRequest(url, "access_token=" + token); //richiesta con token
-        String result = htmlRequest.getHTMLThread();
-        Log.d("token", token); //loggo il token per scopi di debug
+    public void onQuizSelect(View view){
+        String quiz=((TextView)view).getHint().toString();
+        teacherQuestionList =new QueryList(quiz);
         try {
-            JSONArray ja = new JSONArray(result); //elaboro l'array di json e aggiungo gli elementi alla lista
-            JSONObject jo;
-            for (int i = 0; i < ja.length(); i++) {
-                jo = ja.getJSONObject(i);
-                listaquestionari.add(new Questionnaire(jo.getString("name")));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace(); //in caso di eccezzioni stampo la lista chiamate (Le eccezzioni json non sono recuperabili ma non impediscono il continuo dell'esecuzione)
+            teacherQuestionList.getHTTP(token);
+            Toast.makeText(getApplicationContext(), "Selected: " + ((TextView)view).getText().toString(), Toast.LENGTH_LONG).show();
+            Intent i=new Intent(this,Question.class);
+            Bundle extras=new Bundle();
+            extras.putParcelable("utentec", this.utente);
+            extras.putParcelable("quiz",this.teacherQuestionList);
+            extras.putString("idquiz", quiz);
+            i.putExtras(extras);
+            startActivity(i);
+        } catch (NullPointerException e) {
+            Toast.makeText(getApplicationContext(), "No question available for this quiz!", Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     private void displayListView() {
         //Array list di Argomenti
@@ -91,15 +85,6 @@ public class TeacherQuestion extends Activity {
         ListView listView = (ListView) findViewById(R.id.listView2);
         // Assegna l'adapter alla listview
         listView.setAdapter(dataAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                // Mostra una toast quando checka
-                Questionnaire questlist = (Questionnaire) parent.getItemAtPosition(pos);
-                Toast.makeText(getApplicationContext(), "Selected: " + questlist.getName(), Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 
     /**
@@ -129,12 +114,13 @@ public class TeacherQuestion extends Activity {
                 textcheck = (TextCheck) convertView.getTag();
             }
             Questionnaire listquest = listaquestionari.get(position); //ritorna la posizione dell' elemento selezionato
-            textcheck.code.setText(listquest.getName());
+            textcheck.code.setText(listquest.getname());
+            textcheck.code.setHint(listquest.getId());
             return convertView;
 
         }
 
-        private ArrayList<Questionnaire> listaquestionari = null;
+        private QuestionnaireList listaquestionari = null;
 
         /**
          * @param context            Context dell'applicazione
@@ -143,7 +129,7 @@ public class TeacherQuestion extends Activity {
          */
         public AdapterCustom(Context context, int textViewResourceId, ArrayList questList) {
             super(context, textViewResourceId, questList); //costruttore della superclasse
-            listaquestionari = new ArrayList<Questionnaire>();
+            listaquestionari = new QuestionnaireList();
             listaquestionari.addAll(questList); //aggiunta degli elementi alla arraylist
         }
 

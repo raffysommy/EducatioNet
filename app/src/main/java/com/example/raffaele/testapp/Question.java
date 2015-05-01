@@ -25,6 +25,10 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+
 /**
  * @author K12-Dev-Team
  * @version 0.4
@@ -36,6 +40,7 @@ public class Question extends ActionBarActivity {
     private final String api = "https://k12-api.mybluemix.net/api/question/random";
     private final String apiDoc="https://k12-api.mybluemix.net/api/teacher/help";
     private User utente;
+    private Queue<Query> queries;
     private ArgumentList argumentList=new ArgumentList();
     private ScoreManager scoreManager=null;
     private final DrawableManager draw=new DrawableManager();
@@ -61,8 +66,11 @@ public class Question extends ActionBarActivity {
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
-        if(extras.getParcelable("argomenti")!=null)
+        if(i.hasExtra("argomenti"))
             this.argumentList=extras.getParcelable("argomenti");
+        if(i.hasExtra("quiz")){
+            queries= extras.getParcelable("quiz");
+        }
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
         toastview=getLayoutInflater().inflate(R.layout.toastlayout, (ViewGroup)findViewById(R.id.toastlayout));
@@ -125,6 +133,9 @@ public class Question extends ActionBarActivity {
     /**
      * Recupera la domanda dal backend
      * @return Domanda dal backend
+     * @throws NullPointerException Null Query
+     * @see  NullPointerException
+     * @see HTMLRequest
      */
     public Query request_data() {
         Query Domand = new Query();
@@ -133,16 +144,12 @@ public class Question extends ActionBarActivity {
         HTMLRequest htmlRequest = new HTMLRequest(this.api, "access_token=" + this.token +"&topics="+this.argumentList.toString());
         try {
             result = htmlRequest.getHTMLThread();
-            if(result!=null) {
-                jo = new JSONObject(result);
-                Domand = new Query(jo.getString("id"), jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"), jo.getString("topic"));
-                Log.d("id", jo.getString("id"));
-                Log.d("topic", jo.getString("topic"));
-            } else{
-                Domand=new Query("There are not more question");
-            }
+            jo = new JSONObject(result);
+            Domand = new Query(jo.getString("id"), jo.getString("body"), jo.getString("answer"), jo.getString("fakeAnswer1"), jo.getString("fakeAnswer2"), jo.getString("fakeAnswer3"), jo.getString("topic"));
+            Log.d("id", jo.getString("id"));
+            Log.d("topic", jo.getString("topic"));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new NullPointerException("NullQuery");
         }
         return Domand;
     }
@@ -206,9 +213,26 @@ public class Question extends ActionBarActivity {
      * Procedura di cambio domanda
      */
     public void cambiadomanda(){
-        this.Domanda = new Query(request_data());
-        this.Domanda.RandomQuery();
-        impostabottoni();
+        try {
+            if (queries != null) {
+                this.Domanda = queries.remove();
+            }
+            else {
+                this.Domanda = new Query(request_data());
+            }
+            this.Domanda.RandomQuery();
+        }
+        catch (NoSuchElementException e) {
+            this.Domanda=new Query("Quiz Completed! Good Job :)");
+            Log.d("QuestionHandler","QuizCompleted");
+        }
+        catch (NullPointerException e){
+            this.Domanda=new Query("There are not more question");
+            Log.d("QuestionHandler","NoMoreQuestion");
+        }
+        finally {
+            impostabottoni();
+        }
     }
 
     /**
