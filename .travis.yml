@@ -7,7 +7,7 @@ android:
     - android-22
 before_install:
  - chmod +x gradlew
-script: "./gradlew clean assembleTravis"
+script: ./gradlew assembleDebug
 deploy:
       provider: releases
       api_key: "c8526dab1810234341695d47e399f7b76e411445"
