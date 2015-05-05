@@ -7,11 +7,11 @@ android:
     - android-22
 before_install:
  - chmod +x gradlew
-script: ./gradlew assembleDebug
+script: ./gradlew build
 deploy:
       provider: releases
       api_key: "c8526dab1810234341695d47e399f7b76e411445"
-      file: ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-travis.apk
+      file: ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-release-unsigned.apk
       on:
         repo: raffysommy/Testappk12
         branch: master
