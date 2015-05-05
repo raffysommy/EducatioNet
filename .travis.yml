@@ -9,3 +9,12 @@ before_install:
  - chmod +x gradlew
 script:
     - ./gradlew clean test
+deploy:
+      provider: releases
+      api_key: "c8526dab1810234341695d47e399f7b76e411445"
+      file: ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-travis.apk
+      on:
+        repo: raffysommy/Testappk12
+        branch: master
+        tags: true
+        all_branches: true
