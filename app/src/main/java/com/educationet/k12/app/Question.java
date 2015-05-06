@@ -50,13 +50,13 @@ public class Question extends ActionBarActivity {
     private Toast t;
     private Menu _menu = null;
     /**
-     * Costruttore dell'interfaccia
+     * Builder of interface
      * @param savedInstanceState Instanza salvata
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /* prendo token di accesso passato */
+        /* Take the info from previous activity */
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
@@ -72,13 +72,13 @@ public class Question extends ActionBarActivity {
         Funnykid=new FontManager("FunnyKid",getAssets());
         impostafont();
         cambiadomanda();
-        //svuoto precedente lista di scores
+        //empty score list
         scoreManager=new ScoreManager(token,this.getApplication());
     }
 
     /**
-     * Handler del rotate
-     * @param newConfig nuova orientazione
+     * Handler of rotate
+     * @param newConfig new orientation
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -91,7 +91,7 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Metodo di destroy per annullare le toast dopo che l'application è stata chiusa
+     * On Application close remove all floating toast
      */
     @Override
     public void onDestroy(){
@@ -100,14 +100,14 @@ public class Question extends ActionBarActivity {
         System.gc();
     }
     /**
-     * Metodo di destroy per annullare le toast dopo che l'activity è stata chiusa
+     * On Activity close remove all floating toast
      */
     public void onDetachedFromWindow(){
         super.onDetachedFromWindow();
         if(t!=null){t.cancel();}
     }
     /**
-     * Imposta i font al testo
+     * Set Font to text
      */
     public void impostafont(){
         try {
@@ -125,8 +125,8 @@ public class Question extends ActionBarActivity {
 
 
     /**
-     * Recupera la domanda dal backend
-     * @return Domanda dal backend
+     * Take the Question from backend
+     * @return Question from backend
      * @throws NullPointerException Null Query
      * @see  NullPointerException
      * @see HTMLRequest
@@ -149,8 +149,7 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Alla pressione di back mostro risultato salvataggio nell'activity chiamata
-     * attraverso un Thread separato
+     * On Back Press show the result of save score in a separate Thread
      */
     public void onBackPressed() {
         this.scoreManager.saveScore();
@@ -163,8 +162,8 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Costruttore del menu
-     * @param menu Menu dell'activity
+     * Builder of Menu
+     * @param menu Menu of activity
      * @return Status
      */
     @Override
@@ -179,8 +178,8 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Gestore della ActionBar
-     * @param item Oggetto del menù
+     * Handler of ActionBar
+     * @param item Object of Menu
      * @return Status
      */
     @Override
@@ -204,7 +203,7 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Procedura di cambio domanda
+     * Procedure for change question
      */
     public void cambiadomanda(){
         try {
@@ -230,7 +229,7 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Procedura di impostazione dei bottoni e della domanda
+     * Procedure for set button e question text
      */
     public void impostabottoni() {
         TextView view = (TextView) findViewById(R.id.domanda);
@@ -242,9 +241,9 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Impostazione singolo bottone
-     * @param buttonid Id Bottone
-     * @param risp  risposta
+     * Set single Button
+     * @param buttonid Id Button
+     * @param risp  Answer
      */
     public void CambiaBottone(int buttonid, String risp) {
         Button button = (Button) findViewById(buttonid);
@@ -264,9 +263,9 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Controllo della riposta
-     * @param buttonid Bottone Premuto
-     * @return Esattezza risposta
+     * Check of Answer
+     * @param buttonid Button Pressed
+     * @return Answer Boolean result
      */
     public boolean checkrisposta(int buttonid) {
         Button buttonpressed = (Button) findViewById(buttonid);
@@ -281,25 +280,25 @@ public class Question extends ActionBarActivity {
     }
 
     /**
-     * Handler del click sulle risposte
-     * @param v vista attuale
+     * Handler of click on answer button
+     * @param v CurrentView
      */
     public void onClick1(View v) {
         Boolean esito=checkrisposta(v.getId());
         scoreManager.addScore(Domanda.getid_domanda(),esito);
-        if (esito) { //se l'esito è positivo imposto la toast con l'immagine correct
+        if (esito) { //if answer is correct set the toast with correct
             ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastright);
-            cambiadomanda();//cambia il testo dei bottoni con una nuova domanda
-            findViewById(R.id.textView3).setVisibility(View.INVISIBLE); //imposto l'help invisibile
-            score=(TextView) findViewById(R.id.CorrectCnt); //re-imposto lo score nella actionbar
-            correct.increment(); //incremento lo score
+            cambiadomanda();//change the text of button with a new question
+            findViewById(R.id.textView3).setVisibility(View.INVISIBLE); //set invisible help
+            score=(TextView) findViewById(R.id.CorrectCnt); //re set score in actionbar
+            correct.increment(); //inc the score
             score.setText(correct.StringValue());
 
-        } else {//se l'esito è negativo imposto la toast con l'immagine wrong
+        } else {//if answer is wrong set the toast with wrong
             ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastwrong);
-            //ha bisogno di suggerimenti imposto l'help visibile
+            //need help show the help message
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-            score=(TextView) findViewById(R.id.WrongCnt); //incremento e imposto il contatore nella actionbar
+            score=(TextView) findViewById(R.id.WrongCnt); //inc e set action score
             wrong.increment();
             score.setText(wrong.StringValue());
 
@@ -310,11 +309,11 @@ public class Question extends ActionBarActivity {
         t.setDuration(Toast.LENGTH_SHORT);
         t.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         t.setView(toastview);
-        t.show(); //imposto e mostro la toast
+        t.show(); //set and show toast
     }
 
     /**
-     * Handler dello score click
+     * Handler of score click
      * @param v vista v
      */
     public void Score_click(View v){
@@ -322,16 +321,16 @@ public class Question extends ActionBarActivity {
         Bundle extras= new Bundle();
         extras.putParcelable("Correct", this.correct );
         extras.putParcelable("Wrong", this.wrong);
-        i.putExtras(extras); //passo lo score all'activity
+        i.putExtras(extras); //send score to activity
         startActivity(i);
     }
 
     /**
      * Handler help
-     * @param v Vista attuale
-     */
+     * @param v Current View
+    */
     public void Help_click(View v){
-        //cliccando sulla textbox di aiuto, si riporta al link per la spiegazione dell' argomento
+        //click here bring to explain of arguments
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic="+Domanda.getTopic()));
         startActivity(browserIntent);
     }

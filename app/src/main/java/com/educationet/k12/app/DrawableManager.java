@@ -2,9 +2,9 @@ package com.educationet.k12.app;
 
 /**
  * Created by K12-Dev-Team on 05/04/2015.
- * Questa classe implementa la gestione del download delle immagini in thread indipendenti.
- * E' stata estesa per permettere di gestire non solo le imageview ma anche bottoni e imagebutton
- * E' stato inoltre sistemato l'algoritmo di caching in memoria delle immagini usante il SoftReference
+ * This Class implements the management of download of image in independent thread
+ * It handle button imageview and image button.
+ * it was implemented also the caching algorithms thought SoftReference
  */
 
 
@@ -30,7 +30,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 /**
- * Gestore delle immagini
+ * Drawable Manager
  * @version 0.2
  * @author K12-Dev-Team
  */
@@ -45,12 +45,12 @@ public class DrawableManager {
     }
 
     /**
-     * @param drawable Immagine in ingresso
-     * @param view Oggetto su cui impostare l'immagine come background
-     * @throws UnknownTypeException Tipo Sconosciuto
+     * @param drawable In Image
+     * @param view Object that need image
+     * @throws UnknownTypeException Unknown Type
      */
 
-    private static void setByObject(Drawable drawable, Object view) throws UnknownTypeException { //setta il drawable al seconda del tipo e delle api.
+    private static void setByObject(Drawable drawable, Object view) throws UnknownTypeException { //set drawable by obj-type and by api type.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (view instanceof Button) {
                 ((Button) view).setBackground(drawable);
@@ -79,18 +79,18 @@ public class DrawableManager {
     }
 
     /**
-     * Costruttore che crea la mappa di immagini
+     * Constructor of HashMap of Drawable for caching purpose
      */
     protected DrawableManager() {
         drawableMap = new HashMap<>();
     }
 
     /**
-     * @param urlString Url dell' immagine
-     * @param view Vista attuale
+     * @param urlString Url of image
+     * @param view Current View
      */
     public void setDrawable(final String urlString, final Object view){
-        if(drawableMap.containsKey(urlString)){ //se l'oggetto è in cache ed è valido lo setto altrimenti rimuovo l'url
+        if(drawableMap.containsKey(urlString)){ //if object is in cache return it else delete it
             Drawable drawable = drawableMap.get(urlString).get();
             if(drawable != null){
                 try {
@@ -103,7 +103,7 @@ public class DrawableManager {
             }
             else drawableMap.remove(urlString);
         }
-        final HttpClient httpClient = new DefaultHttpClient(); //instanzio httpclient
+        final HttpClient httpClient = new DefaultHttpClient(); //instance httpclient
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
                 if(msg.obj != null) try {
@@ -119,20 +119,20 @@ public class DrawableManager {
              * Metodo di esecuzione richiesta http,conversione ad immagine e inserimento in cache map
              */
             @Override
-            public void run() { //dichiaro il thread
+            public void run() { //declare thread
 				Log.i(LOG_TAG, urlString);
-                HttpGet request = new HttpGet(urlString); //Instanzio la richiesta di Get
+                HttpGet request = new HttpGet(urlString); //Instance Get Request
                 HttpParams params = new BasicHttpParams();
                 HttpConnectionParams.setConnectionTimeout(params, 2000);
                 HttpConnectionParams.setSoTimeout(params, 1000);
-                request.setParams(params); //passo i parametri di timeout
+                request.setParams(params); //set timeout
                 BasicManagedEntity entity = null;
 
                 try{
-                    HttpResponse response = httpClient.execute(request); //scarica l'immagine
+                    HttpResponse response = httpClient.execute(request); //download image
                     entity = (BasicManagedEntity)response.getEntity();
                 } catch (IOException e) {
-                    handler.sendEmptyMessage(NORM_PRIORITY); //in caso di eccezione termina il thread richiamando l'handler alla priorità di default e stampa lo Stack Trace
+                    handler.sendEmptyMessage(NORM_PRIORITY); //If there is an exception return handler with default priority then print stack trace
                     e.printStackTrace();
                 }
                 if(entity != null){
@@ -157,7 +157,7 @@ public class DrawableManager {
                 }
             }
         };
-        thread.start(); //fa partire il thread
+        thread.start(); //start thread
     }
 
 }
