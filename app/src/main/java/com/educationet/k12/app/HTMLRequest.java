@@ -31,9 +31,9 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     private String parameters = "";
 
     /**
-     * Costruttore per richieste POST
+     * constructor for requests POST
      * @param u Url
-     * @param par Parametri POST
+     * @param par Parameters POST
      */
     public HTMLRequest(String u, String par) {
         site = u;
@@ -41,7 +41,7 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     }
 
     /**
-     * Costruttore per richieste GET
+     * Constructor for request GET
      * @param u Url
      */
     public HTMLRequest(String u){//Costruttuore per il solo passaggio di Url
@@ -58,8 +58,8 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     //request html to url
 
     /**
-     * Classe di richiesta HTML
-     * @return risultato della richiesta
+     * Class of request HTML
+     * @return result of the request
      */
     @SuppressLint("NewApi")
     String getHTML() {
@@ -128,10 +128,10 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     }
 
     /**
-     * Richiesta HTTP Sincrona con Thread
-     * @return risultato
+     * request HTTP synchronous with Thread
+     * @return result
      */
-    String getHTMLThread(){//metodo che usa i thread
+    String getHTMLThread(){//method that use thread
         String rit= "";
         try {
             rit= this.execute().get();
@@ -146,12 +146,12 @@ public class HTMLRequest extends AsyncTask<Void,Void,String> {
     }
 
     /**
-     * Metodo doInBackground
-     * @param params Parametri nulli
-     * @return Risultato get
+     * Method doInBackground
+     * @param params Parameters null
+     * @return Result get
      */
     @Override
-    protected String doInBackground(Void... params) {//Il metodo doinbackground specifica le azioni da eseguire in un Thread separato
+    protected String doInBackground(Void... params) {//The method doinbackground specific actions to be performed in a separate thread
         return getHTML();
 
     }

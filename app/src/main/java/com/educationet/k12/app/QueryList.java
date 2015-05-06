@@ -14,8 +14,8 @@ import java.util.LinkedList;
  * Created by K12-Dev-Team on 29/04/2015.
  */
 public class QueryList extends LinkedList<Query> implements Parcelable {
-    private final String url = "https://k12-api.mybluemix.net/api/questionnaire/view"; //Url di connessione al backend
-    public static final Parcelable.Creator<QueryList> CREATOR= new Parcelable.Creator<QueryList>(){ //creatore dell'argumentlist
+    private final String url = "https://k12-api.mybluemix.net/api/questionnaire/view"; //Url of connection to backend
+    public static final Parcelable.Creator<QueryList> CREATOR= new Parcelable.Creator<QueryList>(){ //creator of argumentlist
         @Override
         public QueryList createFromParcel(Parcel in){
             return new QueryList(in);
@@ -31,13 +31,13 @@ public class QueryList extends LinkedList<Query> implements Parcelable {
         this.idquiz=idquiz;
     }
     public void getHTTP(String token) throws NullPointerException {
-        this.clear(); //pulisce la lista per sicurezza
-        HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token+"&id="+idquiz); //richiesta con token
+        this.clear(); //clean the list for security
+        HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token+"&id="+idquiz); //request with token
         String result=htmlRequest.getHTMLThread();
-        Log.d("QueryList", idquiz);  //loggo per scopi di debug
+        Log.d("QueryList", idquiz);
         Log.d("TeacherQuestionresult", result);
         try{
-            JSONObject jo= new JSONObject(result); //elaboro l'array di json e aggiungo gli elementi alla lista
+            JSONObject jo= new JSONObject(result); //elaborate json array and add elements to the list
             if(jo.has("success")&&!jo.getBoolean("success")){
                 throw new NullPointerException("QuizNull");
             }
@@ -51,18 +51,18 @@ public class QueryList extends LinkedList<Query> implements Parcelable {
         }
     }
     /**
-     * @param in Parcel di ingresso
+     * @param in Parcel of input
      */
     private QueryList(Parcel in){
         readFromParcel(in);
-    } //Costruttore della parceable
+    } //Constructor of parceable
 
     /**
-     * @param in Parcel di ingresso
+     * @param in Parcel of input
      */
     public void readFromParcel(Parcel in){
-        this.clear(); //pulisce la lista per sicurezza
-        in.readList(this,QueryList.class.getClassLoader()); //riempie la lista con gli elementi dal parceable
+        this.clear(); //clean the list for security
+        in.readList(this,QueryList.class.getClassLoader()); //fills the list with the elements from parceable
     }
 
     @Override

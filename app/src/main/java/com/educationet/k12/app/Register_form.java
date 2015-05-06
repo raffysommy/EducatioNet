@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gestore della pagina di registrazione
+ * Manager of the registration page
  * @author K12-Dev-Team
  * @version 0.1
  */
@@ -38,7 +38,7 @@ public class Register_form extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_form);
-        //Dichiarazione delle TextView da cui verrano prelevati i dati
+        // Declare TextView from which data can be picked
         nomeTxt =(EditText) findViewById(R.id.Reg_name);
         cognomeTxt =(EditText) findViewById(R.id.Reg_surname);
         emailTxt=(EditText) findViewById(R.id.Reg_email);
@@ -51,15 +51,15 @@ public class Register_form extends ActionBarActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_register_form); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_register_form);  //change the configuration of the screen update the layout
     }
 
     /**
      *
-     * @param v Vista in cui si andrà dopo l'aver premuto il pulsante "Submit"
+     * @param v View where you go after you press the button "Submit"
      */
     public void Registrazione(View v) {
-        //controllo che i campi necessari siano riempiti
+        // check that the required fields are filled
         String regtex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         RegEx regex = new RegEx(regtex);
         if (nomeTxt.getText().toString().equals("") || cognomeTxt.getText().toString().equals("") || emailTxt.getText().toString().equals("") || userTxt.getText().toString().equals("") ||
@@ -67,15 +67,15 @@ public class Register_form extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Ops! Some mandatory fields are empty!", Toast.LENGTH_LONG).show();
         }
         else {
-            //controllo l'email con una regex
+            // check the email with a regex
             if(!regex.Match(emailTxt.getText().toString())){
                 Toast.makeText(getApplicationContext(), "Email not valid!", Toast.LENGTH_LONG).show();
             }
             else{
-            //creazione di un nuovo utente x, con dati inseriti da tastiera
+                // create a new user x, with data entered by keyboard
             x = new User(userTxt.getText().toString(), passTxt.getText().toString(), nomeTxt.getText().toString(), cognomeTxt.getText().toString(), schoolTxt.getText().toString(),
                     emailTxt.getText().toString(), indirizzoTxt.getText().toString());
-            //registrazione utente
+            //user registration
             HTMLRequest htmlRequest=new HTMLRequest(url_register,"User="+registerUser(x).toString());
             if(htmlRequest.getHTMLThread()!=null) {
                 Toast.makeText(getApplicationContext(), "You have been registered! Well done!", Toast.LENGTH_LONG).show();
@@ -98,8 +98,8 @@ public class Register_form extends ActionBarActivity {
 
     /**
      *
-     * @param x Generico Utente al cui interno verranno passati i parametri inseriti da tastiera
-     * @return Ritorna un array JSON il quale al suo interno avrà i dati dell'utente da registrare
+     * @param x Generic User inside which it will be passed parameters entered by keyboard
+     * @return Returns a JSON array that inside it will had user's data to be recorded
      */
     public JSONArray registerUser(User x){
         // Si riempie l'array con gli input da tastiera
@@ -110,9 +110,9 @@ public class Register_form extends ActionBarActivity {
         params.add(new BasicNameValuePair("user", x.getUsername()));
         params.add(new BasicNameValuePair("email", x.getEmail()));
         params.add(new BasicNameValuePair("password", x.getPassword()));
-        // creazione JSONArray
+        // creation JSONArray
         JSONArray json = new JSONArray(params);
-        // controllo che l'array sia stato riempito tramite una stampa del log
+        // Check that the array has been filled by print of log
         Log.d("append", params.toString());
         return json;
 

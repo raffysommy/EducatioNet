@@ -32,7 +32,7 @@ public class Argument_Page extends Activity {
 
     /**
      * Builder of Interface
-     * @param savedInstanceState Istanza precedente
+     * @param savedInstanceState previous instance
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {

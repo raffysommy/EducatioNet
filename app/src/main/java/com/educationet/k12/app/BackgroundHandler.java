@@ -10,18 +10,18 @@ import java.util.Collections;
  */
 
 /**
- * Classe di gestione del background dei bottoni di question
+ * this class manages the background of question's buttons
  *@author K12-Dev-Team
  */
 public class BackgroundHandler extends ArrayList<Integer> {
     private Integer count = 0;
 
     /**
-     * Costruttore della classe
-     * @param a Sfondo 1
-     * @param b Sfondo 2
-     * @param c Sfondo 3
-     * @param d Sfondo 4
+     * Constructor of the class
+     * @param a background 1
+     * @param b background 2
+     * @param c background 3
+     * @param d background 4
      */
     BackgroundHandler(int a, int b, int c, int d) {
         this.add(a);
@@ -31,14 +31,14 @@ public class BackgroundHandler extends ArrayList<Integer> {
     }
 
     /**
-     *  Setter dei bottoni
-     * @param b Bottone
+     *  Setter of the buttons
+     * @param b Button
      */
     public void setbg(Button b) {
-        if (count >= this.size()) { //resetta il counter e riodina casualmente i bottoni quando li ha assegnati tutti
+        if (count >= this.size()) { // reset the counter and randomly order the buttons when all them are assigned
             Collections.shuffle(this);
             count = 0;
         }
-        b.setBackgroundResource(this.get(count++)); //assegna il background
+        b.setBackgroundResource(this.get(count++)); //assign the background
     }
 }

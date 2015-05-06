@@ -11,7 +11,7 @@ import java.util.Collections;
  */
 
 /**
- * Classe delle Domande
+ * class of question
  * @author K12-Dev-Team
  * @version 0.1
  */
@@ -34,14 +34,14 @@ public class Query implements Parcelable {
         }
     };
     /**
-     * Costruttore della classe Domanda
-     * @param id_domanda Id della domanda
-     * @param domanda   Domanda
-     * @param risposta Risosta esatta
-     * @param rispostaf1 Risposta errata 1
-     * @param rispostaf2 Risposta errata 2
-     * @param rispostaf3 Risposta errata 3
-     * @param topic Argomento
+     * constructor of the class question
+     * @param id_domanda Id of the question
+     * @param domanda   question
+     * @param risposta Right answer
+     * @param rispostaf1 wrong answer 1
+     * @param rispostaf2 wrong answer 2
+     * @param rispostaf3 wrong answer 3
+     * @param topic Argument
      */
     public Query(final String id_domanda,final String domanda,final String risposta,final String rispostaf1,final String rispostaf2,final String rispostaf3,final String topic){
         setid_domanda(id_domanda);
@@ -52,13 +52,13 @@ public class Query implements Parcelable {
     }
     /**
      *
-     * @param in oggetto parceable da convertire
+     * @param in object parceable to be converted
      */
     private Query(Parcel in ){
         readFromParcel(in);
     }
     /**
-     *  Costruttore Vuoto
+     *  empty constructor
      */
     public Query(){
         setid_domanda("");
@@ -74,8 +74,8 @@ public class Query implements Parcelable {
     }
 
     /**
-     * Costruttore di copia
-     * @param q Domanda da copiare
+     * copy constructor
+     * @param q question to be copy
      */
     public Query(final Query q){
        setid_domanda(q.getid_domanda());
@@ -86,66 +86,66 @@ public class Query implements Parcelable {
     }
 
     /**
-     * @return Ritorna L'Id della domanda
+     * @return returns Id of the question
      */
     public String getid_domanda() {
         return id_domanda;
     }
 
     /**
-     * @param id_domanda Imposta L'Id della domanda
+     * @param id_domanda set Id of the question
      */
     public void setid_domanda(final String id_domanda) {
         this.id_domanda = id_domanda;
     }
 
     /**
-     * @return Ritorna la domanda
+     * @return returns the question
      */
     public String getDomanda() {
         return Domanda;
     }
 
     /**
-     * @param domanda Imposta la domanda
+     * @param domanda set the question
      */
     private void setDomanda(final String domanda) {
         Domanda = domanda;
     }
 
     /**
-     * @return Ritorna la risposta
+     * @return returns the question
      */
     public String getRisposta() {
         return Risposta;
     }
 
     /**
-     * @param risposta Imposta la risposta
+     * @param risposta set the answer
      */
     private void setRisposta(final String risposta) {
         Risposta = risposta;
     }
 
     /**
-     * @return Ritorna un array list delle risposte probabili
+     * @return returns an array list of probable answers
      */
     public ArrayList<String> getRisposteprob() {
         return Risposteprob;
     }
 
     /**
-     * @param risposteprob Imposta le risposte probabili
+     * @param risposteprob set the probable answers
      */
     public void setRisposteprob(ArrayList<String> risposteprob) {
         this.Risposteprob =risposteprob;
     }
 
     /**
-     * @param a Risposta 1
-     * @param b Risposta 2
-     * @param c Risposta 3
-     * @param d Risposta 4
+     * @param a answer 1
+     * @param b answer 2
+     * @param c answer 3
+     * @param d answer 4
      */
     private void setRispostarray(final String a,final String b,final String c,final String d) {
         ArrayList<String> rispostepro = new ArrayList<>();
@@ -157,34 +157,34 @@ public class Query implements Parcelable {
     }
 
     /**
-     * @return Argomento Domanda
+     * @return Argument question
      */
     public String getTopic() {
         return topic;
     }
 
     /**
-     * @param topic Argomento
+     * @param topic Argument
      */
     private void setTopic(String topic) {
         this.topic = topic;
     }
 
     /**
-     * Ordina casualmente le risposte
+     * Sort randomly answers
      */
     public void RandomQuery(){
         Collections.shuffle(this.Risposteprob);
     }
 
     /**
-     * Metodo di default dell'interfaccia parcel
+     * Default method interface parcel
      * @return 0
      */
 
     /**
      *
-     * @param in Riceve in ingresso una domanda parcellizzata e imposta i membri privati con i parametri del parcel attraverso il readString
+     * @param in Receives as input a question parceled and set private members with the parameters of the parcel through readString
      */
     private void readFromParcel(Parcel in) {
         setid_domanda(in.readString());
@@ -200,8 +200,8 @@ public class Query implements Parcelable {
     }
 
     /**
-     * Metodo di scrittura del parcel
-     * @param dest Parcel di destinazione
+     * method of writing of parcel
+     * @param dest Parcel of destination
      * @param flags (optional)
      */
     @Override

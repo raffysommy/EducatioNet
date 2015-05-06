@@ -12,25 +12,24 @@ import android.widget.TextView;
  */
 
 /**
- * Classe per la gestione dei font
+ * class that manages the fonts
  * @author K12-Dev-Team
  */
 public class FontManager {
     private Typeface typeface=null;
 
-    /**
-     * Costruttore della classe
-     * @param fontname Nome del font
-     * @param mgr Gestore degli asset
+    /*
+     * @param fontname font's Name
+     * @param mgr Manager asset
      */
     FontManager(String fontname,AssetManager mgr){
-        typeface=Typeface.createFromAsset(mgr,"fonts/"+fontname+".ttf"); //imposta il font con il path relativo alla cartella asset
+        typeface=Typeface.createFromAsset(mgr,"fonts/"+fontname+".ttf"); //set the font with the relative path to the folder asset
     }
 
     /**
-     * Imposta il font sull'oggetto
-     * @param obj Oggetto da impostare
-     * @throws UnknownTypeException Tipo non gestito
+     * Imposed the font to the object
+     * @param obj object to be set
+     * @throws UnknownTypeException Unmanaged type
      */
     public void setFont(Object obj) throws UnknownTypeException {
         if (obj instanceof TextView) {

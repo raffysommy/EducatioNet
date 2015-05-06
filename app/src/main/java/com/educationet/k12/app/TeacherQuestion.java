@@ -30,7 +30,7 @@ public class TeacherQuestion extends Activity {
         setContentView(R.layout.activity_teacher_question);
         Intent i = getIntent();
         Bundle extras=i.getExtras();
-        this.utente = extras.getParcelable("utentec"); //riceve da welcome l'utente
+        this.utente = extras.getParcelable("utentec"); //received the user from welcome
         token=this.utente.getAccessToken();
         this.listaquestionari.getHttp(token);
         displayListView();
@@ -80,19 +80,19 @@ public class TeacherQuestion extends Activity {
 
 
     private void displayListView() {
-        //Array list di Argomenti
+        //Array list of Arguments
         dataAdapter = new AdapterCustom(this,R.layout.list_item1, listaquestionari);
         ListView listView = (ListView) findViewById(R.id.listView2);
-        // Assegna l'adapter alla listview
+        // Assing the adapter to the listview
         listView.setAdapter(dataAdapter);
     }
 
     /**
-     * Classe privata interna che gestisce la lista arggomenti
+     * Internal private class that manages the list Arguments
      */
     private class AdapterCustom extends ArrayAdapter<Questionnaire> {
         /**
-         * Classe privata per la gestione della tupla testo checkbox
+         * Private class for the management of the tuple text checkbox
          */
         private class TextCheck {
             TextView code;
@@ -105,7 +105,7 @@ public class TeacherQuestion extends Activity {
             if (convertView == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
-                convertView = vi.inflate(R.layout.list_item1, null); //inserisce le tuple checkbox testo come righe
+                convertView = vi.inflate(R.layout.list_item1, null); // insert tuples checkbox text as lines
 
                 textcheck = new TextCheck();
                 textcheck.code = (TextView) convertView.findViewById(R.id.textView1);
@@ -113,7 +113,7 @@ public class TeacherQuestion extends Activity {
             } else {
                 textcheck = (TextCheck) convertView.getTag();
             }
-            Questionnaire listquest = listaquestionari.get(position); //ritorna la posizione dell' elemento selezionato
+            Questionnaire listquest = listaquestionari.get(position); // returns the position of the selected item
             textcheck.code.setText(listquest.getname());
             textcheck.code.setHint(listquest.getId());
             return convertView;
@@ -123,14 +123,14 @@ public class TeacherQuestion extends Activity {
         private QuestionnaireList listaquestionari = null;
 
         /**
-         * @param context            Context dell'applicazione
-         * @param textViewResourceId Id della textview
-         * @param questList           Lista di argomenti
+         * @param context            Context of the application
+         * @param textViewResourceId Id of the textview
+         * @param questList           List of arguments
          */
         public AdapterCustom(Context context, int textViewResourceId, ArrayList questList) {
-            super(context, textViewResourceId, questList); //costruttore della superclasse
+            super(context, textViewResourceId, questList); //superclass constructor
             listaquestionari = new QuestionnaireList();
-            listaquestionari.addAll(questList); //aggiunta degli elementi alla arraylist
+            listaquestionari.addAll(questList); //Adding elements to the arraylist
         }
 
     }

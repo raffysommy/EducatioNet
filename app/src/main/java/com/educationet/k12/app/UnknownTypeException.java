@@ -6,15 +6,15 @@ import android.util.Log;
  * Created by K12-Dev-Team on 19/04/2015.
  */
 /**
- * Classe delle eccezzioni per Drawable Manager
+ * Class of exceptions for Drawable Manager
  * @author K12-Dev-Team
  */
 public class UnknownTypeException extends Exception {
     private final String typename;
 
     /**
-     * Costruttore
-     * @param typename nome del tipo
+     * Constructor
+     * @param typename name of the type
      */
     UnknownTypeException(String typename){
         super();
@@ -22,7 +22,7 @@ public class UnknownTypeException extends Exception {
     }
 
     /**
-     * Funzione di log
+     * Funcion of log
      */
     public void logException(){
         Log.e("Unknown Type: ",typename);

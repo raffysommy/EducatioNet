@@ -8,37 +8,38 @@ import java.util.regex.Pattern;
  */
 
 /**
- * Gestore di espressioni regolari
- * @author K12-Dev-Team
+ * Manager of regular expressions
+ * @author K12-Dev-Tea
  * @version 0.1
  */
 public class RegEx {
     private Pattern patt;
 
     /**
-     * @param pattern Imposta il pattern dell'espressione regolare
+     * @param pattern Imposta il pattern dell'espressione regolare Set the pattern of the regular expression
      */
     public RegEx(String pattern) {
         setPatt(Pattern.compile(pattern));
     }
 
     /**
-     * @param Text Testo da controllare
-     * @return Compatibilità con l'espressione regolare
+     * @param Text Text to check
+
+     * @return Compatibility with the regular expression
      */
     public boolean Match(String Text){
         return getPatt().matcher(Text).matches();
     }
 
     /**
-     * @return Pattern impostato
+     * @return Pattern set
      */
     public Pattern getPatt() {
         return patt;
     }
 
     /**
-     * @param patt Pattern da impostare
+     * @param patt Pattern to be set
      */
     private void setPatt(Pattern patt) {
         this.patt = patt;

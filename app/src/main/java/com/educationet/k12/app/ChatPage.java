@@ -11,7 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 /**
- * Classe della chat
+ * chat's class
  * @author  K12-Dev-Team
  * Created by K12-Dev-Team on 12/04/2015.
  */
@@ -21,8 +21,8 @@ public class ChatPage extends ActionBarActivity {
     private User user;
 
     /**
-     * Costruttore della pagina
-     * @param savedInstanceState Istanza salvata
+     * Constructor of the page
+     * @param savedInstanceState saved instance
      */
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -42,13 +42,13 @@ public class ChatPage extends ActionBarActivity {
         myWebView.loadUrl("http://chat-k12-paovalle.c9.io/?id="+user.getFirstName()+user.getLastName());
     }
     /**
-     * Handler della rotazione
-     * @param newConfig nuova orientazione
+     * Handler of rotation
+     * @param newConfig new orientation
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.chat_activity); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.chat_activity); //when changes the screen's configuration the layout is updated
         loadpage();
     }
     @Override

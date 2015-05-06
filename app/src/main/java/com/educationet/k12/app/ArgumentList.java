@@ -11,19 +11,19 @@ import java.util.ArrayList;
 
 /***
  * Created by K12-Dev-Team on 25/03/2015.
- * Questa classe estende l'arraylist di argument implementando l'interfaccia parceable
- * e un metodo per ritornare i dati in stringa in formato json
- * Implementa inoltre un metodo di richiesta argomenti al database
+ * * This class extends the argument arraylist of implementing the interface parceable
+   * And a method to return the data in string with the format json
+   * It also implements a method of request arguments to the database
  */
 
 /**
- * Array di Argomenti
+ * Array of arguments
  * @version 0.1
  * @author K12-Dev-Team
  */
 public class ArgumentList extends ArrayList<Argument> implements Parcelable{
-    private final String url = "https://k12-api.mybluemix.net/api/topic/list"; //Url di connessione al backend
-    public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){ //creatore dell'argumentlist
+    private final String url = "https://k12-api.mybluemix.net/api/topic/list"; //Url of connection to backend
+    public static final Creator<ArgumentList> CREATOR= new Creator<ArgumentList>(){ //creator of the argumentlist
         @Override
         public ArgumentList createFromParcel(Parcel in){
             return new ArgumentList(in);
@@ -35,53 +35,53 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
     };
 
     /**
-     * Costruttore vuoto
+     * Constructor empty
      */
     public ArgumentList(){
         super();
-    } //costruttore vuoto
-
-    /**
-     * @param in Parcel di ingresso
-     */
-    private ArgumentList(Parcel in ){
-        readFromParcel(in);
-    } //Costruttore della parceable
-
-    /**
-     * @param in Parcel di ingresso
-     */
-    public void readFromParcel(Parcel in){
-        this.clear(); //pulisce la lista per sicurezza
-        in.readList(this,ArgumentList.class.getClassLoader()); //riempie la lista con gli elementi dal parceable
     }
 
     /**
-     * Richiesta lista argomenti al backend
-     * @param token Token di autenticazione al backend
+     * @param in Parcel of input
      */
-    public void getHttp(String token){ //metodo di richiesta al backend
-        this.clear(); //pulisce la lista per sicurezza
-        HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token); //richiesta con token
+    private ArgumentList(Parcel in ){
+        readFromParcel(in);
+    } //Constructor of parceable
+
+    /**
+     * @param in Parcel of input
+     */
+    public void readFromParcel(Parcel in){
+        this.clear(); //clean the list for security
+        in.readList(this,ArgumentList.class.getClassLoader()); //fills the list with the elements from parceable
+    }
+
+    /**
+     * Request list arguments to backend
+     * @param token Token of authentication to backend
+     */
+    public void getHttp(String token){ //method of request to backend
+        this.clear(); //clean the list for security
+        HTMLRequest htmlRequest =new HTMLRequest(url, "access_token=" + token); //request with token
         String result=htmlRequest.getHTMLThread();
-        Log.d("token",token); //loggo il token per scopi di debug
+        Log.d("token",token);
         try{
-            JSONArray ja=new JSONArray(result); //elaboro l'array di json e aggiungo gli elementi alla lista
+            JSONArray ja=new JSONArray(result); //elaborate json array and add the elements to the list
             JSONObject jo;
             for(int i=0;i<ja.length();i++){
                 jo=ja.getJSONObject(i);
                 this.add(new Argument(jo.getString("name"), jo.getString("description")));
             }
         } catch (JSONException e) {
-            e.printStackTrace(); //in caso di eccezzioni stampo la lista chiamate (Le eccezzioni json non sono recuperabili ma non impediscono il continuo dell'esecuzione)
+            e.printStackTrace(); /// in case of exceptions print the call list (The exceptions json are not recoverable but enables the continuous execution)
         }
     }
 
     /**
-     * Metodo toString
+     * Method toString
      * @return Json encoded string output
      */
-    public String toString(){ //metodo toString con output stile JSON
+    public String toString(){ //method toString with output style JSON
       StringBuilder responseText = new StringBuilder();
       responseText.append("[");
       if(this.size()==0){
@@ -96,9 +96,9 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
     }
 
     /**
-     * @return Torna un ArrayList di soli elementi selezionati
+     * @return return ArrayList of only selected elements
      */
-    public ArrayList<String> toArrayString(){ //metodo per restituire un arraylist di stringhe degli elementi selezionati
+    public ArrayList<String> toArrayString(){ // method to return an arraylist of strings of the selected items
         ArrayList<String> arrayList=new ArrayList<>();
         if(this.size()==0){
             return null;
@@ -119,11 +119,11 @@ public class ArgumentList extends ArrayList<Argument> implements Parcelable{
     }
 
     /**
-     * @param dest Parcel di destinazione
+     * @param dest Parcel of destionation
      * @param flags (optional)
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(this);
-    } //Scrive la lista nel Parceable
+    } //write the list in Parceable
 }

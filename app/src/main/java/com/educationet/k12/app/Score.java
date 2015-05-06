@@ -3,7 +3,7 @@ package com.educationet.k12.app;
 import android.os.Parcel;
 import android.os.Parcelable;
 /***
- * Classe degli Score
+ * Score's class
  * @author K12-Dev-Team
  * Created by K12-Dev-Team on 21/03/2015.
  * @version 0.1
@@ -14,7 +14,7 @@ public class Score implements Parcelable {
      private int value;
 
     /**
-     * Costruttore inzializzato a zerpo
+     * Constructor initialized to zero
      */
     public Score() {
         setValue(0);
@@ -22,7 +22,7 @@ public class Score implements Parcelable {
 
     /**
      *
-     * @return Ritorna il valore
+     * @return return the value
      */
     public int getValue() {
         return value;
@@ -30,14 +30,14 @@ public class Score implements Parcelable {
 
     /**
      *
-     * @param value imposta il valore
+     * @param value impose the value
      */
     private void setValue(int value) {
         this.value = value;
     }
 
     /**
-     * incrementa il valore dello Score di uno
+     * increments the value of Score of one
      */
     public void increment() {
         setValue(getValue() + 1);
@@ -45,7 +45,7 @@ public class Score implements Parcelable {
 
     /**
      *
-     * @return Ritorna il tipo stringa del tipo intero
+     * @return Returns the string type of the  integer type
      */
     public String StringValue() {
         return String.valueOf(value);
@@ -53,7 +53,7 @@ public class Score implements Parcelable {
 
     /**
      *
-     * @param parcel viene inizializzato con il valore value
+     * @param parcel it is initialized with the value "value"
      */
     private Score(Parcel parcel){
         this.value= parcel.readInt();
@@ -66,8 +66,8 @@ public class Score implements Parcelable {
 
     /**
      *
-     * @param dest viene scritto il valore value di tipo Int
-     * @param flags descrizione del valore
+     * @param dest is written the value "value" of Int type
+     * @param flags value's description
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -83,8 +83,8 @@ public class Score implements Parcelable {
 
         /**
          *
-         * @param size cardinalità dell'array
-         * @return ritorna l'array di tipo Score e di cardinalità size
+         * @param size array's size
+         * @return returns array of Score type and of size "size"
          */
         @Override
         public Score[] newArray(int size) {

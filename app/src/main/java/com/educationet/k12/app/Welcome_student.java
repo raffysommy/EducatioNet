@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Classe di Benvenuto Utente
+ * Class of Welcome User
  * @author K12-Dev-Team
  * @see android.app.Activity
  * @version 0.4
@@ -26,14 +26,14 @@ public class Welcome_student extends ActionBarActivity {
     private AlertDialog alertDialog;
 
     /**
-     * Creatore della vista
-     * @param savedInstanceState Parametri salvati
+     * View's creator
+     * @param savedInstanceState saved Parameters
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_student);
-        //prendo l'oggetto passato alla view
+        // take the object passed to the view
         Intent i = getIntent();
         Bundle extras=i.getExtras();
         this.utente = extras.getParcelable("utentec");
@@ -42,13 +42,13 @@ public class Welcome_student extends ActionBarActivity {
     }
 
     /**
-     * Handler rotazione
-     * @param newConfig nuova orientazione
+     * Handler rotation
+     * @param newConfig new configuration
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_welcome_student); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_welcome_student); // when changes the screen's configuration the layout is updated
         impostacampiutente();
     }
     @Override
@@ -59,10 +59,10 @@ public class Welcome_student extends ActionBarActivity {
     }
 
     /**
-     * Metodo che imposta i campi nome cognome e scuola
+     * Method that sets the field name,surname and school
      */
     private void impostacampiutente(){
-        //imposto valori di nome,cognome e scuola in view
+        // imposed values in the view of name and school
         ((TextView)findViewById(R.id.first_name)).setText(utente.getFirstName());
         ((TextView)findViewById(R.id.last_name)).setText(utente.getLastName());
         ((TextView)findViewById(R.id.school)).setText(utente.getSchool());
@@ -95,8 +95,8 @@ public class Welcome_student extends ActionBarActivity {
         }
     }
     /**
-     * Pulsante di Help Bambino
-     * @param view Vista attuale
+     * Button of Help Child
+     * @param view current view
      */
     public void opendialog(View view){
         LayoutInflater linf = LayoutInflater.from(this);
@@ -124,7 +124,7 @@ public class Welcome_student extends ActionBarActivity {
     opendialog(this.getCurrentFocus());
     }
 
-    //richiamo view Question
+    //recall view Question
     public void toChat(View v) {
         Intent i = new Intent(this, ChatPage.class);
         Bundle extras=new Bundle();

@@ -14,20 +14,20 @@ import java.util.ArrayList;
  */
 public class QuestionnaireList extends ArrayList<Questionnaire> {
     private final String url = "http://k12-api.mybluemix.net/api/questionnaire/list";
-    public void getHttp(String token) { //metodo di richiesta al backend
-        this.clear(); //pulisce la lista per sicurezza
-        HTMLRequest htmlRequest = new HTMLRequest(url, "access_token=" + token); //richiesta con token
+    public void getHttp(String token) { //method of request to backend
+        this.clear(); //cleans  the list for  security
+        HTMLRequest htmlRequest = new HTMLRequest(url, "access_token=" + token); //request with token
         String result = htmlRequest.getHTMLThread();
-        Log.d("token", token); //loggo il token per scopi di debug
+        Log.d("token", token);
         try {
-            JSONArray ja = new JSONArray(result); //elaboro l'array di json e aggiungo gli elementi alla lista
+            JSONArray ja = new JSONArray(result); //elaborate the array of json and add elements to list
             JSONObject jo;
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
                 this.add(new Questionnaire(jo.getString("id"), jo.getString("name")));
             }
         } catch (JSONException e) {
-            e.printStackTrace(); //in caso di eccezzioni stampo la lista chiamate (Le eccezzioni json non sono recuperabili ma non impediscono il continuo dell'esecuzione)
+            e.printStackTrace(); // in case of exceptions,prints the call list (The json exceptions are not recoverable but enables the rest of the execution)
         }
     }
 }

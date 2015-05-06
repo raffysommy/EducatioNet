@@ -25,7 +25,7 @@ public class Score_page extends ActionBarActivity {
             extras=i.getExtras();
             this.correct = extras.getParcelable("Correct");
             this.wrong = extras.getParcelable("Wrong");
-            //imposto valori di nome,cognome e scuola in view
+            // imposed values of name and school in view
             ((TextView) findViewById(R.id.CorrectC)).setText(correct.StringValue());
             ((TextView) findViewById(R.id.WrongC)).setText(wrong.StringValue());
             ((TextView) findViewById(R.id.AnsweredC)).setText(correct.StringValue());
@@ -53,7 +53,7 @@ public class Score_page extends ActionBarActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_score_page); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_score_page); // when changes the screen's configuration the layout is updated
 
     }
 

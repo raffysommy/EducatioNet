@@ -10,19 +10,19 @@ import java.util.ArrayList;
 
 /**
  * Created by K12-Dev-Team on 15/03/2015.
- * Classe per gestire l' utente. conterrà metodi e proprietà utili per velocizzare l'accesso e l'uso
- * delle funzionalità online. comunica spesso con il backend su bluemix dell' applicazione k12.
+ * Class for manage the user.It will contains useful properties and methods
+ * for quick access and quick use of the online features. Also communicates with the backend on bluemix of k12 application.
  * INPUT: username, password
  * @author K12-Dev-Team
  * @version 0.5
  */
 public class User implements Parcelable {
-    //costanti della classe
+    //contants of the class
     private final String url_login = "https://k12-api.mybluemix.net/oauth";
     private final String url_info = "https://k12-api.mybluemix.net/api/user/info";
     private final String url_score = "https://k12-api.mybluemix.net/api/question/score";
     private final String params = "grant_type=password&client_id=student-app&client_secret=student-app-pw&";
-    //membri privati
+    //private members
 
     private String firstName = "";
     private String lastName = "";
@@ -36,7 +36,7 @@ public class User implements Parcelable {
     private String refresh_token = "";
     private String ID = "";
     /**
-     * Creatore del parcel
+     *Parcel's creator
      */
     public static final Creator<User> CREATOR= new Creator<User>(){
         @Override
@@ -51,7 +51,7 @@ public class User implements Parcelable {
     };
 
     /**
-     * Costruttore di Login
+     * Login's constructor
      * @param user Username
      * @param pass Password
      */
@@ -61,7 +61,7 @@ public class User implements Parcelable {
     }
 
     /**
-     * Costruttore di registrazione
+     * Recording's constructor
      * @param user Username
      * @param pass Password
      * @param n Nome
@@ -81,7 +81,7 @@ public class User implements Parcelable {
     }
 
     /**
-     * Metodo di Parcel
+     * Parcel's method
      * @param in Parcel
      */
     private User(Parcel in){
@@ -89,17 +89,17 @@ public class User implements Parcelable {
     }
 
     /**
-     * Metodo di connessione al backend
-     * @return esito
+     * Method of connection to the backend
+     * @return result
      */
     public boolean connetti() {
-        //richiesta http al backend
+        //request http to backend
         HTMLRequest dl = new HTMLRequest(url_login, params + "username="+this.username+"&password="+this.password);
-        //richiede json di risposta
+        //requires json of response
         String result = dl.getHTML();
         //debug + console = <3
         //Log.i("User", "User.result =" + result);
-        //estrapola dati
+        //extrapolates data
         JSONObject data = null;
         try {
             data = new JSONObject(result);
@@ -108,14 +108,14 @@ public class User implements Parcelable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //chiamo API per informazioni utente
+        //call API of user's information
         //downloadInfoUser();
 
-        //richiesta http al backend
+        //request http to backend
         dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
-        //richiede json di risposta
+        //requires json di response
         result = dl.getHTML();
-        //estrapola dati
+        //extrapolates data
         try {
             data = new JSONObject(result);
             setID("id");
@@ -127,25 +127,24 @@ public class User implements Parcelable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //prova
-        return data != null; //Stato connessione
+        return data != null; // Connection Status
     }
 
     /**
-     * Metodo che permette il salvataggio online del risultato di una domanda.
-     * @param scores Array di Score
-     * @return Messaggio di esito
+     * Method that allows the online storage of a request's result
+     * @param scores Array of Score
+     * @return Message of result
      */
     public String saveScore(ArrayList<String[]> scores) {
-        //da ArrayList a JSON
+        //from ArrayList to JSON
         JSONArray jsonA = new JSONArray(scores);
         Log.i("JSON SCORE=>", jsonA.toString());
-        //richiesta http al backend
+        //request http to backend
         HTMLRequest dl = new HTMLRequest(url_score, params +
                 "access_token=" + this.access_token +
                 "&scores=" + jsonA.toString()
         );
-        //invoco api
+        //appeal to api
         String result = dl.getHTMLThread();
         String msg = "";
         try {

@@ -23,13 +23,13 @@ public class MainActivity extends ActionBarActivity {
     //subclass for login execution
 
     /**
-     * Classe interna di gestione della login asincrona
+     * internal class of management of the login asynchronous
      */
     private class LoginTask extends AsyncTask<User, Integer, User> {
         /**
-         * Metood eseguito in background
-         * @param utenti Utente
-         * @return Utente connesso con campi compilati
+         * Method runs in the background
+         * @param utenti User
+         * @return User connected with fields filled in
          */
         protected User doInBackground(User... utenti) {
             User u=utenti[0];
@@ -40,15 +40,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         /**
-         * Login finito
-         * @param utente Utente loggato
+         * Login finished
+         * @param utente User log in
          */
         protected void onPostExecute(User utente) {
 
             if(utente!=null){
                 Intent i = new Intent(getApplicationContext(), Welcome_student.class);
                 Bundle extras=new Bundle();
-                //passo l'oggetto user alla prossima view
+                //pass the user object to the next view
                 extras.putParcelable("utentec", utente);
                 i.putExtras(extras);
                 findViewById(R.id.loadBar).setVisibility(View.INVISIBLE);
@@ -90,13 +90,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
-     * Handler della rotazione
-     * @param newConfig nuova orientazione
+     * Handler of the rotation
+     * @param newConfig new orientation
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_main); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_main);
         setloginsaved();
     }
 
@@ -117,8 +117,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
-     * Metodo eseguito alla pressione del pulsante login
-     * @param v vista attuale
+     * Method executed when you press the button login
+     * @param v current view
      */
     public void onStartClick(View v) {
 
@@ -140,8 +140,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
-     * Metodo di passaggio alla register page
-     * @param v vista attuale
+     * Method of transition to the register page
+     * @param v current view
      */
     public void Register(View v) {
         Intent i = new Intent(this,Register_form.class);

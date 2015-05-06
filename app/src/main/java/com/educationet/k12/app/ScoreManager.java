@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 /**
- * Gestore degli Score
+ * Manager Score
  * @author K12-Dev-Team
  * @version 0.2
  */
@@ -34,8 +34,8 @@ public class ScoreManager extends ArrayList<String[]> {
     private final Application application;
 
     /**
-     * @param access_token Token di accesso al backend
-     * @param application Applicazione chiamante
+     * @param access_token access Token to backend
+     * @param application Application caller
      */
     public ScoreManager(String access_token, Application application){
         super();
@@ -44,9 +44,9 @@ public class ScoreManager extends ArrayList<String[]> {
     }
 
     /**
-     * Aggiunge lo score all'array
-     * @param id_domanda Domanda
-     * @param result Risultato utente
+     * adds the score to the array
+     * @param id_domanda Question
+     * @param result user result
      */
     public void addScore(String id_domanda,Boolean result){
         Date date = new Date();
@@ -55,29 +55,29 @@ public class ScoreManager extends ArrayList<String[]> {
     }
 
     /**
-     * Salva lo score
+     * Score saved
      */
     public void saveScore() {
         new ScoreSender().execute(this);
     }
 
     /**
-     * Classe di salvataggio dello score
+     * Class that save the score
      */
     private class  ScoreSender extends AsyncTask<ScoreManager,Void,String>{
         /**
-         * @param params Arraylist di Score
-         * @return Esito operazione
-         */
+         * @param params Arraylist of Score
+         * @return result of the operation
+         * */
         @Override
         protected String doInBackground(ScoreManager... params) {
-            //da ArrayList a JSON
+            //from ArrayList to JSON
             JSONArray jsonA;
             jsonA = new JSONArray(params[0]);
             Log.i("JSON SCORE=>", jsonA.toString());
-            //richiesta http al backend
+            //request http to backend
             HTMLRequest dl = new HTMLRequest(url_score,"access_token=" + access_token +"&scores=" + jsonA.toString());
-            //invoco api
+            //invoke api
             String result = dl.getHTML();
             String msg;
             try {
@@ -90,7 +90,7 @@ public class ScoreManager extends ArrayList<String[]> {
         }
 
         /**
-         * @param msg Messaggio da mostrare
+         * @param msg Message to display
          */
         protected void onPostExecute(String msg) {
             Toast.makeText(application.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
