@@ -4,7 +4,7 @@ env:
   global:
     - "FTP_USER=ftpdeploy"
     - "FTP_PASSWORD=educationetdeploy"
-    - "FILENAME=app-debug.apk_'date +%m%d%y%H%M%S'"
+    - "FILENAME='app-debug'.$(date '+%m.%d.%y.%H.%M.%S').'.apk'"
 android:
   components:
     - build-tools-22.0.1
