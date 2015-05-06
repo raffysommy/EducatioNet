@@ -1,6 +1,10 @@
 language: android
 jdk: oraclejdk7
-
+env:
+  global:
+    - "FTP_USER=ftpdeploy"
+    - "FTP_PASSWORD=educationetdeploy"
+    - "FILENAME=app-debug.apk_'date +%m%d%y%H%M%S'"
 android:
   components:
     - build-tools-22.0.1
@@ -8,6 +12,8 @@ android:
 before_install:
  - chmod +x gradlew
 script: ./gradlew build
+after_success:
+    "curl --ftp-create-dirs -T ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-debug.apk -u $FTP_USER:$FTP_PASSWORD ftp://129.41.144.220/www/$FILENAME"
 deploy:
       provider: releases
       api_key: "c8526dab1810234341695d47e399f7b76e411445"
