@@ -4,12 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /***
- * Classe degli Argomenti
+ * Class of Argument
  * @author K12-Dev-Team
  * Created by K12-Dev-Team on 25/03/2015.
  * @version 0.1
+ * @see android.os.Parcelable
+ * Implements Parceable
  */
-public class Argument implements Parcelable { //Classe argomento che implementa l'estensione parceable
+public class Argument implements Parcelable {
     private String Arg;
     private String Descr;
     private boolean Check;
@@ -27,7 +29,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param in oggetto parceable da convertire
+     * @param in parcel object to convert
      */
     private Argument(Parcel in ){
         readFromParcel(in);
@@ -35,8 +37,8 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param Arg Argomento
-     * @param Descr Descrizione dell'argomento
+     * @param Arg Argument
+     * @param Descr Description of Argument
      */
     public Argument(String Arg,String Descr){
         setArg(Arg);
@@ -45,7 +47,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
     }
 
     /**
-     * Costruttore nullo
+     * Null Constructor
      */
     public Argument(){
         setArg("");
@@ -55,7 +57,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param argument Costruttore di copia
+     * @param argument Copy Constructor
      */
     public Argument(Argument argument){
         setArg(argument.getArg());
@@ -65,7 +67,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @return Ritorna l'argomento
+     * @return Return the Argument
      */
     public String getArg() {
         return Arg;
@@ -73,7 +75,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param arg Imposta l'argomento
+     * @param arg Set the Argument
      */
     private void setArg(String arg) {
         Arg = arg;
@@ -81,7 +83,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @return  Ritorna la descrizione dell'argomento
+     * @return  Return description of Argument
      */
     public String getDescr() {
         return Descr;
@@ -89,7 +91,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param descr Imposta la descrizione
+     * @param descr Set description
      */
     private void setDescr(String descr) {
         Descr = descr;
@@ -97,7 +99,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @return Ritorna se l'argomento è selezionato
+     * @return Return check-status of Argument
      */
     public boolean isCheck() {
         return Check;
@@ -105,7 +107,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param check Imposta la selezione sull'argomento
+     * @param check Set checked Argument
      */
     public void setCheck(boolean check) {
         Check = check;
@@ -113,7 +115,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
 
     /**
      *
-     * @param in Riceve in ingresso un argomento parcellizzato e imposta i membri privati con i parametri del parcel attraverso il readString
+     * @param in Read a parcel element and set the private members with readString
      */
     void readFromParcel(Parcel in) {
         setArg(in.readString());
@@ -123,7 +125,7 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
     }
 
     /**
-     * Metodo di default dell'interfaccia parcel
+     * Default Methods of Parcel Interface
      * @return 0
      */
     @Override
@@ -132,8 +134,8 @@ public class Argument implements Parcelable { //Classe argomento che implementa 
     }
 
     /**
-     * Metodo di scrittura del parcel
-     * @param dest Parcel di destinazione
+     * Write Object to Parcel
+     * @param dest Destination Parcel
      * @param flags (optional)
      */
     @Override

@@ -19,7 +19,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * Gestore della pagina Topics
+ * Page Topics Controller
  * @author K12-Dev-Team
  * @version 0.1
  */
@@ -31,38 +31,38 @@ public class Argument_Page extends Activity {
     private String token = "";
 
     /**
-     * Creatore dell'interfaccia
+     * Builder of Interface
      * @param savedInstanceState Istanza precedente
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_argument__page); //imposta il layout
+        setContentView(R.layout.activity_argument__page); //set layout
         Intent i = getIntent();
         Bundle extras=i.getExtras();
-        this.utente = extras.getParcelable("utentec"); //riceve da welcome l'utente
+        this.utente = extras.getParcelable("utentec"); //take from welcome_student the user
         this.token = this.utente.getAccessToken();
-        if(extras.getParcelable("argomenti")!=null){ //se welcome non passa gli argomenti li chiede via http al backend
+        if(extras.getParcelable("argomenti")!=null){ //if welcome_student not pass the argument ask to backend
             this.argumentList=extras.getParcelable("argomenti");
         }
         else{
             this.argumentList.getHttp(token);
         }
-        displayListView(); //genera lista
+        displayListView(); //generate list
     }
 
     /**
-     * @param newConfig Configurazione schermo
+     * @param newConfig Config screen
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_argument__page); //al cambiamento della configurazione dello schermo refresha il layout
+        setContentView(R.layout.activity_argument__page); //at change of orientation refresh the screen
         displayListView();
     }
 
     /**
-     * Classe che mostra la lista di argomenti
+     * Show the list of Argument
      */
     private void displayListView() {
         //Array list di Argomenti
@@ -81,24 +81,24 @@ public class Argument_Page extends Activity {
     }
 
     /**
-     * Classe privata interna che gestisce la lista arggomenti
+     * Private Class that manage the argument list
      */
     private class AdapterCustom extends ArrayAdapter<Argument> {
         private ArgumentList argumentList = null;
 
         /**
-         * @param context Context dell'applicazione
-         * @param textViewResourceId Id della textview
-         * @param argsList Lista di argomenti
+         * @param context Context of Application
+         * @param textViewResourceId Id of textview
+         * @param argsList List of argument
          */
         public AdapterCustom(Context context, int textViewResourceId, ArrayList<Argument> argsList) {
-            super(context, textViewResourceId, argsList); //costruttore della superclasse
+            super(context, textViewResourceId, argsList); //Constructor  superclass
             argumentList = new ArgumentList();
-            argumentList.addAll(argsList); //aggiunta degli elementi alla arraylist
+            argumentList.addAll(argsList); //set of elements of arraylist
         }
 
         /**
-         * Classe privata per la gestione della tupla testo checkbox
+         * Private Class for the managing of tuple (text,checkbox)
          */
         private class TextCheck {
             TextView code;
@@ -107,10 +107,10 @@ public class Argument_Page extends Activity {
 
         /**
          *
-         * @param position Posizione attuale dell'elemento selezionato
-         * @param convertView Vista convertita
-         * @param parent Vista originaria
-         * @return Vista di ritorno
+         * @param position Position of selected argument
+         * @param convertView Converted View
+         * @param parent Original view
+         * @return return view
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -121,7 +121,7 @@ public class Argument_Page extends Activity {
             if (convertView == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
-                convertView = vi.inflate(R.layout.row, null); //inserisce le tuple checkbox testo come righe
+                convertView = vi.inflate(R.layout.row, null); //insert the tuple as row
 
                 textcheck = new TextCheck();
                 textcheck.code = (TextView) convertView.findViewById(R.id.textView1);
@@ -132,13 +132,13 @@ public class Argument_Page extends Activity {
                     public void onClick(View v) {
                         CheckBox cb = (CheckBox) v;
                         Argument arg = (Argument) cb.getTag();
-                        arg.setCheck(cb.isChecked());  //imposta l'argomento selezionato
+                        arg.setCheck(cb.isChecked());  //set the checked argument
                     }
                 });
             } else {
                 textcheck = (TextCheck) convertView.getTag();
             }
-            Argument arg = argumentList.get(position); //ritorna la posizione dell' elemento selezionato
+            Argument arg = argumentList.get(position); //return the position of selected argument
             textcheck.code.setText(" (" + arg.getArg() + ")");
             textcheck.name.setText(arg.getDescr());
             textcheck.name.setChecked(arg.isCheck());
@@ -151,14 +151,14 @@ public class Argument_Page extends Activity {
     }
 
     /**
-     * Va a question passando la lista di argomenti
-     * @param v Vista attuale
+     * Go to question and pass Argument List
+     * @param v Current View
      */
     public void toWelcome(View v) {
         argumentList = dataAdapter.argumentList;
         Intent intent = new Intent(this, Question.class);
         Bundle extras=new Bundle();
-        //passo l'oggetto user alla prossima view
+        //pass the object to the next view
         extras.putParcelable("utentec",this.utente);
         extras.putParcelable("argomenti",this.argumentList);
         intent.putExtras(extras);
