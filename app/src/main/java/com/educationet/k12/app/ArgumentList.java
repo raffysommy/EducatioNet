@@ -1,4 +1,4 @@
-package com.example.raffaele.testapp;
+package com.educationet.k12.app;
 
 import android.os.Parcel;
 import android.os.Parcelable;

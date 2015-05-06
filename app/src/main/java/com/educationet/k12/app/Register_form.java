@@ -1,4 +1,4 @@
-package com.example.raffaele.testapp;
+package com.educationet.k12.app;
 
 import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;

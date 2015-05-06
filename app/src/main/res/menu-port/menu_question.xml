@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.raffaele.testapp.Question">
+    tools:context="com.educationet.k12.app.Question">
     <item
         android:icon="@mipmap/ic_correct"
         android:title="0"

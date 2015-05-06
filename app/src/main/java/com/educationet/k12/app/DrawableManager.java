@@ -1,4 +1,4 @@
-package com.example.raffaele.testapp;
+package com.educationet.k12.app;
 
 /**
  * Created by K12-Dev-Team on 05/04/2015.
@@ -21,7 +21,6 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;

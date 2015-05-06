@@ -1,4 +1,4 @@
-package com.example.raffaele.testapp;
+package com.educationet.k12.app;
 
 /**
  * Created by K12-Dev-Team on 25/04/2015.

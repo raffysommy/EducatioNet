@@ -1,4 +1,4 @@
-package com.example.raffaele.testapp;
+package com.educationet.k12.app;
 
 import android.app.Activity;
 import android.content.Context;
