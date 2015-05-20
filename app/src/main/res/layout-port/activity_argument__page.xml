@@ -20,6 +20,7 @@
         android:background="@drawable/confirm"
         android:id="@+id/Confirm"
         android:layout_gravity="right"
-        android:onClick="toWelcome" />
+        android:onClick="toWelcome"
+        android:contentDescription="" />
 
 </LinearLayout>

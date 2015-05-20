@@ -12,8 +12,8 @@ import java.util.ArrayList;
 /***
  * Created by K12-Dev-Team on 25/03/2015.
  * * This class extends the argument arraylist of implementing the interface parceable
-   * And a method to return the data in string with the format json
-   * It also implements a method of request arguments to the database
+ * And a method to return the data in string with the format json
+ * It also implements a method of request arguments to the database
  */
 
 /**

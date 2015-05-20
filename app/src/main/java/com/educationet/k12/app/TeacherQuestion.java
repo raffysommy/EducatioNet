@@ -3,6 +3,7 @@ package com.educationet.k12.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ public class TeacherQuestion extends Activity {
     private static String token;
     private AdapterCustom dataAdapter = null;
     private QueryList teacherQuestionList=null;
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +66,9 @@ public class TeacherQuestion extends Activity {
         String quiz=((TextView)view).getHint().toString();
         teacherQuestionList =new QueryList(quiz);
         try {
+            Toast.makeText(getApplicationContext(), "Downloading: " + ((TextView)view).getText().toString()+" Please Wait :)", Toast.LENGTH_LONG).show();
+            enableDisableView(listView,false);
             teacherQuestionList.getHTTP(token);
-            Toast.makeText(getApplicationContext(), "Selected: " + ((TextView)view).getText().toString(), Toast.LENGTH_LONG).show();
             Intent i=new Intent(this,Question.class);
             Bundle extras=new Bundle();
             extras.putParcelable("utentec", this.utente);
@@ -75,14 +79,26 @@ public class TeacherQuestion extends Activity {
         } catch (NullPointerException e) {
             Toast.makeText(getApplicationContext(), "No question available for this quiz!", Toast.LENGTH_LONG).show();
         }
+        finally {
+            enableDisableView(listView,true);
+        }
     }
+    public static void enableDisableView(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if ( view instanceof ViewGroup ) {
+            ViewGroup group = (ViewGroup)view;
 
+            for ( int idx = 0 ; idx < group.getChildCount() ; idx++ ) {
+                enableDisableView(group.getChildAt(idx), enabled);
+            }
+        }
+    }
 
 
     private void displayListView() {
         //Array list of Arguments
         dataAdapter = new AdapterCustom(this,R.layout.list_item1, listaquestionari);
-        ListView listView = (ListView) findViewById(R.id.listView2);
+        listView = (ListView) findViewById(R.id.listView2);
         // Assing the adapter to the listview
         listView.setAdapter(dataAdapter);
     }
