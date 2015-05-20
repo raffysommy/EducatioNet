@@ -1,1 +1,1 @@
-include ':app', ':MQA-Android-2.7.4'
+include ':app', ':MQA-Android-2.7.4', ':acra-4.6.1'

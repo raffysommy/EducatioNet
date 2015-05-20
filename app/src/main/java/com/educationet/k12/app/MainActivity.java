@@ -13,8 +13,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ibm.mqa.MQA;
 
+import com.ibm.mqa.MQA;
 /**
  * Login Main Activity
  * @author K12-Dev-Team
@@ -22,8 +22,8 @@ import com.ibm.mqa.MQA;
  * @see android.app.Activity
  */
 public class MainActivity extends ActionBarActivity {
+    //public static final String APP_KEY = "a7eada52bd15b505d07f486a2a8d729bc6b4a10f";
     //subclass for login execution
-    public static final String APP_KEY = "a7eada52bd15b505d07f486a2a8d729bc6b4a10f";
     /**
      * internal class of management of the login asynchronous
      */
@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
         com.ibm.mqa.config.Configuration configuration = new com.ibm.mqa.config.Configuration.Builder(this)
                 .withAPIKey(APP_KEY) //Provides the quality assurance application APP_KEY
                 .withMode(MQA.Mode.QA) //Selects the quality assurance application mode
@@ -81,8 +82,8 @@ public class MainActivity extends ActionBarActivity {
                 .build();
 
         MQA.startNewSession(MainActivity.this, configuration);
+        */
         setloginsaved();
-
     }
 
     /**

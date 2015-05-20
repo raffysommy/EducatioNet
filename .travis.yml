@@ -18,7 +18,7 @@ deploy:
       api_key: "c8526dab1810234341695d47e399f7b76e411445"
       file: ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-release-unsigned.apk
       on:
-        repo: raffysommy/Testappk12
+        repo: raffysommy/EducatioNet
         branch: master
         tags: true
         all_branches: true

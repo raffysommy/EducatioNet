@@ -39,7 +39,7 @@ public class ChatPage extends ActionBarActivity {
         WebView myWebView = (WebView) findViewById(R.id.chatView);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebChromeClient(new WebChromeClient());
-        myWebView.loadUrl("http://chat-k12-paovalle.c9.io/?id="+user.getFirstName()+user.getLastName());
+        myWebView.loadUrl("http://node.server.educationet.tk/?id="+user.getFirstName()+user.getLastName());
     }
     /**
      * Handler of rotation

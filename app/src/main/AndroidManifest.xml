@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.educationet.k12.app" >
-
-    <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Permissions
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />-->
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".EducatioNet"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.educationet.k12.app.MainActivity"
@@ -78,9 +78,9 @@
             android:label="@string/title_activity_teacher_question" >
         </activity>
         <!-- Quality assurance application activities -->
-        <activity android:name="com.ibm.mqa.ui.ProblemActivity" />
+        <!--<activity android:name="com.ibm.mqa.ui.ProblemActivity" />
         <activity android:name="com.ibm.mqa.ui.FeedbackActivity" />
-        <activity android:name="com.ibm.mqa.ui.ScreenshotEditorActivity" />
+        <activity android:name="com.ibm.mqa.ui.ScreenshotEditorActivity" />-->
     </application>
 
 </manifest>
