@@ -115,6 +115,8 @@ public class User implements Parcelable {
         dl = new HTMLRequest(url_info, "&access_token="+this.getAccessToken());
         //requires json di response
         result = dl.getHTML();
+        if(result!=null)
+            Log.d("JSON",result);
         //extrapolates data
         try {
             data = new JSONObject(result);
@@ -122,7 +124,7 @@ public class User implements Parcelable {
             setRole("role");
             setLastName(data.getString("lastName"));
             setFirstName(data.getString("firstName"));
-            setSchool("Scuola");
+            setSchool(data.getString("school"));
             setEmail(data.getString("email"));
         } catch (Exception e) {
             e.printStackTrace();

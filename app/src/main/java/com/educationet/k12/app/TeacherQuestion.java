@@ -67,6 +67,7 @@ public class TeacherQuestion extends Activity {
         teacherQuestionList =new QueryList(quiz);
         try {
             Toast.makeText(getApplicationContext(), "Downloading: " + ((TextView)view).getText().toString()+" Please Wait :)", Toast.LENGTH_LONG).show();
+            listView.setEnabled(false);
             enableDisableView(listView,false);
             teacherQuestionList.getHTTP(token);
             Intent i=new Intent(this,Question.class);
@@ -80,6 +81,7 @@ public class TeacherQuestion extends Activity {
             Toast.makeText(getApplicationContext(), "No question available for this quiz!", Toast.LENGTH_LONG).show();
         }
         finally {
+            listView.setEnabled(true);
             enableDisableView(listView,true);
         }
     }
