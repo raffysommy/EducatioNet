@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.educationet.k12.app" >
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Permissions
+
+    <!--
+     Permissions
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />-->
-
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    -->
     <application
+        android:name=".EducatioNet"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".EducatioNet"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.educationet.k12.app.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_main_activity" >
             <intent-filter>
@@ -29,17 +32,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.educationet.k12.app.Question"
+            android:name=".Question"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_question" >
         </activity>
         <activity
-            android:name="com.educationet.k12.app.Welcome_student"
+            android:name=".Welcome_student"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_welcome_student" >
         </activity>
         <activity
-            android:name="com.educationet.k12.app.Register_form"
+            android:name=".Register_form"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_register_form" >
             <intent-filter>
@@ -49,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.educationet.k12.app.Score_page"
+            android:name=".Score_page"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_score_page" >
             <intent-filter>
@@ -59,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.educationet.k12.app.ChatPage"
+            android:name=".ChatPage"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_chat_page" >
             <intent-filter>
@@ -69,18 +72,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.educationet.k12.app.Argument_Page"
+            android:name=".Argument_Page"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_argument__page" >
         </activity>
         <activity
-            android:name="com.educationet.k12.app.TeacherQuestion"
+            android:name=".TeacherQuestion"
             android:label="@string/title_activity_teacher_question" >
         </activity>
         <!-- Quality assurance application activities -->
-        <!--<activity android:name="com.ibm.mqa.ui.ProblemActivity" />
+        <!--
+        <activity android:name="com.ibm.mqa.ui.ProblemActivity" />
         <activity android:name="com.ibm.mqa.ui.FeedbackActivity" />
-        <activity android:name="com.ibm.mqa.ui.ScreenshotEditorActivity" />-->
+        <activity android:name="com.ibm.mqa.ui.ScreenshotEditorActivity" />
+        -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.educationet.k12.app;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+
+import org.acra.ACRA;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,6 +129,7 @@ public class User implements Parcelable {
             setSchool(data.getString("school"));
             setEmail(data.getString("email"));
         } catch (Exception e) {
+            ACRA.getErrorReporter().handleSilentException(e);
             e.printStackTrace();
         }
         return data != null; // Connection Status

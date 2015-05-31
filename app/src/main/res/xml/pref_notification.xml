@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference android:key="acra.disable"
+        android:title="Disable Crash Report"
+        android:summaryOn="Disable Crash Report"
+        android:summaryOff="Crash Report"
+        android:defaultValue="false"/>
+    <CheckBoxPreference android:key="acra.syslog.enable"
+        android:summaryOn="Enable System Log"
+        android:summaryOff="Disable System Log"
+        android:title="System Log"
+        android:defaultValue="true"/>
+    <CheckBoxPreference android:key="acra.deviceid.enable"
+        android:title="Sending Device ID"
+        android:summaryOn="Enable sending Device ID"
+        android:summaryOff="Disable Device ID"
+        android:defaultValue="true"/>
+    <EditTextPreference android:key="acra.user.email"
+        android:title="Email"
+        android:summary="Add Report Email"/>
+    <CheckBoxPreference android:key="acra.alwaysaccept"
+        android:title="AutoSend Log"
+        android:summaryOn="AutoSend Enabled"
+        android:summaryOff="AutoSend Disabled"
+        android:defaultValue="false"/>
+
+
+</PreferenceScreen>

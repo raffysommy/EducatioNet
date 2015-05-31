@@ -11,10 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
 import com.ibm.mqa.MQA;
+
+import java.util.Set;
+
 /**
  * Login Main Activity
  * @author K12-Dev-Team
@@ -22,6 +26,7 @@ import com.ibm.mqa.MQA;
  * @see android.app.Activity
  */
 public class MainActivity extends ActionBarActivity {
+    private int easter=0;
     //public static final String APP_KEY = "a7eada52bd15b505d07f486a2a8d729bc6b4a10f";
     //subclass for login execution
     /**
@@ -84,6 +89,7 @@ public class MainActivity extends ActionBarActivity {
         MQA.startNewSession(MainActivity.this, configuration);
         */
         setloginsaved();
+        //throw new RuntimeException("Questo e' un testcrash");
     }
 
     /**
@@ -97,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
             ((EditText)findViewById(R.id.password)).setText(loginSharedPreferences.getString("password", ""));
             ((CheckBox)findViewById(R.id.rememberme)).setChecked(true);
         }
-        EditorSharedPreference.commit();
+        EditorSharedPreference.apply();
     }
 
     /**
@@ -124,6 +130,10 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+            if (id==R.id.settings){
+                Intent i=new Intent(this, SettingsActivity.class);
+                startActivity(i);
+            }
         return super.onOptionsItemSelected(item);
     }
 
@@ -157,6 +167,20 @@ public class MainActivity extends ActionBarActivity {
     public void Register(View v) {
         Intent i = new Intent(this,Register_form.class);
         startActivity(i);
+    }
+    public void easterEgg(View v){
+        easter++;
+        if(easter==20) {
+            Toast toast = new Toast(this);
+            ImageView view = new ImageView(this);
+            view.setImageResource(R.drawable.bother);
+            toast.setView(view);
+            toast.show();
+        }
+        if(easter>20) {
+            throw new RuntimeException("Oh bother,Someone has activate the Hidden Bug");
+        }
+
     }
 }
 

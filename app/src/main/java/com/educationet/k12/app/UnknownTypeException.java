@@ -1,6 +1,8 @@
 package com.educationet.k12.app;
 
 import android.util.Log;
+
+import org.acra.ACRA;
 /**
  *
  * Created by K12-Dev-Team on 19/04/2015.
@@ -26,5 +28,6 @@ public class UnknownTypeException extends Exception {
      */
     public void logException(){
         Log.e("Unknown Type: ",typename);
+        ACRA.getErrorReporter().handleSilentException(this);
     }
 }
