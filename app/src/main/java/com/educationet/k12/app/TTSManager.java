@@ -10,7 +10,7 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 
 public class TTSManager{
-    private final boolean ttsenable;
+    private boolean ttsenable;
     private TextToSpeech myTTS;
     private boolean readyToSpeak = false;
     private Context context;
@@ -20,6 +20,7 @@ public class TTSManager{
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(baseContext);
         ttsenable=SP.getBoolean("tts.enable",false);
         this.context = baseContext;
+        Log.d("TTS","Status:"+ttsenable);
     }
 
     public void initOrInstallTTS(){
@@ -52,9 +53,8 @@ public class TTSManager{
             Log.d("Activity", "TTS Destroyed");
         }
     }
-    public void speak(String text)
-    {
-        if (readyToSpeak&&ttsenable) ;
+    public void speak(String text){
+        if ((readyToSpeak)&&(ttsenable=true))
             myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
