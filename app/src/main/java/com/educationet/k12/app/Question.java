@@ -49,6 +49,8 @@ public class Question extends ActionBarActivity {
     private FontManager Funnykid;
     private Toast t;
     private Menu _menu = null;
+    private TTSManager ttsManager;
+
     /**
      * Builder of interface
      * @param savedInstanceState Instanza salvata
@@ -67,9 +69,11 @@ public class Question extends ActionBarActivity {
         }
         this.token = this.utente.getAccessToken();
         setContentView(R.layout.activity_question);
-        toastview=getLayoutInflater().inflate(R.layout.toastlayout, (ViewGroup)findViewById(R.id.toastlayout));
+        toastview=getLayoutInflater().inflate(R.layout.toastlayout, (ViewGroup) findViewById(R.id.toastlayout));
         KGPrimary=new FontManager("KGPrimaryItalics",getAssets());
         Funnykid=new FontManager("FunnyKid",getAssets());
+        ttsManager=new TTSManager(this);
+        ttsManager.initOrInstallTTS();
         impostafont();
         cambiadomanda();
         //empty score list
@@ -97,8 +101,10 @@ public class Question extends ActionBarActivity {
     public void onDestroy(){
         super.onDestroy();
         if(t!=null){t.cancel();}
+        ttsManager.destroy();
         System.gc();
     }
+
     /**
      * On Activity close remove all floating toast
      */
@@ -238,6 +244,7 @@ public class Question extends ActionBarActivity {
         CambiaBottone(R.id.Risposta2, Domanda.getRisposteprob().get(1));
         CambiaBottone(R.id.Risposta3, Domanda.getRisposteprob().get(2));
         CambiaBottone(R.id.Risposta4, Domanda.getRisposteprob().get(3));
+        ttsManager.speak(this.Domanda.getDomanda());
     }
 
     /**
@@ -269,6 +276,7 @@ public class Question extends ActionBarActivity {
      */
     public boolean checkrisposta(int buttonid) {
         Button buttonpressed = (Button) findViewById(buttonid);
+        ttsManager.speak(buttonpressed.getText().toString());
         if (buttonpressed.getText().equals(this.Domanda.getRisposta())) {
             return true;
         } else {
