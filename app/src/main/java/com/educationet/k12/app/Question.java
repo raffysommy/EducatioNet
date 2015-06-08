@@ -338,8 +338,11 @@ public class Question extends ActionBarActivity {
      * @param v Current View
     */
     public void Help_click(View v){
-        //click here bring to explain of arguments
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://k12-api.mybluemix.net/php/learnTopic.php?topic="+Domanda.getTopic()));
-        startActivity(browserIntent);
+        //click here bring to explain of
+        Intent i= new Intent(this,Help.class);
+        i.putExtra("topic",Domanda.getTopic());
+        startActivity(i);
+        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wiki-raffysommy.c9.io/index.php/"+Domanda.getTopic()));
+        //startActivity(browserIntent);
     }
 }
