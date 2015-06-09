@@ -26,7 +26,7 @@ public class Help extends ActionBarActivity {
         WebView myWebView = (WebView) findViewById(R.id.helpView);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebChromeClient(new WebChromeClient());
-        myWebView.loadUrl("https://wiki-raffysommy.c9.io/index.php/" + topic);
+        myWebView.loadUrl("https://educationet.mybluemix.net/index.php/" + topic);
     }
 
     @Override
