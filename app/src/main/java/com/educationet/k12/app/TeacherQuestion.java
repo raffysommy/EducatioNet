@@ -18,7 +18,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
+/**
+ * Quiz List Activity
+ * @author K12-Dev-Team
+ * @version 0.1
+ */
 public class TeacherQuestion extends Activity {
     private QuestionnaireList listaquestionari = new QuestionnaireList();
     private User utente;

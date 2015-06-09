@@ -11,7 +11,7 @@ import java.util.Collections;
  */
 
 /**
- * class of question
+ * Query Mapper Class
  * @author K12-Dev-Team
  * @version 0.1
  */

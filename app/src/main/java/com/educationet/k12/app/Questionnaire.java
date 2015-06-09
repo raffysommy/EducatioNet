@@ -1,7 +1,9 @@
 package com.educationet.k12.app;
 
 /**
- * Created by K12-Dev-Team on 25/04/2015.
+ * Qestionnaire Mapper Class
+ * @author K12-Dev-Team
+ * @version 0.1
  */
 public class Questionnaire  {
 
@@ -24,6 +26,11 @@ public class Questionnaire  {
         this.name = name;
     }
 
+    /**
+     * Costructor
+     * @param id Id
+     * @param name Name of Questionnaire
+     */
     public Questionnaire(String id,String name) {
         this.name = name;
         this.id=id;

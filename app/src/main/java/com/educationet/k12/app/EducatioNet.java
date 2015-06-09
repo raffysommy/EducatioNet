@@ -16,6 +16,10 @@ import org.acra.annotation.*;
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_report
 )
+/**
+ * Application Main Class
+ * @author  K12-Dev-Team
+ */
 public class EducatioNet extends Application {
     @Override
     public void onCreate() {

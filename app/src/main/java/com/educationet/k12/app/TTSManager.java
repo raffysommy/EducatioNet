@@ -9,12 +9,21 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 
+/**
+ *  TTS Manager Class
+ *  @author K12-Dev-Team
+ *  @version 0.1
+ */
 public class TTSManager{
     private boolean ttsenable;
     private TextToSpeech myTTS;
     private boolean readyToSpeak = false;
     private Context context;
 
+    /**
+     * Costructor
+     * @param baseContext Caller Activity
+     */
     public TTSManager(Context baseContext)
     {
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(baseContext);
@@ -23,6 +32,9 @@ public class TTSManager{
         Log.d("TTS","Status:"+ttsenable);
     }
 
+    /**
+     * Init the TTS system
+     */
     public void initOrInstallTTS(){
         if(ttsenable) {
             myTTS = new TextToSpeech(context, new OnInitListener() {
@@ -39,6 +51,9 @@ public class TTSManager{
         else {myTTS=null;}
     }
 
+    /**
+     * Install the TTS system
+     */
     private void installTTS()
     {
         Intent installIntent = new Intent();
@@ -46,6 +61,10 @@ public class TTSManager{
         installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
         context.startActivity(installIntent);
     }
+
+    /**
+     * Destroy TTS
+     */
     public void destroy(){
         if(myTTS != null) {
             myTTS.stop();
@@ -53,6 +72,11 @@ public class TTSManager{
             Log.d("Activity", "TTS Destroyed");
         }
     }
+
+    /**
+     * Speak the text
+     * @param text Text
+     */
     public void speak(String text){
         if ((readyToSpeak)&&(ttsenable=true))
             myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);

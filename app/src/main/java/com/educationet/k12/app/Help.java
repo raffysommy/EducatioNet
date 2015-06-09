@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-
+/**
+ * Help Webview
+ * @author K12-Dev-Team
+ */
 public class Help extends ActionBarActivity {
 
     private String topic;

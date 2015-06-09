@@ -11,6 +11,9 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 
 /**
+ * List of Query
+ * @author K12-Dev-Team
+ * @version 0.1
  * Created by K12-Dev-Team on 29/04/2015.
  */
 public class QueryList extends LinkedList<Query> implements Parcelable {

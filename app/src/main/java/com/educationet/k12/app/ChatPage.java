@@ -11,7 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 /**
- * chat's class
+ * Chat
  * @author  K12-Dev-Team
  * Created by K12-Dev-Team on 12/04/2015.
  */

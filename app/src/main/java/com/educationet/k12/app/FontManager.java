@@ -12,7 +12,7 @@ import android.widget.TextView;
  */
 
 /**
- * class that manages the fonts
+ * Font TTF Manager
  * @author K12-Dev-Team
  */
 public class FontManager {

@@ -24,6 +24,7 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 
 /**
+ * Question Activity
  * @author K12-Dev-Team
  * @version 0.4
  * @see android.app.Activity

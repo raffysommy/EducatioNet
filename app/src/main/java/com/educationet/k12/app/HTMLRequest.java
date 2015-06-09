@@ -17,6 +17,7 @@ import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
 /**
+ * HTML Request Post/Get
  * Created by K12-Dev-Team on 14/03/2015.
  * INPUT: URL website + parameters
  * OUTPUT: getHTML() method retrieve url html

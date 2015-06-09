@@ -10,7 +10,7 @@ import java.util.Collections;
  */
 
 /**
- * this class manages the background of question's buttons
+ * Question Button Background Handler
  *@author K12-Dev-Team
  */
 public class BackgroundHandler extends ArrayList<Integer> {

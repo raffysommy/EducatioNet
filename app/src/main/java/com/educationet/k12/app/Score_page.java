@@ -11,6 +11,11 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Score Activity
+ * @author K12-Dev-Team
+ * @version 0.1
+ */
 public class Score_page extends ActionBarActivity {
     private Score correct, wrong;
     private final String api = "https://k12-api.mybluemix.net/api/score/total";

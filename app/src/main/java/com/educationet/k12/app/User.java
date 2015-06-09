@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 /**
+ * User Class Mapper
  * Created by K12-Dev-Team on 15/03/2015.
  * Class for manage the user.It will contains useful properties and methods
  * for quick access and quick use of the online features. Also communicates with the backend on bluemix of k12 application.

@@ -9,11 +9,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- *
+ * List of Questionnaire
+ * @author K12-Dev-Team
+ * @version 0.1
  * Created by K12-Dev-Team on 02/05/2015.
  */
 public class QuestionnaireList extends ArrayList<Questionnaire> {
     private final String url = "http://k12-api.mybluemix.net/api/questionnaire/list";
+
+    /**
+     * Get list from backend
+     * @param token Auth Token
+     */
     public void getHttp(String token) { //method of request to backend
         this.clear(); //cleans  the list for  security
         HTMLRequest htmlRequest = new HTMLRequest(url, "access_token=" + token); //request with token

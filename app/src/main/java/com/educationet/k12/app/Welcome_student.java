@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Class of Welcome User
+ * Welcome Activity
  * @author K12-Dev-Team
  * @see android.app.Activity
  * @version 0.4
