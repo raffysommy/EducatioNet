@@ -10,12 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /**
  * Manager of the registration page
@@ -101,20 +99,22 @@ public class Register_form extends ActionBarActivity {
      * @param x Generic User inside which it will be passed parameters entered by keyboard
      * @return Returns a JSON array that inside it will had user's data to be recorded
      */
-    public JSONArray registerUser(User x){
+    public JSONObject registerUser(User x){
         // Si riempie l'array con gli input da tastiera
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("name", x.getFirstName()));
-        params.add(new BasicNameValuePair("surname", x.getLastName()));
-        params.add(new BasicNameValuePair("school", x.getSchool()));
-        params.add(new BasicNameValuePair("user", x.getUsername()));
-        params.add(new BasicNameValuePair("email", x.getEmail()));
-        params.add(new BasicNameValuePair("password", x.getPassword()));
-        // creation JSONArray
-        JSONArray json = new JSONArray(params);
+        JSONObject params = new JSONObject();
+        try {
+            params.put("name", x.getFirstName());
+            params.put("surname", x.getLastName());
+            params.put("school", x.getSchool());
+            params.put("user", x.getUsername());
+            params.put("email", x.getEmail());
+            params.put("password", x.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // Check that the array has been filled by print of log
         Log.d("append", params.toString());
-        return json;
+        return params;
 
     }
     @Override
