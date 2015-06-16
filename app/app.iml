@@ -89,8 +89,14 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="ibmfilesync-1.0.1.20150311-1224" level="project" />
+    <orderEntry type="library" exported="" name="ibmdata-1.0.1.20150311-1224" level="project" />
+    <orderEntry type="library" exported="" name="ibmpush-1.0.1.20150311-1224" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
+    <orderEntry type="library" exported="" name="ibmcloudcode-1.0.1.20150311-1224" level="project" />
+    <orderEntry type="library" exported="" name="ibmbluemix-1.0.1.20150311-1224" level="project" />
     <orderEntry type="module" module-name="MQA-Android-2.7.4" exported="" />
     <orderEntry type="module" module-name="acra-4.6.1" exported="" />
     <orderEntry type="library" exported="" name="MQA-Android-2.7.4-unspecified" level="project" />
