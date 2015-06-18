@@ -1,6 +1,8 @@
 package com.educationet.k12.app;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -51,6 +53,7 @@ public class Question extends ActionBarActivity {
     private Toast t;
     private Menu _menu = null;
     private TTSManager ttsManager;
+    private int erratetemp=0;
 
     /**
      * Builder of interface
@@ -293,12 +296,17 @@ public class Question extends ActionBarActivity {
      * @param v CurrentView
      */
     public void onClick1(View v) {
+        if(t!=null){t.cancel();}
+        t = new Toast(this);
+        t.setDuration(Toast.LENGTH_SHORT);
+        t.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         Boolean esito=checkrisposta(v.getId());
-        scoreManager.addScore(Domanda.getid_domanda(),esito);
+        scoreManager.addScore(Domanda.getid_domanda(), esito);
         if (esito) { //if answer is correct set the toast with correct
             ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastright);
             cambiadomanda();//change the text of button with a new question
             findViewById(R.id.textView3).setVisibility(View.INVISIBLE); //set invisible help
+            erratetemp=0;
             score=(TextView) findViewById(R.id.CorrectCnt); //re set score in actionbar
             correct.increment(); //inc the score
             score.setText(correct.StringValue());
@@ -307,16 +315,13 @@ public class Question extends ActionBarActivity {
             ((ImageView)toastview.findViewById(R.id.imagetoast)).setImageResource(R.drawable.toastwrong);
             //need help show the help message
             findViewById(R.id.textView3).setVisibility(View.VISIBLE);
+            if(erratetemp++>1){
+                Show_help_dialog();
+            }
             score=(TextView) findViewById(R.id.WrongCnt); //inc e set action score
             wrong.increment();
             score.setText(wrong.StringValue());
-
         }
-
-        if(t!=null){t.cancel();}
-        t = new Toast(this);
-        t.setDuration(Toast.LENGTH_SHORT);
-        t.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         t.setView(toastview);
         t.show(); //set and show toast
     }
@@ -326,14 +331,41 @@ public class Question extends ActionBarActivity {
      * @param v vista v
      */
     public void Score_click(View v){
-        Intent i = new Intent("com.example.raffaele.testapp.Score_page");
+        Intent i = new Intent(this,Score_page.class);
         Bundle extras= new Bundle();
-        extras.putParcelable("Correct", this.correct );
+        extras.putParcelable("Correct", this.correct);
         extras.putParcelable("Wrong", this.wrong);
         i.putExtras(extras); //send score to activity
         startActivity(i);
     }
+    public void Show_help_dialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
+        // Setting Dialog Title
+        alertDialog.setTitle("Help");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Do you want to repeat this topic?");
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.ic_launcher);
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+                Help_click(getCurrentFocus());
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        t.setGravity(Gravity.TOP, 0, 0);
+        // Showing Alert Message
+        alertDialog.show();
+    }
     /**
      * Handler help
      * @param v Current View
