@@ -3,7 +3,7 @@ jdk: oraclejdk7
 env:
   global:
     - "FTP_USER=ftpdeploy"
-    - "FTP_PASSWORD=educationetdeploy"
+    - secure: cf54ktLFQEC0M2aOIotd+nd2bD9tmAyZpK6DGJ6WvFI0CMIIHuHTExS49VN59PfSZB1zGuEenV5JaDonhFCw4ryQzDgDYzw7gpJD0FTp0wxaJczreeDNa37m0BzDdhWv73wEGriNonVM+ZmQJek517baXvzcDg0biH3R3kP+b8c=
 android:
   components:
     - build-tools-22.0.1
@@ -15,7 +15,8 @@ after_success:
     "curl --ftp-create-dirs -T ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-debug.apk -u $FTP_USER:$FTP_PASSWORD ftp://129.41.144.220/www/'app-debug'-$(date +%Y%m%dT%H%M%S).'apk'"
 deploy:
       provider: releases
-      api_key: "c8526dab1810234341695d47e399f7b76e411445"
+      api_key:
+        secure: Y4PVPNZIFgT4/Eh7YyyD0vXfDx+24fhA+wSeO0gICFsu4XlOojT32TXwdl5sM96jBmMiWWmj/WGnI463ChCWPJj3z4tGm516+Eio6zZgQaEglC/b889T9eZT82C+qZh3hYQ5qI9bGuMSw5es9iaZDX94HTCu1wzITyGLGdcmwnI=
       file: ${TRAVIS_BUILD_DIR}/app/build/outputs/apk/app-release-unsigned.apk
       on:
         repo: raffysommy/EducatioNet
