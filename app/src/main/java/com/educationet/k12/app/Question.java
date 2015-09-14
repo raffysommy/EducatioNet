@@ -77,7 +77,6 @@ public class Question extends ActionBarActivity {
         KGPrimary=new FontManager("KGPrimaryItalics",getAssets());
         Funnykid=new FontManager("FunnyKid",getAssets());
         ttsManager=new TTSManager(this);
-        ttsManager.initOrInstallTTS();
         impostafont();
         cambiadomanda();
         //empty score list

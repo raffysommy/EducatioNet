@@ -4,5 +4,10 @@
         android:summaryOn="Enable TTS"
         android:summaryOff="Disable TTS"
         android:defaultValue="false"/>
+    <ListPreference android:key="tts.lang"
+        android:entries="@array/Language"
+        android:entryValues="@array/Language"
+        android:title="Language"
 
+    />
 </PreferenceScreen>
