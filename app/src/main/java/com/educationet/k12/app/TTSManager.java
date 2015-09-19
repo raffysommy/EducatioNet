@@ -69,11 +69,9 @@ public class TTSManager {
      * Destroy TTS
      */
     public void destroy(){
-       /* if(myTTS != null) {
-            myTTS.stop();
-            myTTS.shutdown();
-
-        }*/
+        if(pink!=null){
+            ((TTSSpeaker)pink).cancel(true);
+        }
         Log.d("Activity", "TTS Destroyed");
     }
 
@@ -86,7 +84,8 @@ public class TTSManager {
             if(pink!=null){
                 ((TTSSpeaker)pink).cancel(true);
             }
-            pink=new TTSSpeaker().execute(text);
+            if(!text.isEmpty())
+                pink=new TTSSpeaker().execute(text);
         }
     }
     private class TTSSpeaker extends AsyncTask<String,Void,Void> {
